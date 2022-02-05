@@ -13,3 +13,10 @@ export interface IOption {
 export interface IResponse extends IQuestion {
     response: string;
 }
+
+export interface IQuiz {
+    title: string,
+    description: string,
+    status?: 'draft' | 'unpublished' | 'active' | 'inactive',
+    tags: string[],
+}

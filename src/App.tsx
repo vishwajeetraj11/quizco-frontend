@@ -1,121 +1,28 @@
-import { useEffect, useState } from "react";
-import { Option } from "./components/Option";
-import { Player } from "./components/Player";
-import { Sidebar } from "./components/Sidebar";
-import { IOption, IQuestion, IResponse } from "./shared/interfaces";
-import { JSQuiz } from "./shared/sampleQuizes";
+import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-react";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Landing } from "./pages/Landing";
+import { PlayerScreen } from "./pages/PlayerScreen";
+import { Quizes } from "./pages/Quizes";
 
 function App() {
-  const [quiz] = useState<IQuestion[]>(JSQuiz);
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [response, setResponse] = useState<IResponse[] | []>([]);
-  const [quizEnd, setQuizEnd] = useState<boolean>(false);
-  const [score, setScore] = useState<number>(0);
-
-  const onSubmit = () => {
-    setQuizEnd(true);
-
-    let score = 0;
-
-    response.forEach((res) => {
-      if (res.correct === res.response) {
-        score = score + 1;
-      }
-    });
-
-    setScore(score);
-  };
-
-  useEffect(() => {
-    const response = quiz.map((question) => ({
-      ...question,
-      response: "",
-    }));
-
-    setResponse(response);
-  }, [quiz]);
+  const frontendApi = process.env.REACT_APP_CLERK_FRONTEND_API;
+  const navigate = useNavigate();
 
   return (
-    <div className="h-screen w-full flex flex-col flex-1 overflow-y-hidden">
-      {/* Header */}
-      <div className="min-h-[8%] flex justify-between items-center px-4 border-b border-gray-50x">
-        {!quizEnd && (
-          <div className="flex items-center">
-            <p className="mr-4">
-              {response.length} / {quiz.length} Completed
-            </p>
-            <div
-              className="bg-gray-200 rounded-full h-1"
-              style={{ width: 150 }}
-            >
-              <div
-                className="bg-indigo-600 rounded-full h-1"
-                style={{ width: `${(response.length / quiz.length) * 100}%` }}
-              ></div>
-            </div>
-          </div>
-        )}
-
-        <div>
-          {!quizEnd && (
-            <button
-              onClick={onSubmit}
-              className="bg-indigo-600 hover:bg-indigo-700 transition-all duration-200 px-10 py-3 rounded-md text-white"
-            >
-              Submit
-            </button>
-          )}
-        </div>
-      </div>
-      <div className="min-h-[95%] flex flex-row flex-1 overflow-y-auto">
-        {!quizEnd ? (
-          <>
-            <Sidebar
-              activeIndex={activeIndex}
-              setActiveIndex={setActiveIndex}
-            />
-            <div className="flex-1  overflow-y-auto">
-              <div className="min-h-[8%] border-b border-gray-200 flex px-4 py-4 justify-between">
-                <p className="mt-auto">Question {activeIndex + 1}</p>
-              </div>
-              <Player
-                quiz={quiz}
-                response={response}
-                setResponse={setResponse}
-                activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}
-              />
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="flex flex-col items-center mt-10 w-full">
-              <h1 className="text-3xl mb-5">Thank you for playing this Quiz</h1>
-              <p className="text-xl">Here is your score: {score}</p>
-
-              <div className="mt-4 w-10/12">
-                {response.map((resp, i) => (
-                  <div className="mt-10" key={i}>
-                    <p>{resp.question}</p>
-                    <div className="flex flex-col items-start">
-                      {resp.options.map((option: IOption, i: number) => (
-                        <Option
-                          selectedOption={resp.response}
-                          key={i}
-                          correctAns={resp.correct}
-                          option={option}
-                          disabled={true}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </>
-        )}
-      </div>
-    </div>
+    <ClerkProvider frontendApi={frontendApi} navigate={(to) => navigate(to)}>
+      <SignedIn>
+        <Routes>
+          <Route path="/quizes" element={<Quizes />} />
+          <Route path="/quizes/:id" element={<PlayerScreen />} />
+          <Route path="/" element={<Navigate replace to="/quizes" />} />
+        </Routes>
+      </SignedIn>
+      <SignedOut>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+        </Routes>
+      </SignedOut>
+    </ClerkProvider>
   );
 }
 
