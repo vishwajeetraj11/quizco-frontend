@@ -4,9 +4,7 @@
   "private": true,
   "dependencies": {
     "@clerk/clerk-react": "^2.10.1",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@mui/material": "^5.4.0",
+    "@material-ui/core": "^4.12.3",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -16,6 +14,7 @@
     "@types/react-dom": "^17.0.11",
     "axios": "^0.25.0",
     "formik": "^2.2.9",
+    "material-ui-chip-input": "^2.0.0-beta.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",

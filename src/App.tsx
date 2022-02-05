@@ -1,8 +1,13 @@
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Layout } from "./components/Layout";
+import { AddEditQuestions } from "./pages/AddEditQuestions";
+import { CreateQuiz } from "./pages/CreateQuiz";
+import { Dashboard } from "./pages/Dashboard";
 import { Landing } from "./pages/Landing";
 import { PlayerScreen } from "./pages/PlayerScreen";
 import { Quizes } from "./pages/Quizes";
+import { UpdateQuiz } from "./pages/UpdateQuiz";
 
 function App() {
   const frontendApi = process.env.REACT_APP_CLERK_FRONTEND_API;
@@ -10,18 +15,28 @@ function App() {
 
   return (
     <ClerkProvider frontendApi={frontendApi} navigate={(to) => navigate(to)}>
-      <SignedIn>
-        <Routes>
-          <Route path="/quizes" element={<Quizes />} />
-          <Route path="/quizes/:id" element={<PlayerScreen />} />
-          <Route path="/" element={<Navigate replace to="/quizes" />} />
-        </Routes>
-      </SignedIn>
-      <SignedOut>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-        </Routes>
-      </SignedOut>
+      <Layout>
+        <SignedIn>
+          <Routes>
+            <Route path="/quizes" element={<Quizes />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/quizes/add" element={<CreateQuiz />} />
+            <Route path="/quizes/:id" element={<PlayerScreen />} />
+            <Route path="/quizes/:id/update" element={<UpdateQuiz />} />
+            <Route
+              path="/quizes/:id/questions"
+              element={<AddEditQuestions />}
+            />
+            <Route path="/" element={<Navigate replace to="/quizes" />} />
+          </Routes>
+        </SignedIn>
+        <SignedOut>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="*" element={<Navigate replace to="/" />} />
+          </Routes>
+        </SignedOut>
+      </Layout>
     </ClerkProvider>
   );
 }

@@ -1,13 +1,17 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { BsLayoutSidebarInset } from "react-icons/bs";
-import { JSQuiz } from "../shared/sampleQuizes";
+import { IQuestion } from "../shared/interfaces";
 
-export const Sidebar = ({
-  activeIndex,
-  setActiveIndex,
-}: {
+interface Props {
+  questions: IQuestion[];
   activeIndex: number;
   setActiveIndex: Dispatch<SetStateAction<number>>;
+}
+
+export const Sidebar: React.FC<Props> = ({
+  activeIndex,
+  setActiveIndex,
+  questions,
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [showQuestions, setShowQuestions] = useState(false);
@@ -37,7 +41,7 @@ export const Sidebar = ({
         <BsLayoutSidebarInset size={18} fill="#444" />
       </div>
       <div className="overflow-y-auto mt-4">
-        {JSQuiz.map((quiz, index) => (
+        {questions?.map((quiz, index) => (
           <div
             key={index}
             onClick={() => setActiveIndex(index)}
@@ -56,9 +60,9 @@ export const Sidebar = ({
             </p>
             {expanded && showQuestions && (
               <p className="pl-4 w-10/12">
-                {quiz.question.length > 60
-                  ? quiz.question.slice(0, 60) + "..."
-                  : quiz.question}
+                {quiz.title.length > 60
+                  ? quiz.title.slice(0, 60) + "..."
+                  : quiz.title}
               </p>
             )}
           </div>

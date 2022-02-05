@@ -1,6 +1,6 @@
 import { useSession } from "@clerk/clerk-react";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { QueryKey, useQuery, UseQueryOptions } from "react-query";
+import { MutationOptions, QueryKey, useMutation, useQuery, UseQueryOptions } from "react-query";
 import { endpoints } from "./urls";
 
 export const QueryFactory = (queryKey: QueryKey, url: string, options?: UseQueryOptions<any, AxiosError, any>) => {
@@ -26,5 +26,31 @@ export const QueryFactory = (queryKey: QueryKey, url: string, options?: UseQuery
     )
 }
 
-export const useQuizes = (options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory('Quizes', endpoints.quizes, options);
+const MutationFactory = (mutationKey: QueryKey, url: string, method: 'POST' | 'PUT' | 'PATCH', options?: MutationOptions) => {
+    const { getToken } = useSession();
+    return useMutation<any, AxiosError, any>({
+        mutationKey,
+        mutationFn: async (variables: { body: any }) => {
+            const token = await getToken()
+            return axios({
+                url,
+                method,
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+                data: variables.body
+            }).then(
+                (response: AxiosResponse) => response.data
+            )
+        },
+        ...options
+    })
+
+}
+
+export const useQuizes = (url: string, filter?: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(filter ? ['Quizes', filter] : 'Quizes', url, options);
 export const useQuiz = (id: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Quiz', id], endpoints.quizById(id), options);
+export const useQuizQuestions = (id: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Quiz', id], endpoints.quizQuestions(id), options);
+
+export const useCreateQuiz = (options?: MutationOptions) => MutationFactory('Create Quiz', endpoints.quizes, 'POST', options)
+export const useUpdateQuiz = (id: string, options?: MutationOptions) => MutationFactory('Update Quiz', endpoints.quizes + id, 'PATCH', options)

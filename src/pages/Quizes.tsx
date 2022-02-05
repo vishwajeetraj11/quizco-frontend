@@ -1,23 +1,23 @@
-import { Link } from "react-router-dom";
+import { QuizCard } from "../components/QuizCard";
+import { Loader } from "../components/Svgs";
+import { IQuiz } from "../shared/interfaces";
 import { useQuizes } from "../shared/queries";
+import { endpoints } from "../shared/urls";
 
 export const Quizes = () => {
-  const { data } = useQuizes();
+  const { data, isLoading } = useQuizes(endpoints.quizes, "All");
 
   return (
     <div>
-      <div>Quizes</div>
+      <h3 className="text-2xl font-semibold text-center my-3">All Quizes</h3>
       <div className="grid grid-cols-3 gap-3">
-        {data?.quizes.map((quiz: any) => (
-          <Link
-            key={quiz._id}
-            to={`/quizes/${quiz._id}`}
-            className="shadow-md rounded-sm px-10 py-8"
-          >
-            <p className="font-semibold">{quiz.title}</p>
-            <p>{quiz.description}</p>
-          </Link>
-        ))}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          data?.quizes.map((quiz: IQuiz) => (
+            <QuizCard key={quiz._id} {...quiz} />
+          ))
+        )}
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { Option } from "./Option";
 import { PaginationButton } from "./PaginationButton";
 
 interface Props {
-  quiz: IQuestion[];
+  questions: IQuestion[];
   activeIndex: number;
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
   response: IResponse[];
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const Player: React.FC<Props> = ({
-  quiz,
+  questions,
   activeIndex,
   setActiveIndex,
   response,
@@ -27,7 +27,8 @@ export const Player: React.FC<Props> = ({
       res.forEach((resp) => {
         newRes.push({
           ...resp,
-          response: resp.id === quiz[activeIndex].id ? option : resp.response,
+          response:
+            resp._id === questions[activeIndex]._id ? option : resp.response,
         });
       });
       return newRes;
@@ -35,7 +36,7 @@ export const Player: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    const currentQuestionResponse = response[activeIndex]?.response;
+    const currentQuestionResponse = response && response[activeIndex]?.response;
     if (currentQuestionResponse) {
       setSelectedOption(currentQuestionResponse);
     }
@@ -43,16 +44,17 @@ export const Player: React.FC<Props> = ({
 
   return (
     <div className="flex-1 px-4 py-5 min-h-[87%] flex flex-col">
-      <p>{quiz[activeIndex].question}</p>
+      <p>{questions && questions[activeIndex].title}</p>
       <div className="flex flex-col items-start">
-        {quiz[activeIndex].options.map((option: IOption, i: number) => (
-          <Option
-            key={i}
-            onClick={() => onOptionClick(option.value)}
-            selectedOption={selectedOption}
-            option={option}
-          />
-        ))}
+        {questions &&
+          questions[activeIndex].options.map((option: IOption, i: number) => (
+            <Option
+              key={i}
+              onClick={() => onOptionClick(option.value)}
+              selectedOption={selectedOption}
+              option={option}
+            />
+          ))}
       </div>
       <div className="w-full flex items-center justify-between mt-auto">
         <PaginationButton
@@ -68,7 +70,7 @@ export const Player: React.FC<Props> = ({
             setActiveIndex((p) => p + 1);
           }}
           title="Next Question"
-          disabled={activeIndex === quiz.length - 1}
+          disabled={activeIndex === questions?.length - 1}
         />
       </div>
     </div>
