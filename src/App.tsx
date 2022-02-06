@@ -1,11 +1,15 @@
-import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-react";
+import {
+  ClerkProvider,
+  RedirectToSignIn,
+  SignedIn,
+  SignedOut,
+} from "@clerk/clerk-react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { AddQuestions } from "./pages/AddQuestions";
 import { Attempts } from "./pages/Attempts";
 import { CreateQuiz } from "./pages/CreateQuiz";
 import { Dashboard } from "./pages/Dashboard";
-import { Landing } from "./pages/Landing";
 import { PlayerScreen } from "./pages/PlayerScreen";
 import { Quizes } from "./pages/Quizes";
 import { UpdateQuestion } from "./pages/UpdateQuestion";
@@ -35,10 +39,11 @@ function App() {
           </Routes>
         </SignedIn>
         <SignedOut>
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="*" element={<Navigate replace to="/" />} />
-          </Routes>
+          {/* <Routes> */}
+          {/* <Route path="/" element={<Landing />} /> */}
+          {/* <Route path="*" element={<Navigate replace to="/" />} /> */}
+          {/* </Routes> */}
+          <RedirectToSignIn />
         </SignedOut>
       </Layout>
     </ClerkProvider>
