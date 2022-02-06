@@ -1,9 +1,11 @@
 import { Button } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DeleteModal } from "../components/DeleteModal";
 import { QuizCard } from "../components/QuizCard";
 import { Loader } from "../components/Svgs";
+import { errorMessages, successMessages } from "../shared/constants";
 import { IQuiz } from "../shared/interfaces";
 import { useDeleteQuiz, useQuizes } from "../shared/queries";
 import { endpoints } from "../shared/urls";
@@ -27,6 +29,7 @@ export const Dashboard: React.FC<Props> = () => {
   const onUpdate = () => {
     navigate(`/quizes/${selectedQuiz?._id}/update`);
   };
+  const { enqueueSnackbar } = useSnackbar();
 
   const {
     isLoading: IsDeleteCampaignLoading,
@@ -39,17 +42,14 @@ export const Dashboard: React.FC<Props> = () => {
       {},
       {
         onSuccess: () => {
-          // toast(successMessages.actionSuccess('deleted', 'lead'), {
-          //   type: 'success',
-          // });
+          enqueueSnackbar(successMessages.actionSuccess("Deleted", "Quiz"));
         },
         onError: () => {
-          // toast(errorMessages.default, {
-          //   type: 'error',
-          // });
+          enqueueSnackbar(errorMessages.default);
         },
         onSettled: () => {
           reset();
+          handleDeleteModalClose();
         },
       }
     );
@@ -138,7 +138,7 @@ export const Dashboard: React.FC<Props> = () => {
           deleteModalActive={deleteModalActive}
           handleDeleteModalClose={handleDeleteModalClose}
           onDelete={onDelete}
-          resource="Lead"
+          resource="Quiz"
         />
       )}
     </div>

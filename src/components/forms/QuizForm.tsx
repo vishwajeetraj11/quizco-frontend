@@ -48,10 +48,11 @@ export const QuizForm: React.FC<Props> = ({
       validationSchema={AddEditQuizValidation}
       onSubmit={async (values, { setSubmitting }) => {
         const body = { ...values };
-        id && delete body.status;
+        if (!id) delete body.status;
+        console.log(body);
         setSubmitting(true);
         mutateAsync(
-          { body: values },
+          { body },
           {
             onSuccess: () => {
               queryClient.invalidateQueries(["Quizes", "All"]);
