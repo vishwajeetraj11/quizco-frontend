@@ -3,11 +3,17 @@ export const Loader: React.FC<{
   width?: number;
   color?: string;
   fullScreen?: boolean;
-}> = ({ height, width, color, fullScreen }) => {
+  halfScreen?: boolean;
+}> = ({ height, width, color, fullScreen, halfScreen }) => {
   return (
     <div
+      style={{
+        height: halfScreen ? "100px" : "auto",
+      }}
       className={`${
-        fullScreen ? "flex flex-1 justify-center items-center" : ""
+        fullScreen || halfScreen
+          ? "flex flex-1 justify-center items-center"
+          : ""
       }`}
     >
       <svg

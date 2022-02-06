@@ -11,13 +11,13 @@ export const AddQuestions: React.FC<Props> = () => {
   const { id } = useParams() as { id: string };
   const { isLoading, data } = useQuizQuestions(id);
   const { id: userId } = useUser();
-
-  if (data?.quiz.author !== userId) {
+  console.log(data?.author, userId);
+  if (!isLoading && data?.author !== userId) {
     return <ErrorMessage statusCode={403} />;
   }
 
   return isLoading ? (
-    <Loader />
+    <Loader halfScreen />
   ) : (
     <div className="h-screen w-full flex flex-col flex-1 overflow-y-hidden">
       <div className="min-h-[8%] flex justify-between items-center px-10 border-b">

@@ -39,3 +39,10 @@ export interface IQuiz extends IQuizForm {
     __v: number;
     id: string;
 }
+
+export interface IAttempt {
+    _id: string;
+    userId: string;
+    score: number;
+    quiz: IQuiz
+}

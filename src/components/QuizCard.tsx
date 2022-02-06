@@ -3,6 +3,7 @@ import { IQuiz } from "../shared/interfaces";
 
 interface Props extends IQuiz {
   onSelect?: () => void;
+  score?: number;
 }
 
 export const QuizCard: React.FC<Props> = ({
@@ -12,6 +13,7 @@ export const QuizCard: React.FC<Props> = ({
   _id,
   onSelect,
   status,
+  score,
 }) => {
   const isDashboardPage = useMatch("/dashboard");
   const navigate = useNavigate();
@@ -23,6 +25,7 @@ export const QuizCard: React.FC<Props> = ({
       {isDashboardPage && <p>{status}</p>}
       <p className="font-semibold">{title}</p>
       <p>{description}</p>
+      {(score === 0 || score) && <p>Score : {score}</p>}
       <div className="flex mt-4">
         {tags.map((tag, i) => (
           <p

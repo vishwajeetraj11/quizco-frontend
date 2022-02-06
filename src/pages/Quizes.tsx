@@ -12,7 +12,7 @@ export const Quizes = () => {
       <h3 className="text-2xl font-semibold text-center my-3">All Quizes</h3>
       <div className="grid grid-cols-3 gap-3">
         {isLoading ? (
-          <Loader />
+          <Loader halfScreen />
         ) : (
           data?.quizes.map((quiz: IQuiz) => (
             <QuizCard key={quiz._id} {...quiz} />

@@ -59,16 +59,28 @@ export const Dashboard: React.FC<Props> = () => {
     <div>
       <h3 className="text-2xl font-semibold text-center my-3">Dashboard</h3>
       <div className="flex justify-between mb-4">
-        <h4 className="text-xl font-medium text-left mb-3">
+        <h4 className="text-xl font-medium text-left mb-3 items-center">
           Your Created Quizes
         </h4>
-        <Button
-          onClick={() => navigate(`/quizes/add`)}
-          variant="outlined"
-          color="primary"
-        >
-          + Create a Quiz
-        </Button>
+        <div className="flex items-center">
+          <Button
+            onClick={() => navigate(`/quizes/add`)}
+            variant="contained"
+            color="primary"
+          >
+            + Create a Quiz
+          </Button>
+
+          <div className="ml-4">
+            <Button
+              onClick={() => navigate(`/dashboard/attempts`)}
+              variant="outlined"
+              color="primary"
+            >
+              My Attempts
+            </Button>
+          </div>
+        </div>
       </div>
       {data?.quizes.length > 0 && (
         <div className="bg-gray-100 rounded px-8 py-6 transition-all flex flex-col lg:flex-row items-center justify-between mb-4">
@@ -81,52 +93,45 @@ export const Dashboard: React.FC<Props> = () => {
           </h2>
           <div className="mt-6 lg:mt-0">
             {selectedQuiz && (
-              <>
+              <div className="flex">
+                <div className="mr-4">
+                  <Button onClick={onUpdate} className="mr-6">
+                    Update
+                  </Button>
+                </div>
+                <div className="mr-4">
+                  <Button onClick={handleDeleteModalOpen} variant="text">
+                    Delete
+                  </Button>
+                </div>
+
                 <Button
-                  onClick={onUpdate}
-                  className="mr-6"
                   variant="contained"
                   color="primary"
-                >
-                  Update
-                </Button>
-                <Button
-                  style={{
-                    border: "2px solid #e74c3c",
-                    color: "#e74c3c",
-                    padding: "6px 16px",
-                  }}
-                  onClick={handleDeleteModalOpen}
-                  variant="text"
-                >
-                  Delete
-                </Button>
-                <Button
                   onClick={() =>
                     navigate(`/quizes/${selectedQuiz._id}/questions`)
                   }
-                  variant="text"
                 >
-                  Add Questions
+                  + Add Questions
                 </Button>
-              </>
+              </div>
             )}
           </div>
         </div>
       )}
-      <div className="grid grid-cols-3 gap-3">
-        {isLoading ? (
-          <Loader />
-        ) : (
-          data?.quizes.map((quiz: IQuiz) => (
+      {isLoading ? (
+        <Loader halfScreen />
+      ) : (
+        <div className="grid grid-cols-3 gap-3">
+          {data?.quizes.map((quiz: IQuiz) => (
             <QuizCard
               onSelect={() => setSelectedQuiz(quiz)}
               key={quiz._id}
               {...quiz}
             />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
       {deleteModalActive && (
         <DeleteModal
           deleteLoading={IsDeleteCampaignLoading}

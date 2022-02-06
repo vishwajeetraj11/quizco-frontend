@@ -2,6 +2,7 @@ import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { AddQuestions } from "./pages/AddQuestions";
+import { Attempts } from "./pages/Attempts";
 import { CreateQuiz } from "./pages/CreateQuiz";
 import { Dashboard } from "./pages/Dashboard";
 import { Landing } from "./pages/Landing";
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path="/quizes" element={<Quizes />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/attempts" element={<Attempts />} />
             <Route path="/quizes/add" element={<CreateQuiz />} />
             <Route path="/quizes/:id" element={<PlayerScreen />} />
             <Route path="/quizes/:id/update" element={<UpdateQuiz />} />

@@ -19,7 +19,7 @@ export const UpdateQuestion: React.FC<Props> = () => {
       <div className="mx-auto w-6/12">
         {isLoading ? (
           <>
-            <Loader />
+            <Loader halfScreen />
           </>
         ) : (
           <UpdateQuestionForm {...data?.question} />

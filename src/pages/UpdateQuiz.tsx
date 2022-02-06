@@ -21,7 +21,7 @@ export const UpdateQuiz: React.FC<Props> = () => {
     <div>
       <h2 className="text-2xl font-medium text-center">Update a Quiz</h2>
       {isLoading || isFetching ? (
-        <Loader />
+        <Loader halfScreen />
       ) : (
         <div className="mx-auto w-6/12">
           <QuizForm
