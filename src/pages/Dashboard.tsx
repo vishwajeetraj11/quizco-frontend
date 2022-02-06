@@ -1,6 +1,7 @@
 import { Button } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { DeleteModal } from "../components/DeleteModal";
 import { QuizCard } from "../components/QuizCard";
@@ -30,6 +31,7 @@ export const Dashboard: React.FC<Props> = () => {
     navigate(`/quizes/${selectedQuiz?._id}/update`);
   };
   const { enqueueSnackbar } = useSnackbar();
+  const queryClient = useQueryClient();
 
   const {
     isLoading: IsDeleteCampaignLoading,
@@ -43,6 +45,7 @@ export const Dashboard: React.FC<Props> = () => {
       {
         onSuccess: () => {
           enqueueSnackbar(successMessages.actionSuccess("Deleted", "Quiz"));
+          queryClient.invalidateQueries(["Quizes", "Current User"]);
         },
         onError: () => {
           enqueueSnackbar(errorMessages.default);
