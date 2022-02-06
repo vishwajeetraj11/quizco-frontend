@@ -20,19 +20,19 @@ export const Attempts: React.FC<Props> = () => {
         </h4>
       </div>
 
-      <div className="grid grid-cols-3 gap-3">
-        {isLoading ? (
-          <Loader halfScreen />
-        ) : (
-          data?.attempts.map((attempt: IAttempt) => (
+      {isLoading ? (
+        <Loader halfScreen />
+      ) : (
+        <div className="grid grid-cols-3 gap-3">
+          {data?.attempts.map((attempt: IAttempt) => (
             <QuizCard
               key={attempt._id}
               {...attempt.quiz}
               score={attempt.score}
             />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

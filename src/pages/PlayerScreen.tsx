@@ -1,11 +1,17 @@
+import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FinishQuiz } from "../components/FinishQuiz";
 import { Player } from "../components/Player";
 import { Sidebar } from "../components/Sidebar";
 import { Loader } from "../components/Svgs";
+import { errorMessages } from "../shared/constants";
 import { IQuestion, IResponse } from "../shared/interfaces";
-import { useQuizQuestions } from "../shared/queries";
+import {
+  useQuizQuestionCorrectAns,
+  useQuizQuestions,
+  useSaveScore,
+} from "../shared/queries";
 
 interface Props {}
 
@@ -14,23 +20,56 @@ export const PlayerScreen: React.FC<Props> = () => {
   const { isLoading, isFetching, data } = useQuizQuestions(params.id, {
     staleTime: Infinity,
   });
-  // const [questions, setQuestions] = useState<IQuestion[]>(data?.questions);
+
+  const { isLoading: isQuizCorrectAnsLoading, data: quizCorrectAnsData } =
+    useQuizQuestionCorrectAns(params.id);
+
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [response, setResponse] = useState<IResponse[] | []>([]);
+  const [respWithCorrectAns, setRespWithCorrectAns] = useState<any>([]);
   const [quizEnd, setQuizEnd] = useState<boolean>(false);
+  const [score, setScore] = useState<number>(0);
+  const { enqueueSnackbar } = useSnackbar();
+  const {
+    mutateAsync,
+    reset,
+    isLoading: isSaveScoreLoading,
+  } = useSaveScore(params.id);
 
   const onSubmit = () => {
     setQuizEnd(true);
+    let score = 0;
 
-    // let score = 0;
+    const responseWithAns: any = response.map((resp, index) =>
+      quizCorrectAnsData?.questions[index].title === resp.title
+        ? { ...resp, correct: quizCorrectAnsData?.questions[index].correct }
+        : { ...resp }
+    );
 
-    // response.forEach((res) => {
-    //   if (res.correct === res.response) {
-    //     score = score + 1;
-    //   }
-    // });
+    setRespWithCorrectAns(responseWithAns);
 
-    // setScore(score);
+    responseWithAns.forEach((res: any) => {
+      if (res.correct === res.response) {
+        score = score + 1;
+      }
+    });
+
+    setScore(score);
+
+    mutateAsync(
+      { body: { score } },
+      {
+        onError: () => {
+          enqueueSnackbar(errorMessages.default);
+        },
+        onSuccess: () => {
+          enqueueSnackbar("Score Saved.");
+        },
+        onSettled: () => {
+          // reset();
+        },
+      }
+    );
   };
 
   useEffect(() => {
@@ -105,7 +144,13 @@ export const PlayerScreen: React.FC<Props> = () => {
             </div>
           </>
         ) : (
-          <FinishQuiz response={response} />
+          <>
+            {isQuizCorrectAnsLoading || isSaveScoreLoading ? (
+              <Loader halfScreen />
+            ) : (
+              <FinishQuiz score={score} responses={respWithCorrectAns} />
+            )}
+          </>
         )}
       </div>
     </div>

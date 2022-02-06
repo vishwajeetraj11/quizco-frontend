@@ -10,15 +10,15 @@ export const Quizes = () => {
   return (
     <div>
       <h3 className="text-2xl font-semibold text-center my-3">All Quizes</h3>
-      <div className="grid grid-cols-3 gap-3">
-        {isLoading ? (
-          <Loader halfScreen />
-        ) : (
-          data?.quizes.map((quiz: IQuiz) => (
+      {isLoading ? (
+        <Loader halfScreen />
+      ) : (
+        <div className="grid grid-cols-3 gap-3">
+          {data?.quizes.map((quiz: IQuiz) => (
             <QuizCard key={quiz._id} {...quiz} />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
