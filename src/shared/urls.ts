@@ -1,4 +1,4 @@
-export const baseURL = 'https://quizco.herokuapp.com';
+export const baseURL = 'https://quizco.herokuapp.com/api/v1';
 // export const baseURL = 'http://localhost:3001/api/v1';
 
 export const endpoints = {
