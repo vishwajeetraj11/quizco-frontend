@@ -1,8 +1,10 @@
 import { Button } from "@material-ui/core";
 import { AxiosError } from "axios";
 import { Formik } from "formik";
+import { useSnackbar } from "notistack";
 import { UseMutateAsyncFunction, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { successMessages } from "../../shared/constants";
 import { IQuizForm } from "../../shared/interfaces";
 import { AddEditQuizValidation } from "../../shared/validationSchema";
 import { AddEditQuizFormFields } from "../AddEditQuizFormFields";
@@ -15,6 +17,7 @@ interface Props {
   tags?: string[];
   redirect: string;
   id?: string;
+  status?: string;
 }
 
 export const QuizForm: React.FC<Props> = ({
@@ -25,7 +28,9 @@ export const QuizForm: React.FC<Props> = ({
   title,
   redirect,
   id,
+  status,
 }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
@@ -38,16 +43,24 @@ export const QuizForm: React.FC<Props> = ({
         title: title || "",
         description: description || "",
         tags: tags || [],
+        status: status || "",
       }}
       validationSchema={AddEditQuizValidation}
-      onSubmit={async (values, { setSubmitting, setFieldError }) => {
+      onSubmit={async (values, { setSubmitting }) => {
+        const body = { ...values };
+        id && delete body.status;
         setSubmitting(true);
         mutateAsync(
           { body: values },
           {
             onSuccess: () => {
               queryClient.invalidateQueries(["Quizes", "All"]);
-              // queryClient.invalidateQueries();
+              enqueueSnackbar(
+                successMessages.actionSuccess(
+                  id ? "Updated" : "Created",
+                  "Quiz"
+                )
+              );
               id && queryClient.invalidateQueries(["Quiz", id]);
               navigate(redirect);
             },
@@ -63,7 +76,7 @@ export const QuizForm: React.FC<Props> = ({
       {({ handleSubmit, isSubmitting }) => (
         <form className="pb-2" onSubmit={handleSubmit}>
           <div className="mx-10">
-            <AddEditQuizFormFields />
+            <AddEditQuizFormFields id={id} />
             <div className="flex justify-end mt-4">
               <div className="mr-4">
                 <Button onClick={() => navigate(-1)}>Cancel</Button>

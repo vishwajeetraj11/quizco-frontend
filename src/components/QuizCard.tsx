@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
 import { IQuiz } from "../shared/interfaces";
 
 interface Props extends IQuiz {
@@ -11,13 +11,16 @@ export const QuizCard: React.FC<Props> = ({
   tags,
   _id,
   onSelect,
+  status,
 }) => {
+  const isDashboardPage = useMatch("/dashboard");
   const navigate = useNavigate();
   return (
     <div
       onClick={() => (onSelect ? onSelect() : navigate(`/quizes/${_id}`))}
       className="cursor-pointer shadow-md rounded-sm px-10 py-8"
     >
+      {isDashboardPage && <p>{status}</p>}
       <p className="font-semibold">{title}</p>
       <p>{description}</p>
       <div className="flex mt-4">

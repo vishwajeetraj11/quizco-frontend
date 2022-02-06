@@ -1,9 +1,15 @@
-import { TextField } from "@material-ui/core";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
 import { useFormikContext } from "formik";
 import ChipInput from "material-ui-chip-input";
 import { IQuiz } from "../shared/interfaces";
 
-export const AddEditQuizFormFields = () => {
+export const AddEditQuizFormFields = ({ id }: { id?: string }) => {
   const { touched, errors, values, handleBlur, handleChange, setFieldValue } =
     useFormikContext<IQuiz>();
 
@@ -35,6 +41,30 @@ export const AddEditQuizFormFields = () => {
           variant="standard"
         />
       </div>
+      {id && (
+        <div className="mt-5">
+          <FormControl fullWidth>
+            <InputLabel id="status-label">Status</InputLabel>
+            <Select
+              labelId="authentication-label"
+              id="select-authentication"
+              fullWidth
+              value={values.status}
+              label="Status"
+              onChange={(e) => {
+                setFieldValue(`status`, e.target.value);
+              }}
+            >
+              <MenuItem value={"active"}>Active</MenuItem>
+              <MenuItem value={"inactive"}>Inactive</MenuItem>
+              <MenuItem value={"draft"}>Draft</MenuItem>
+            </Select>
+          </FormControl>
+          {/* <FormHelperText>
+                {touched.status && errors.status}
+              </FormHelperText> */}
+        </div>
+      )}
       <div className="mt-4">
         <ChipInput
           label="Tags"

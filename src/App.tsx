@@ -1,12 +1,13 @@
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { Layout } from "./components/Layout";
-import { AddEditQuestions } from "./pages/AddEditQuestions";
+import { AddQuestions } from "./pages/AddQuestions";
 import { CreateQuiz } from "./pages/CreateQuiz";
 import { Dashboard } from "./pages/Dashboard";
 import { Landing } from "./pages/Landing";
 import { PlayerScreen } from "./pages/PlayerScreen";
 import { Quizes } from "./pages/Quizes";
+import { UpdateQuestion } from "./pages/UpdateQuestion";
 import { UpdateQuiz } from "./pages/UpdateQuiz";
 
 function App() {
@@ -23,9 +24,10 @@ function App() {
             <Route path="/quizes/add" element={<CreateQuiz />} />
             <Route path="/quizes/:id" element={<PlayerScreen />} />
             <Route path="/quizes/:id/update" element={<UpdateQuiz />} />
+            <Route path="/quizes/:id/questions" element={<AddQuestions />} />
             <Route
-              path="/quizes/:id/questions"
-              element={<AddEditQuestions />}
+              path="/quizes/:quizId/questions/:questionId"
+              element={<UpdateQuestion />}
             />
             <Route path="/" element={<Navigate replace to="/quizes" />} />
           </Routes>

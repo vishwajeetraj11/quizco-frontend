@@ -1,21 +1,24 @@
-import { useUser } from "@clerk/clerk-react";
 import { Button } from "@material-ui/core";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { DeleteModal } from "../components/DeleteModal";
 import { QuizCard } from "../components/QuizCard";
 import { Loader } from "../components/Svgs";
 import { IQuiz } from "../shared/interfaces";
-import { useQuizes } from "../shared/queries";
+import { useDeleteQuiz, useQuizes } from "../shared/queries";
 import { endpoints } from "../shared/urls";
 
 interface Props {}
 
 export const Dashboard: React.FC<Props> = () => {
-  const { id } = useUser();
   const { data, isLoading } = useQuizes(
-    `${endpoints.quizes}?userId=${id}`,
+    `${endpoints.quizes}?loggedIn=true`,
     "Current User"
   );
+
+  const [deleteModalActive, setDeleteModalActive] = useState(false);
+  const handleDeleteModalOpen = () => setDeleteModalActive(true);
+  const handleDeleteModalClose = () => setDeleteModalActive(false);
 
   const navigate = useNavigate();
 
@@ -25,15 +28,49 @@ export const Dashboard: React.FC<Props> = () => {
     navigate(`/quizes/${selectedQuiz?._id}/update`);
   };
 
-  const onDelete = () => {};
+  const {
+    isLoading: IsDeleteCampaignLoading,
+    reset,
+    mutateAsync,
+  } = useDeleteQuiz(selectedQuiz?._id || "id");
+
+  const onDelete = () => {
+    mutateAsync(
+      {},
+      {
+        onSuccess: () => {
+          // toast(successMessages.actionSuccess('deleted', 'lead'), {
+          //   type: 'success',
+          // });
+        },
+        onError: () => {
+          // toast(errorMessages.default, {
+          //   type: 'error',
+          // });
+        },
+        onSettled: () => {
+          reset();
+        },
+      }
+    );
+  };
 
   return (
     <div>
       <h3 className="text-2xl font-semibold text-center my-3">Dashboard</h3>
-      <h4 className="text-xl font-medium text-left mb-3">
-        Your Created Quizes
-      </h4>
-      {data?.quizes.length && (
+      <div className="flex justify-between mb-4">
+        <h4 className="text-xl font-medium text-left mb-3">
+          Your Created Quizes
+        </h4>
+        <Button
+          onClick={() => navigate(`/quizes/add`)}
+          variant="outlined"
+          color="primary"
+        >
+          + Create a Quiz
+        </Button>
+      </div>
+      {data?.quizes.length > 0 && (
         <div className="bg-gray-100 rounded px-8 py-6 transition-all flex flex-col lg:flex-row items-center justify-between mb-4">
           <h2 className="text-regular text-lg font-medium text-default">
             {`${
@@ -42,7 +79,6 @@ export const Dashboard: React.FC<Props> = () => {
                 : "Select a Quiz"
             }`}
           </h2>
-          <h2 className="text-regular text-lg font-medium text-default"></h2>
           <div className="mt-6 lg:mt-0">
             {selectedQuiz && (
               <>
@@ -60,7 +96,7 @@ export const Dashboard: React.FC<Props> = () => {
                     color: "#e74c3c",
                     padding: "6px 16px",
                   }}
-                  onClick={onDelete}
+                  onClick={handleDeleteModalOpen}
                   variant="text"
                 >
                   Delete
@@ -91,6 +127,15 @@ export const Dashboard: React.FC<Props> = () => {
           ))
         )}
       </div>
+      {deleteModalActive && (
+        <DeleteModal
+          deleteLoading={IsDeleteCampaignLoading}
+          deleteModalActive={deleteModalActive}
+          handleDeleteModalClose={handleDeleteModalClose}
+          onDelete={onDelete}
+          resource="Lead"
+        />
+      )}
     </div>
   );
 };

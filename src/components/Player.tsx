@@ -36,9 +36,13 @@ export const Player: React.FC<Props> = ({
   };
 
   useEffect(() => {
+   
     const currentQuestionResponse = response && response[activeIndex]?.response;
     if (currentQuestionResponse) {
       setSelectedOption(currentQuestionResponse);
+    }
+    return () => {
+      setSelectedOption("");
     }
   }, [activeIndex, response]);
 

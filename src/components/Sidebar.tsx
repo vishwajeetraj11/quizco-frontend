@@ -4,7 +4,7 @@ import { IQuestion } from "../shared/interfaces";
 
 interface Props {
   questions: IQuestion[];
-  activeIndex: number;
+  activeIndex?: number;
   setActiveIndex: Dispatch<SetStateAction<number>>;
 }
 

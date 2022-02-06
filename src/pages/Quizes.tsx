@@ -5,7 +5,7 @@ import { useQuizes } from "../shared/queries";
 import { endpoints } from "../shared/urls";
 
 export const Quizes = () => {
-  const { data, isLoading } = useQuizes(endpoints.quizes, "All");
+  const { data, isLoading } = useQuizes(`${endpoints.quizes}`, "All");
 
   return (
     <div>
