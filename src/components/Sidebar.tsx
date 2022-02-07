@@ -30,7 +30,7 @@ export const Sidebar: React.FC<Props> = ({
 
   return (
     <div
-      className={`flex flex-col h-full px-2 py-2 overflow-y-auto border-r border-gray-200 transition-all duration-300 ${
+      className={`flex flex-col h-full px-2 py-2 overflow-y-auto border-t border-r border-gray-300 transition-all duration-300 ${
         expanded ? "w-96" : "w-14"
       }`}
     >

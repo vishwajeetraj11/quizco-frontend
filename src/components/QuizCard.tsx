@@ -20,11 +20,26 @@ export const QuizCard: React.FC<Props> = ({
   return (
     <div
       onClick={() => (onSelect ? onSelect() : navigate(`/quizes/${_id}`))}
-      className="cursor-pointer shadow-md rounded-sm px-10 py-8"
+      className="cursor-pointer relative shadow-md px-10 py-8 rounded-md bg-white"
+      style={{ boxShadow: "15px 15px 54px -10px #0000001f" }}
     >
-      {isDashboardPage && <p>{status}</p>}
+      {isDashboardPage && (
+        <p
+          className={`${
+            status === "active"
+              ? "bg-teal-500"
+              : status === "draft"
+              ? "bg-yellow-500"
+              : status === "inactive"
+              ? "bg-rose-600"
+              : ""
+          } text-white font-normal capitalize absolute rounded-md px-3 py-0.5 right-5 top-5 text-xs`}
+        >
+          {status}
+        </p>
+      )}
       <p className="font-semibold">{title}</p>
-      <p>{description}</p>
+      <p className="mt-4">{description}</p>
       {(score === 0 || score) && <p>Score : {score}</p>}
       <div className="flex mt-4">
         {tags.map((tag, i) => (

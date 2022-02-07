@@ -10,8 +10,8 @@ export const Layout: React.FC<Props> = ({ children }) => {
     <div className="flex flex-1 flex-col min-h-screen">
       <NavBar />
       <div
-        className={`flex-1 w-full${
-          isPlayerPage || isQuestionsPage ? "" : " max-w-screen-xl "
+        className={`flex-1 w-full ${
+          isPlayerPage || isQuestionsPage ? "" : "max-w-screen-xl "
         }mx-auto`}
       >
         {children}
