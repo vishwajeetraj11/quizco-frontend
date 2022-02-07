@@ -11,7 +11,6 @@ export const AddQuestions: React.FC<Props> = () => {
   const { id } = useParams() as { id: string };
   const { isLoading, data } = useQuizQuestions(id);
   const { id: userId } = useUser();
-  console.log(data?.author, userId);
   if (!isLoading && data?.author !== userId) {
     return <ErrorMessage statusCode={403} />;
   }

@@ -10,7 +10,7 @@ export const Attempts: React.FC<Props> = () => {
   const { data, isLoading } = useMyAttempts();
 
   const navigate = useNavigate();
-  console.log(data);
+
   return (
     <div>
       <h3 className="text-2xl font-semibold text-center my-3">Dashboard</h3>

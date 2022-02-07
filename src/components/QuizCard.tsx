@@ -4,6 +4,7 @@ import { IQuiz } from "../shared/interfaces";
 interface Props extends IQuiz {
   onSelect?: () => void;
   score?: number;
+  deleted?: boolean;
 }
 
 export const QuizCard: React.FC<Props> = ({
@@ -14,13 +15,22 @@ export const QuizCard: React.FC<Props> = ({
   onSelect,
   status,
   score,
+  deleted,
 }) => {
   const isDashboardPage = useMatch("/dashboard");
   const navigate = useNavigate();
   return (
     <div
-      onClick={() => (onSelect ? onSelect() : navigate(`/quizes/${_id}`))}
-      className="cursor-pointer relative shadow-md px-10 py-8 rounded-md bg-white"
+      onClick={() =>
+        onSelect
+          ? onSelect()
+          : deleted
+          ? () => null
+          : navigate(`/quizes/${_id}`)
+      }
+      className={`${
+        deleted ? "" : "cursor-pointer "
+      }relative shadow-md px-10 py-8 rounded-md bg-white`}
       style={{ boxShadow: "15px 15px 54px -10px #0000001f" }}
     >
       {isDashboardPage && (

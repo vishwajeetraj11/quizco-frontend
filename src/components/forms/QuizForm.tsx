@@ -49,7 +49,6 @@ export const QuizForm: React.FC<Props> = ({
       onSubmit={async (values, { setSubmitting }) => {
         const body = { ...values };
         if (!id) delete body.status;
-        console.log(body);
         setSubmitting(true);
         mutateAsync(
           { body },
