@@ -13,7 +13,7 @@ export const Quizes = () => {
       {isLoading ? (
         <Loader halfScreen />
       ) : (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-7 mt-10">
           {data?.quizes.map((quiz: IQuiz) => (
             <QuizCard key={quiz._id} {...quiz} />
           ))}

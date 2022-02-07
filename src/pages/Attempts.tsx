@@ -10,7 +10,7 @@ export const Attempts: React.FC<Props> = () => {
   const { data, isLoading } = useMyAttempts();
 
   const navigate = useNavigate();
-
+  console.log(data);
   return (
     <div>
       <h3 className="text-2xl font-semibold text-center my-3">Dashboard</h3>
@@ -19,11 +19,10 @@ export const Attempts: React.FC<Props> = () => {
           Your Attempted Quizes
         </h4>
       </div>
-
       {isLoading ? (
         <Loader halfScreen />
       ) : (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-7 mt-10">
           {data?.attempts.map((attempt: IAttempt) => (
             <QuizCard
               key={attempt._id}

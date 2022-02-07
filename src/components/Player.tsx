@@ -36,18 +36,17 @@ export const Player: React.FC<Props> = ({
   };
 
   useEffect(() => {
-   
     const currentQuestionResponse = response && response[activeIndex]?.response;
     if (currentQuestionResponse) {
       setSelectedOption(currentQuestionResponse);
     }
     return () => {
       setSelectedOption("");
-    }
+    };
   }, [activeIndex, response]);
 
   return (
-    <div className="flex-1 px-4 py-5 min-h-[87%] flex flex-col">
+    <div className="flex-1 flex-grow px-4 py-5 min-h-[86%] flex flex-col">
       <p>{questions && questions[activeIndex].title}</p>
       <div className="flex flex-col items-start">
         {questions &&

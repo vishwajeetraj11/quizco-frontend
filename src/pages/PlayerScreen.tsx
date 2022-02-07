@@ -84,12 +84,12 @@ export const PlayerScreen: React.FC<Props> = () => {
   return isLoading || isFetching ? (
     <Loader halfScreen />
   ) : (
-    <div className="h-screen w-full flex flex-col flex-1 overflow-y-hidden">
-      {/* Header */}
-      <div className="min-h-[8%] flex justify-between items-center px-10 border-b">
-        <div></div>
-      </div>
-      <div className="min-h-[95%] flex flex-row flex-1 overflow-y-auto">
+    // h-screen
+    <div
+      style={{ height: "92vh" }}
+      className="w-full flex flex-col flex-1 overflow-y-hidden"
+    >
+      <div className="flex flex-row flex-1 overflow-y-auto">
         {!quizEnd ? (
           <>
             <Sidebar
@@ -98,7 +98,7 @@ export const PlayerScreen: React.FC<Props> = () => {
               setActiveIndex={setActiveIndex}
             />
             <div className="flex-1  overflow-y-auto">
-              <div className="min-h-[8%] border-b border-gray-200 flex px-4 py-4 justify-between">
+              <div className="min-h-[8%] border-b border-t border-gray-300 flex px-4 py-4 justify-between">
                 <p className="mt-auto">Question {activeIndex + 1}</p>
                 {!quizEnd && (
                   <div className="flex items-center">

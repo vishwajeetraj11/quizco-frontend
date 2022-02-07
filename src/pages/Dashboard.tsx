@@ -86,7 +86,7 @@ export const Dashboard: React.FC<Props> = () => {
         </div>
       </div>
       {data?.quizes.length > 0 && (
-        <div className="bg-gray-100 rounded px-8 py-6 transition-all flex flex-col lg:flex-row items-center justify-between mb-4">
+        <div className="bg-gray-200 rounded px-8 py-6 transition-all flex flex-col lg:flex-row items-center justify-between mb-4">
           <h2 className="text-regular text-lg font-medium text-default">
             {`${
               selectedQuiz
@@ -125,7 +125,12 @@ export const Dashboard: React.FC<Props> = () => {
       {isLoading ? (
         <Loader halfScreen />
       ) : (
-        <div className="grid grid-cols-3 gap-3">
+        <div
+          className="grid gap-7 mt-10 grid-flow-row"
+          style={{
+            gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))",
+          }}
+        >
           {data?.quizes.map((quiz: IQuiz) => (
             <QuizCard
               onSelect={() => setSelectedQuiz(quiz)}

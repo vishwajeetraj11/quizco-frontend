@@ -17,10 +17,10 @@ export const Option: React.FC<Props> = ({
     selectedOption === option.value && option.value === correctAns;
 
   const getClasses = () => {
-    return `flex items-center px-4 py-2 border border-2 w-full text-left mt-4 rounded-md disabled:opacity-80 transition-all duration-300${
+    return `flex items-center px-4 py-2 border w-full text-left mt-4 rounded-md disabled:opacity-80 transition-all duration-300${
       !userSelectedCorrectOption && selectedOption === option.value
         ? " border-indigo-600"
-        : ""
+        : " border-gray-300"
     }${correctAns === option.value ? " bg-indigo-600" : ""}${
       userSelectedCorrectOption ? " bg-blue-600" : ""
     }`;
@@ -34,7 +34,7 @@ export const Option: React.FC<Props> = ({
         className={`mr-4 flex items-center justify-center border-2 w-4 h-4 rounded-full${
           !userSelectedCorrectOption && selectedOption === option.value
             ? " border-indigo-600"
-            : ""
+            : " border-gray-300"
         }`}
       >
         {!userSelectedCorrectOption && selectedOption === option.value && (
