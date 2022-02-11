@@ -4,14 +4,35 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
 
+@font-face {
+  font-family: CircularStd-Black;
+  src: url("./assets/fonts/CircularStd-Black.otf");
+}
+@font-face {
+  font-family: CircularStd-Bold;
+  src: url("./assets/fonts/CircularStd-Bold.otf");
+}
+@font-face {
+  font-family: CircularStd-Book;
+  src: url("./assets/fonts/CircularStd-Book.otf");
+}
+@font-face {
+  font-family: CircularStd-Light;
+  src: url("./assets/fonts/CircularStd-Light.otf");
+}
+@font-face {
+  font-family: CircularStd-Medium;
+  src: url("./assets/fonts/CircularStd-Medium.otf");
+}
+
 body {
   margin: 0;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: CircularStd-Book, -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f8f9fa;
+  /* background-color: #f8f9fa; */
 }
 
 code {

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { DeleteModal } from "../components/DeleteModal";
+import { EmptyResponse } from "../components/EmptyResponse";
 import { QuizCard } from "../components/QuizCard";
 import { Loader } from "../components/Svgs";
 import { errorMessages, successMessages } from "../shared/constants";
@@ -63,7 +64,7 @@ export const Dashboard: React.FC<Props> = () => {
       <h3 className="text-2xl font-semibold text-center my-3">Dashboard</h3>
       <div className="flex justify-between mb-4">
         <h4 className="text-xl font-medium text-left mb-3 items-center">
-          Your Created Quizes
+          My Quizes
         </h4>
         <div className="flex items-center">
           <Button
@@ -124,7 +125,7 @@ export const Dashboard: React.FC<Props> = () => {
       )}
       {isLoading ? (
         <Loader halfScreen />
-      ) : (
+      ) : data?.quizes.length > 0 ? (
         <div
           className="grid gap-7 mt-10 grid-flow-row"
           style={{
@@ -139,6 +140,8 @@ export const Dashboard: React.FC<Props> = () => {
             />
           ))}
         </div>
+      ) : (
+        <EmptyResponse resource="Dashboard Quizes" />
       )}
       {deleteModalActive && (
         <DeleteModal

@@ -18,11 +18,22 @@ module.exports = {
           '3/4': '75%',
           'full': '100%',
           'screen': '100vh'
-        }
+        },
+        fontFamily: {
+          'light': ['CircularStd-Light'],
+          'book': ['CircularStd-Book'],
+          'medium': ['CircularStd-Medium'],
+          'bold': ['CircularStd-Bold'],
+          'black': ['CircularStd-Black'],
+      }
       },
       colors: {
       ...colors,
       'a': '#111111',
+      'input-hover': '#ebecf0',
+      'input-border': '#dfe1e6',
+      'input-bg': '#f4f5f7',
+      'input-color': '#172b4d'
     }
     },
     variants: {
