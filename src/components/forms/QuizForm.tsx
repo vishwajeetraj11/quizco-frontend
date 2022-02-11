@@ -47,10 +47,10 @@ export const QuizForm: React.FC<Props> = ({
       }}
       validationSchema={AddEditQuizValidation}
       onSubmit={async (values, { setSubmitting }) => {
+        setSubmitting(true);
         const body = { ...values };
         if (!id) delete body.status;
-        setSubmitting(true);
-        mutateAsync(
+        await mutateAsync(
           { body },
           {
             onSuccess: () => {
