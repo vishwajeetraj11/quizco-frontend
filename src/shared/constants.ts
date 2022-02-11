@@ -16,6 +16,13 @@ export const successMessages = {
         `Successfully ${action} ${resource || 'resource'}`,
 }
 
+export const emptyResponseMessages = {
+    attempt: ['You have not attempted any quizes yet.'],
+    dashboardQuizes: ['You have not created any quizes yet.'],
+    quizQuestions: ['This quiz have no questions.'],
+    mainQuizes: ['There are no active Quizes at the moment.', 'Go ahead make a Quiz.'],
+}
+
 export const modalStyle = {
     position: 'absolute' as 'absolute',
     top: '50%',
