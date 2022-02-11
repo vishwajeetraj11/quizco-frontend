@@ -14,7 +14,9 @@ ReactDOM.render(
     <SnackbarProvider maxSnack={3}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
+          {/* <StylesProvider injectFirst> */}
           <App />
+          {/* </StylesProvider> */}
           <ReactQueryDevtools initialIsOpen={false} />
         </BrowserRouter>
       </QueryClientProvider>
