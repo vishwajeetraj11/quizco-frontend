@@ -21,6 +21,7 @@ export const QueryFactory = (queryKey: QueryKey, url: string, options?: UseQuery
             )
         }, {
         refetchOnWindowFocus: false,
+        retry: false,
         ...options
     }
     )
