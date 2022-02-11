@@ -1,6 +1,8 @@
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { EmptyResponse } from "../components/EmptyResponse";
+import { ErrorMessage } from "../components/ErrorMessage";
 import { FinishQuiz } from "../components/FinishQuiz";
 import { Player } from "../components/Player";
 import { Sidebar } from "../components/Sidebar";
@@ -17,12 +19,21 @@ interface Props {}
 
 export const PlayerScreen: React.FC<Props> = () => {
   const params = useParams() as { id: string };
-  const { isLoading, isFetching, data } = useQuizQuestions(params.id, {
+  const { isLoading, isFetching, data, error } = useQuizQuestions(params.id, {
     staleTime: Infinity,
   });
 
-  const { isLoading: isQuizCorrectAnsLoading, data: quizCorrectAnsData } =
-    useQuizQuestionCorrectAns(params.id);
+  const [fetchCorrectAns, setFetchCorrectAns] = useState(false);
+
+  const { isLoading: isQuizCorrectAnsLoading } = useQuizQuestionCorrectAns(
+    params.id,
+    {
+      enabled: fetchCorrectAns,
+      onSuccess: (quizCorrectAnsData) => {
+        findScore(quizCorrectAnsData);
+      },
+    }
+  );
 
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [response, setResponse] = useState<IResponse[] | []>([]);
@@ -30,14 +41,17 @@ export const PlayerScreen: React.FC<Props> = () => {
   const [quizEnd, setQuizEnd] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const { enqueueSnackbar } = useSnackbar();
-  const {
-    mutateAsync,
-    reset,
-    isLoading: isSaveScoreLoading,
-  } = useSaveScore(params.id);
+  const { mutateAsync, isLoading: isSaveScoreLoading } = useSaveScore(
+    params.id
+  );
 
   const onSubmit = () => {
+    setFetchCorrectAns(true);
+  };
+
+  const findScore = (quizCorrectAnsData: any) => {
     setQuizEnd(true);
+
     let score = 0;
 
     const responseWithAns: any = response.map((resp, index) =>
@@ -80,6 +94,22 @@ export const PlayerScreen: React.FC<Props> = () => {
 
     setResponse(response);
   }, [data?.questions]);
+
+  if (error?.response?.status) {
+    return (
+      <ErrorMessage
+        message={error.response.data.message}
+        statusCode={error.response.status}
+      />
+    );
+  }
+  if (data?.questions.length === 0) {
+    return (
+      <div className="mt-10">
+        <EmptyResponse resource="Quiz Questions" />
+      </div>
+    );
+  }
 
   return isLoading || isFetching ? (
     <Loader halfScreen />
