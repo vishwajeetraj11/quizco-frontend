@@ -50,7 +50,11 @@ export const QuizCard: React.FC<Props> = ({
       )}
       <p className="font-semibold">{title}</p>
       <p className="mt-4">{description}</p>
-      {(score === 0 || score) && <p>Score : {score}</p>}
+      {(score === 0 || score) && (
+        <p className="absolute px-3 py-0.5 bottom-5 right-5 text-xs rounded-md font-medium text-white bg-emerald-500">
+          Score : {score}
+        </p>
+      )}
       <div className="flex mt-4">
         {tags.map((tag, i) => (
           <p
