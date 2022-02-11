@@ -10,8 +10,12 @@ interface Props {}
 export const UpdateQuiz: React.FC<Props> = () => {
   const { id } = useParams() as { id: string };
   const { mutateAsync, reset } = useUpdateQuiz(id);
-  const { data, isLoading, isFetching, isSuccess } = useQuiz(id);
+  const { data, isLoading, isFetching, isSuccess, error } = useQuiz(id);
   const { id: userId } = useUser();
+
+  if (error?.response?.status) {
+    return <ErrorMessage statusCode={error.response.status} />;
+  }
 
   if (isSuccess && data?.quiz.author !== userId) {
     return <ErrorMessage statusCode={403} />;
