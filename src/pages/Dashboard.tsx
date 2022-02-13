@@ -99,6 +99,14 @@ export const Dashboard: React.FC<Props> = () => {
             {selectedQuiz && (
               <div className="flex">
                 <div className="mr-4">
+                  <Button
+                    onClick={() => navigate(`/statistics/${selectedQuiz._id}`)}
+                    className="mr-6"
+                  >
+                    Statistics
+                  </Button>
+                </div>
+                <div className="mr-4">
                   <Button onClick={onUpdate} className="mr-6">
                     Update
                   </Button>
@@ -129,7 +137,7 @@ export const Dashboard: React.FC<Props> = () => {
         <div
           className="grid gap-7 mt-10 grid-flow-row"
           style={{
-            gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
           }}
         >
           {data?.quizes.map((quiz: IQuiz) => (

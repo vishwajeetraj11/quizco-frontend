@@ -71,7 +71,7 @@ export const PlayerScreen: React.FC<Props> = () => {
     setScore(score);
 
     mutateAsync(
-      { body: { score } },
+      { body: { score, responses: responseWithAns } },
       {
         onError: () => {
           enqueueSnackbar(errorMessages.default);
@@ -88,7 +88,10 @@ export const PlayerScreen: React.FC<Props> = () => {
 
   useEffect(() => {
     const response = data?.questions.map((question: IQuestion) => ({
-      ...question,
+      _id: question._id,
+      title: question.title,
+      quiz: question.quiz,
+      options: question.options,
       response: "",
     }));
 
@@ -131,7 +134,7 @@ export const PlayerScreen: React.FC<Props> = () => {
               <div className="min-h-[8%] border-b border-t border-gray-300 flex px-4 py-4 justify-between">
                 <p className="mt-auto">Question {activeIndex + 1}</p>
                 {!quizEnd && (
-                  <div className="flex items-center">
+                  <div className="flex items-center mt-auto">
                     <p className="mr-4">
                       {response?.filter((resp) => resp.response !== "").length}{" "}
                       / {data?.questions.length} Completed

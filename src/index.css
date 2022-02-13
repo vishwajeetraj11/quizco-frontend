@@ -25,6 +25,25 @@
   src: url("./assets/fonts/CircularStd-Medium.otf");
 }
 
+.ag-theme-alpine > * {
+  font-family: "Inter", sans-serif;
+}
+
+.ag-header-cell-text {
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+
+.ag-theme-alpine .ag-root-wrapper {
+  border: solid 1px !important;
+  border-color: #eaeaea !important;
+  border-radius: 6px !important;
+}
+
+.ag-theme-alpine .ag-header {
+  border-bottom: none !important;
+}
+
 body {
   margin: 0;
   font-family: CircularStd-Book, -apple-system, BlinkMacSystemFont, Segoe UI,

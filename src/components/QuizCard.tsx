@@ -5,6 +5,7 @@ interface Props extends IQuiz {
   onSelect?: () => void;
   score?: number;
   deleted?: boolean;
+  redirect?: string;
 }
 
 export const QuizCard: React.FC<Props> = ({
@@ -16,6 +17,7 @@ export const QuizCard: React.FC<Props> = ({
   status,
   score,
   deleted,
+  redirect,
 }) => {
   const isDashboardPage = useMatch("/dashboard");
   const navigate = useNavigate();
@@ -26,6 +28,8 @@ export const QuizCard: React.FC<Props> = ({
           ? onSelect()
           : deleted
           ? () => null
+          : redirect
+          ? navigate(redirect)
           : navigate(`/quizes/${_id}`)
       }
       className={`${

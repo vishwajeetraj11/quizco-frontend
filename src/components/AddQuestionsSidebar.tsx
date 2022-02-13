@@ -16,7 +16,7 @@ export const AddQuestionsSidebar: React.FC<Props> = ({
   questions,
   //   activeIndex,
 }) => {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
   const [showQuestions, setShowQuestions] = useState(false);
   const [expandQuestion, setExpandQuestion] = useState("");
 
@@ -49,6 +49,7 @@ export const AddQuestionsSidebar: React.FC<Props> = ({
         {questions?.map((question, index) => (
           <SidebarQuestion
             setExpandQuestion={setExpandQuestion}
+            setExpanded={setExpanded}
             expandQuestion={expandQuestion}
             question={question}
             key={index}
@@ -69,6 +70,7 @@ interface SidebarProps {
   question: IQuestion;
   expandQuestion: string;
   setExpandQuestion: React.Dispatch<React.SetStateAction<string>>;
+  setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SidebarQuestion: React.FC<SidebarProps> = ({
@@ -78,6 +80,7 @@ const SidebarQuestion: React.FC<SidebarProps> = ({
   question,
   setExpandQuestion,
   expandQuestion,
+  setExpanded,
 }) => {
   const { id } = useParams() as { id: string };
   const { mutate, reset } = useDeleteQuestion(id, question._id);
@@ -86,11 +89,14 @@ const SidebarQuestion: React.FC<SidebarProps> = ({
   return (
     <div
       className={`rounded-md py-3${
-        expandQuestion === question._id ? " bg-gray-100" : ""
+        expanded && expandQuestion === question._id ? " bg-gray-100" : ""
       } mb-4`}
     >
       <div
-        onClick={() => setExpandQuestion(question._id)}
+        onClick={() => {
+          setExpanded(true);
+          setExpandQuestion(question._id);
+        }}
         className={`transition-all duration-300 cursor-pointer flex`}
       >
         <p
@@ -106,38 +112,42 @@ const SidebarQuestion: React.FC<SidebarProps> = ({
           </p>
         )}
       </div>
-      <div
-        className="transition-all duration-800 overflow-hidden flex"
-        style={{ maxHeight: expandQuestion === question._id ? "60px" : 0 }}
-      >
-        <div className="flex ml-auto">
-          <div
-            onClick={async () => {
-              mutate(
-                {},
-                {
-                  onError: () => {},
-                  onSettled: () => {
-                    reset();
-                  },
-                  onSuccess: () => {
-                    queryClient.invalidateQueries(["Quiz Questions", id]);
-                  },
-                }
-              );
-            }}
-            className="p-2 bg-indigo-600 rounded-full mr-4 cursor-pointer"
-          >
-            <AiFillDelete fill="#fff" size={16} />
-          </div>
-          <div
-            onClick={() => navigate(`/quizes/${id}/questions/${question._id}`)}
-            className="p-2 bg-indigo-600 rounded-full mr-4 cursor-pointer"
-          >
-            <AiFillEdit fill="#fff" size={16} />
+      {expanded && (
+        <div
+          className="transition-all duration-800 overflow-hidden flex"
+          style={{ maxHeight: expandQuestion === question._id ? "60px" : 0 }}
+        >
+          <div className="flex ml-auto">
+            <div
+              onClick={async () => {
+                mutate(
+                  {},
+                  {
+                    onError: () => {},
+                    onSettled: () => {
+                      reset();
+                    },
+                    onSuccess: () => {
+                      queryClient.invalidateQueries(["Quiz Questions", id]);
+                    },
+                  }
+                );
+              }}
+              className="p-2 bg-indigo-600 rounded-full mr-4 cursor-pointer"
+            >
+              <AiFillDelete fill="#fff" size={16} />
+            </div>
+            <div
+              onClick={() =>
+                navigate(`/quizes/${id}/questions/${question._id}`)
+              }
+              className="p-2 bg-indigo-600 rounded-full mr-4 cursor-pointer"
+            >
+              <AiFillEdit fill="#fff" size={16} />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

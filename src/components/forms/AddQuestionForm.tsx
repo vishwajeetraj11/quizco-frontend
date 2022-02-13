@@ -10,8 +10,11 @@ interface Props {}
 
 export const AddQuestionForm: React.FC<Props> = () => {
   const { id: quizId } = useParams() as { id: string };
-  const { mutate: createQuestionMutate, reset: createQuestionReset } =
-    useCreateQuestion(quizId);
+  const {
+    mutate: createQuestionMutate,
+    reset: createQuestionReset,
+    isLoading,
+  } = useCreateQuestion(quizId);
 
   const queryClient = useQueryClient();
 
@@ -24,24 +27,57 @@ export const AddQuestionForm: React.FC<Props> = () => {
       }}
       validationSchema={AddEditQuestionValidation}
       onSubmit={async (values, { setSubmitting, setFieldError }) => {
-        setSubmitting(true);
+        try {
+          setSubmitting(true);
 
-        createQuestionMutate(
-          { body: values },
-          {
-            onSuccess: () => {
-              queryClient.invalidateQueries(["Quiz Questions", quizId]);
-            },
-            onError: () => {},
-            onSettled: () => {
-              createQuestionReset();
-              setSubmitting(false);
-            },
-          }
-        );
+          const maping: { [key: string]: number[] } = {};
+
+          values.options.forEach((option1, i1) => {
+            let flag = 0;
+            const option1Indices: number[] = [];
+            values.options.forEach((option2, i2) => {
+              if (option1.value === option2.value) {
+                flag++;
+                option1Indices.push(i2);
+              }
+            });
+            if (flag > 1) {
+              maping[option1.value] = option1Indices;
+            }
+          });
+
+          const errors = Object.entries(maping);
+
+          errors.forEach((element) => {
+            element[1].forEach((index) =>
+              setFieldError(
+                `options.${index}.value`,
+                "Duplicate option are not allowed."
+              )
+            );
+          });
+
+          if (errors.length) throw Error("DUPLICATE_OPTION");
+
+          createQuestionMutate(
+            { body: values },
+            {
+              onSuccess: () => {
+                queryClient.invalidateQueries(["Quiz Questions", quizId]);
+              },
+              onError: () => {},
+              onSettled: () => {
+                createQuestionReset();
+              },
+            }
+          );
+        } catch (e) {
+        } finally {
+          setSubmitting(false);
+        }
       }}
     >
-      <AddEditQuestionFormFields />
+      <AddEditQuestionFormFields isLoading={isLoading} />
     </Formik>
   );
 };

@@ -23,8 +23,11 @@ export const UpdateQuestionForm: React.FC<Props> = ({
     quizId: string;
     questionId: string;
   };
-  const { mutate: updateQuestionMutate, reset: updateQuestionReset } =
-    useUpdateQuestion(quizId, id);
+  const {
+    mutate: updateQuestionMutate,
+    reset: updateQuestionReset,
+    isLoading,
+  } = useUpdateQuestion(quizId, id);
 
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -61,7 +64,7 @@ export const UpdateQuestionForm: React.FC<Props> = ({
         );
       }}
     >
-      <AddEditQuestionFormFields />
+      <AddEditQuestionFormFields isLoading={isLoading} />
     </Formik>
   );
 };

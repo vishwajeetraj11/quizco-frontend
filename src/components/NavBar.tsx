@@ -5,8 +5,8 @@ interface Props {}
 
 export const NavBar: React.FC<Props> = () => {
   return (
-    <div className="px-10 py-4 flex items-center h-[8%]">
-      <h3 className="font-semibold text-gray-888 text-xl">Quizco</h3>
+    <div className="px-4 sm:px-10 py-4 flex items-center h-[8%]">
+      <h3 className="font-semibold text-gray-888 text-xs sm:text-xl">Quizco</h3>
       <div className="ml-auto flex items-center">
         <SignedOut>
           <a
@@ -26,12 +26,12 @@ export const NavBar: React.FC<Props> = () => {
 
         <SignedIn>
           <Link to="/quizes" className="">
-            <p className="text-default text-xs md:text-sm cursor-pointer lg:px-4">
+            <p className="text-default text-xs sm:text-sm cursor-pointer px-4">
               Quizes
             </p>
           </Link>
           <Link to="/dashboard">
-            <p className="text-default text-xs md:text-sm cursor-pointer lg:px-4">
+            <p className="text-default text-xs sm:text-sm cursor-pointer px-4">
               Dashboard
             </p>
           </Link>

@@ -77,6 +77,8 @@ export const useQuizQuestions = (id: string, options?: UseQueryOptions<any, Axio
 export const useQuizQuestion = (quizId: string, questionId: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Quiz Question', quizId, questionId], endpoints.quizQuestionById(quizId, questionId), options);
 export const useQuizQuestionCorrectAns = (quizId: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Quiz Question Correct', quizId], endpoints.quizQuestionsCorrectAns(quizId), options);
 export const useMyAttempts = (options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['My Attempts'], endpoints.attempts, options);
+export const useMyAttemptById = (id: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Attempts', id], endpoints.attemptsById(id), options);
+export const useStatsByQuizId = (id: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Statistics', id], endpoints.statsByQuizId(id), options);
 
 
 export const useCreateQuiz = (options?: MutationOptions) => MutationFactory('Create Quiz', endpoints.quizes, 'POST', options)

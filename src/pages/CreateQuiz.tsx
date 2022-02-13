@@ -8,7 +8,7 @@ export const CreateQuiz: React.FC<Props> = () => {
   return (
     <div>
       <h2 className="text-2xl font-medium text-center">Create a Quiz</h2>
-      <div className="mx-auto w-6/12">
+      <div className="mx-auto w-6/12 mt-10">
         <QuizForm
           redirect="/dashboard"
           mutateAsync={mutateAsync}

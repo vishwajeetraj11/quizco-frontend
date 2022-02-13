@@ -1,3 +1,6 @@
+import { MuiThemeProvider } from "@material-ui/core";
+import "ag-grid-community/dist/styles/ag-grid.css";
+import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import { SnackbarProvider } from "notistack";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -6,6 +9,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
+import { theme } from "./shared/theme";
 
 const queryClient = new QueryClient();
 
@@ -15,7 +19,9 @@ ReactDOM.render(
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           {/* <StylesProvider injectFirst> */}
-          <App />
+          <MuiThemeProvider theme={theme}>
+            <App />
+          </MuiThemeProvider>
           {/* </StylesProvider> */}
           <ReactQueryDevtools initialIsOpen={false} />
         </BrowserRouter>
