@@ -9,6 +9,7 @@ interface IProps {
 export const ErrorMessage: React.FC<IProps> = ({ statusCode, message }) => {
   const notFound = statusCode === 404;
   const auth403 = statusCode === 403;
+  // const serviceUnavailable = statusCode === 503; // Heroku
 
   return (
     <div className="flex flex-col items-center justify-center min-h-1/2">

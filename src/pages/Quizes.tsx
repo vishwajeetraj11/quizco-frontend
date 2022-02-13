@@ -14,7 +14,12 @@ export const Quizes = () => {
       {isLoading ? (
         <Loader halfScreen />
       ) : data?.quizes.length > 0 ? (
-        <div className="grid grid-cols-3 gap-7 mt-10">
+        <div
+          className="grid gap-7 mt-10 grid-flow-row"
+          style={{
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+          }}
+        >
           {data?.quizes.map((quiz: IQuiz) => (
             <QuizCard key={quiz._id} {...quiz} />
           ))}

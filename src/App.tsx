@@ -10,8 +10,10 @@ import { AddQuestions } from "./pages/AddQuestions";
 import { Attempts } from "./pages/Attempts";
 import { CreateQuiz } from "./pages/CreateQuiz";
 import { Dashboard } from "./pages/Dashboard";
+import { MyQuizResponse } from "./pages/MyQuizResponse";
 import { PlayerScreen } from "./pages/PlayerScreen";
 import { Quizes } from "./pages/Quizes";
+import { StatisticsByQuiz } from "./pages/stats/StatisticsByQuiz";
 import { UpdateQuestion } from "./pages/UpdateQuestion";
 import { UpdateQuiz } from "./pages/UpdateQuiz";
 
@@ -27,6 +29,11 @@ function App() {
             <Route path="/quizes" element={<Quizes />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/attempts" element={<Attempts />} />
+            <Route
+              path="/dashboard/attempts/:attemptId"
+              element={<MyQuizResponse />}
+            />
+            <Route path="/statistics/:quizId" element={<StatisticsByQuiz />} />
             <Route path="/quizes/add" element={<CreateQuiz />} />
             <Route path="/quizes/:id" element={<PlayerScreen />} />
             <Route path="/quizes/:id/update" element={<UpdateQuiz />} />

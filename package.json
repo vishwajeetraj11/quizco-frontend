@@ -12,6 +12,8 @@
     "@types/node": "^16.11.19",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
+    "ag-grid-community": "^27.0.1",
+    "ag-grid-react": "^27.0.1",
     "axios": "^0.25.0",
     "formik": "^2.2.9",
     "material-ui-chip-input": "^2.0.0-beta.2",

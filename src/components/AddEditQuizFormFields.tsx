@@ -25,10 +25,10 @@ export const AddEditQuizFormFields = ({ id }: { id?: string }) => {
           helperText={touched.title && errors.title}
           id="title"
           label="Title"
-          variant="standard"
+          variant="outlined"
         />
       </div>
-      <div className="mt-4">
+      <div className="mt-6">
         <TextField
           fullWidth
           value={values.description}
@@ -38,11 +38,11 @@ export const AddEditQuizFormFields = ({ id }: { id?: string }) => {
           helperText={touched.description && errors.description}
           id="description"
           label="Description"
-          variant="standard"
+          variant="outlined"
         />
       </div>
       {id && (
-        <div className="mt-5">
+        <div className="mt-6">
           <FormControl fullWidth>
             <InputLabel id="status-label">Status</InputLabel>
             <Select
@@ -65,10 +65,11 @@ export const AddEditQuizFormFields = ({ id }: { id?: string }) => {
               </FormHelperText> */}
         </div>
       )}
-      <div className="mt-4">
+      <div className="mt-6">
         <ChipInput
           label="Tags"
           fullWidth
+          variant="outlined"
           className="mt-6 mr-10"
           placeholder="Enter tags and hit ENTER"
           allowDuplicates={false}
