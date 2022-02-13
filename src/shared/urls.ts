@@ -8,5 +8,7 @@ export const endpoints = {
     quizQuestionById: (quizId: string, questionId: string) => `${baseURL}/quizes/${quizId}/questions/${questionId}`,
     quizQuestionsCorrectAns: (quizId: string) => `${baseURL}/quizes/${quizId}/questions/correct`,
     saveScore: (quizId: string) => `${baseURL}/quizes/${quizId}/attempts/save-score`,
-    attempts: `${baseURL}/quizes/attempts`
+    attempts: `${baseURL}/quizes/attempts`,
+    attemptsById: (attemptId: string) => `${baseURL}/quizes/attempts/${attemptId}`,
+    statsByQuizId: (quizId: string) => `${baseURL}/quizes/statistics/${quizId}`
 }
