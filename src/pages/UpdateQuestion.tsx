@@ -15,7 +15,9 @@ export const UpdateQuestion: React.FC<Props> = () => {
 
   return (
     <div>
-      <h3 className="text-xl font-semibold text-center">Update Question</h3>
+      <h3 className="text-xl font-semibold text-center mb-10">
+        Update Question
+      </h3>
       <div className="mx-auto w-6/12">
         {isLoading ? (
           <>

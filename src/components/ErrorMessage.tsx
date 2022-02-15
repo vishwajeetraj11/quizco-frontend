@@ -1,14 +1,21 @@
 import SadFace from "../assets/illustations/500.png";
 import { errorMessages } from "../shared/constants";
 import HandStop from "./../assets/illustations/403.png";
+import Response404 from "./../assets/illustations/404.png";
 interface IProps {
   statusCode: number;
   message?: string | undefined;
+  resource?: "Quiz" | "Question" | "Attempt";
 }
 
-export const ErrorMessage: React.FC<IProps> = ({ statusCode, message }) => {
+export const ErrorMessage: React.FC<IProps> = ({
+  statusCode,
+  message,
+  resource,
+}) => {
   const notFound = statusCode === 404;
   const auth403 = statusCode === 403;
+
   // const serviceUnavailable = statusCode === 503; // Heroku
 
   return (
@@ -16,7 +23,17 @@ export const ErrorMessage: React.FC<IProps> = ({ statusCode, message }) => {
       {notFound ? (
         <>
           <div className="mb-4"></div>
-          <p>{errorMessages.notFound()}</p>
+          <p></p>
+          <div className="max-w-md mx-auto">
+            <img
+              src={Response404}
+              className="w-full h-full overflow-hidden"
+              alt="Hand Stop Illustration"
+            />
+          </div>
+          <p className="text-xl font-semibold text-slate-600 mt-10">
+            {message || errorMessages.notFound(resource)}
+          </p>
         </>
       ) : auth403 ? (
         <>

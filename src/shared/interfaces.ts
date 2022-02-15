@@ -46,3 +46,33 @@ export interface IAttempt {
     score: number;
     quiz: IQuiz
 }
+
+export interface IStatsByQuiz {
+    attempt: {
+        createdAt: Date,
+        id: string,
+        _id: string,
+        score: number;
+        quiz: {
+            description: string;
+            createdAt: string;
+            author: string;
+            id: string;
+            status: string;
+            tags: string[];
+            title: string;
+            updatedAt: Date;
+        }
+    };
+    maxAttempts: {
+        userId: string;
+        val: number;
+    };
+    user: {
+        email: string;
+        firstName: string;
+        lastName: string;
+        photo: string;
+        userId: string
+    }
+}

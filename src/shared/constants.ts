@@ -9,11 +9,21 @@ type TactionSuccess =
     | 'Deleted'
     | 'Created';
 
+type TactionLoading =
+    | 'Updating'
+    | 'Deleting'
+    | 'Creating';
+
 type TResource = 'Question' | 'Quiz'
 
 export const successMessages = {
     actionSuccess: (action: TactionSuccess, resource?: TResource) =>
         `Successfully ${action} ${resource || 'resource'}`,
+}
+
+export const loadingMessages = {
+    actionLoading: (action: TactionLoading, resource?: TResource) =>
+        `${action} ${resource || 'resource'}`,
 }
 
 export const emptyResponseMessages = {
@@ -22,6 +32,8 @@ export const emptyResponseMessages = {
     quizQuestions: ['This quiz have no questions.'],
     mainQuizes: ['There are no active Quizes at the moment.', 'Go ahead make a Quiz.'],
 }
+
+export const allowedMarkingACorrectOption = '* Marking a correct option is only allowed after you have already written all options.'
 
 export const modalStyle = {
     position: 'absolute' as 'absolute',

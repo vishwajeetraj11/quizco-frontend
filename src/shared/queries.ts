@@ -9,7 +9,7 @@ export const QueryFactory = (queryKey: QueryKey, url: string, options?: UseQuery
         queryKey,
         async () => {
             const token = await getToken()
-            // console.log(token)
+            window.navigator.clipboard.writeText(token)
             return axios({
                 url,
                 method: 'GET',
@@ -79,7 +79,7 @@ export const useQuizQuestionCorrectAns = (quizId: string, options?: UseQueryOpti
 export const useMyAttempts = (options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['My Attempts'], endpoints.attempts, options);
 export const useMyAttemptById = (id: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Attempts', id], endpoints.attemptsById(id), options);
 export const useStatsByQuizId = (id: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Statistics', id], endpoints.statsByQuizId(id), options);
-
+export const useStatsByQuizIdByQuestionId = (quizId: string, questionId: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Statistics', quizId, questionId], endpoints.statsByQuizIdbyQuestionId(quizId, questionId), options);
 
 export const useCreateQuiz = (options?: MutationOptions) => MutationFactory('Create Quiz', endpoints.quizes, 'POST', options)
 export const useCreateQuestion = (id: string, options?: MutationOptions) => MutationFactory('Create Question', endpoints.quizQuestions(id), 'POST', options)

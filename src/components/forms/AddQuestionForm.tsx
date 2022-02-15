@@ -1,6 +1,12 @@
 import { Formik } from "formik";
+import { useSnackbar } from "notistack";
 import { useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
+import {
+  errorMessages,
+  loadingMessages,
+  successMessages,
+} from "../../shared/constants";
 import { IQuestionForm } from "../../shared/interfaces";
 import { useCreateQuestion } from "../../shared/queries";
 import { AddEditQuestionValidation } from "../../shared/validationSchema";
@@ -18,6 +24,8 @@ export const AddQuestionForm: React.FC<Props> = () => {
 
   const queryClient = useQueryClient();
 
+  const { enqueueSnackbar } = useSnackbar();
+
   return (
     <Formik<IQuestionForm>
       initialValues={{
@@ -26,7 +34,7 @@ export const AddQuestionForm: React.FC<Props> = () => {
         options: [{ value: "" }, { value: "" }, { value: "" }, { value: "" }],
       }}
       validationSchema={AddEditQuestionValidation}
-      onSubmit={async (values, { setSubmitting, setFieldError }) => {
+      onSubmit={async (values, { setSubmitting, setFieldError, resetForm }) => {
         try {
           setSubmitting(true);
 
@@ -58,14 +66,27 @@ export const AddQuestionForm: React.FC<Props> = () => {
           });
 
           if (errors.length) throw Error("DUPLICATE_OPTION");
+          enqueueSnackbar(
+            loadingMessages.actionLoading("Creating", "Question"),
+            {
+              variant: "info",
+            }
+          );
 
           createQuestionMutate(
             { body: values },
             {
               onSuccess: () => {
                 queryClient.invalidateQueries(["Quiz Questions", quizId]);
+                enqueueSnackbar(
+                  successMessages.actionSuccess("Created", "Question"),
+                  { variant: "success" }
+                );
+                resetForm();
               },
-              onError: () => {},
+              onError: () => {
+                enqueueSnackbar(errorMessages.default, { variant: "error" });
+              },
               onSettled: () => {
                 createQuestionReset();
               },

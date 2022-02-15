@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ErrorMessage } from "../components/ErrorMessage";
-import { FinishQuiz } from "../components/FinishQuiz";
+import { ShowResponses } from "../components/FinishQuiz";
 import { Loader } from "../components/Svgs";
 import { useMyAttemptById } from "../shared/queries";
 
@@ -17,7 +17,6 @@ export const MyQuizResponse: React.FC<Props> = () => {
   useEffect(() => {
     if (isSuccess) {
       setScore(data?.attempt.score);
-      console.log(data.responses);
       setRespWithCorrectAns(
         data?.responses.map((resp: any) => {
           return {
@@ -34,7 +33,9 @@ export const MyQuizResponse: React.FC<Props> = () => {
   }, [data?.attempt.score, data?.responses, isSuccess]);
 
   if (error?.response?.status) {
-    return <ErrorMessage statusCode={error.response.status} />;
+    return (
+      <ErrorMessage resource="Attempt" statusCode={error.response.status} />
+    );
   }
 
   return (
@@ -44,7 +45,11 @@ export const MyQuizResponse: React.FC<Props> = () => {
       ) : (
         <>
           {data?.responses && (
-            <FinishQuiz score={score} responses={respWithCorrectAns} />
+            <ShowResponses
+              as="AUTHOR_CHECK_RESPONSE"
+              score={score}
+              responses={respWithCorrectAns}
+            />
           )}
         </>
       )}

@@ -7,11 +7,11 @@ export const AddEditQuizValidation = Yup.object().shape({
 });
 
 export const AddEditQuestionValidation = Yup.object().shape({
-    title: Yup.string().required('Required.'),
-    correct: Yup.string().required('Required.'),
+    title: Yup.string().required('Title is required.'),
+    correct: Yup.string().required('Correct Option is Required.'),
     options: Yup.array().of(
         Yup.object().shape({
-            value: Yup.string().required('Required'),
+            value: Yup.string().required('Required.'),
         })
     ),
 })

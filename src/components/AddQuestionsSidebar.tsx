@@ -1,8 +1,14 @@
+import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { BsLayoutSidebarInset } from "react-icons/bs";
 import { useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
+import {
+  errorMessages,
+  loadingMessages,
+  successMessages,
+} from "../shared/constants";
 import { IQuestion } from "../shared/interfaces";
 import { useDeleteQuestion } from "../shared/queries";
 
@@ -86,6 +92,32 @@ const SidebarQuestion: React.FC<SidebarProps> = ({
   const { mutate, reset } = useDeleteQuestion(id, question._id);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const onDeleteQuestion = async () => {
+    enqueueSnackbar(loadingMessages.actionLoading("Deleting", "Question"), {
+      variant: "info",
+    });
+    mutate(
+      {},
+      {
+        onError: () => {
+          enqueueSnackbar(errorMessages.default, { variant: "error" });
+        },
+        onSettled: () => {
+          reset();
+        },
+        onSuccess: () => {
+          queryClient.invalidateQueries(["Quiz Questions", id]);
+          enqueueSnackbar(
+            successMessages.actionSuccess("Deleted", "Question"),
+            { variant: "success" }
+          );
+        },
+      }
+    );
+  };
+
   return (
     <div
       className={`rounded-md py-3${
@@ -119,20 +151,7 @@ const SidebarQuestion: React.FC<SidebarProps> = ({
         >
           <div className="flex ml-auto">
             <div
-              onClick={async () => {
-                mutate(
-                  {},
-                  {
-                    onError: () => {},
-                    onSettled: () => {
-                      reset();
-                    },
-                    onSuccess: () => {
-                      queryClient.invalidateQueries(["Quiz Questions", id]);
-                    },
-                  }
-                );
-              }}
+              onClick={onDeleteQuestion}
               className="p-2 bg-indigo-600 rounded-full mr-4 cursor-pointer"
             >
               <AiFillDelete fill="#fff" size={16} />
