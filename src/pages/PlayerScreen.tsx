@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { EmptyResponse } from "../components/EmptyResponse";
 import { ErrorMessage } from "../components/ErrorMessage";
-import { FinishQuiz } from "../components/FinishQuiz";
+import { ShowResponses } from "../components/FinishQuiz";
 import { Player } from "../components/Player";
 import { Sidebar } from "../components/Sidebar";
 import { Loader } from "../components/Svgs";
@@ -74,10 +74,10 @@ export const PlayerScreen: React.FC<Props> = () => {
       { body: { score, responses: responseWithAns } },
       {
         onError: () => {
-          enqueueSnackbar(errorMessages.default);
+          enqueueSnackbar(errorMessages.default, { variant: "error" });
         },
         onSuccess: () => {
-          enqueueSnackbar("Score Saved.");
+          enqueueSnackbar("Score Saved.", { variant: "success" });
         },
         onSettled: () => {
           // reset();
@@ -132,10 +132,12 @@ export const PlayerScreen: React.FC<Props> = () => {
             />
             <div className="flex-1  overflow-y-auto">
               <div className="min-h-[8%] border-b border-t border-gray-300 flex px-4 py-4 justify-between">
-                <p className="mt-auto">Question {activeIndex + 1}</p>
+                <p className="mt-auto hidden sm:block">
+                  Question {activeIndex + 1}
+                </p>
                 {!quizEnd && (
-                  <div className="flex items-center mt-auto">
-                    <p className="mr-4">
+                  <div className="flex items-center justify-center flex-col sm:flex-row mt-auto">
+                    <p className="sm:mr-4 mb-3 sm:mb-0">
                       {response?.filter((resp) => resp.response !== "").length}{" "}
                       / {data?.questions.length} Completed
                     </p>
@@ -181,7 +183,11 @@ export const PlayerScreen: React.FC<Props> = () => {
             {isQuizCorrectAnsLoading || isSaveScoreLoading ? (
               <Loader halfScreen />
             ) : (
-              <FinishQuiz score={score} responses={respWithCorrectAns} />
+              <ShowResponses
+                as="AFTER_QUIZ_RESPONSE"
+                score={score}
+                responses={respWithCorrectAns}
+              />
             )}
           </>
         )}

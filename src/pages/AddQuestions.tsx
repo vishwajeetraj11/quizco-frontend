@@ -25,7 +25,7 @@ export const AddQuestions: React.FC<Props> = () => {
       <div className="min-h-[95%] border-t flex flex-row flex-1 overflow-y-auto">
         <AddQuestionsSidebar questions={data?.questions} />
         <div className="flex-1 overflow-y-auto">
-          <div className="min-h-[8%]  border-b border-gray-200 flex px-4 py-4 justify-between">
+          <div className="min-h-[8%]  border-b border-gray-200 flex pl-4 mr-10 py-4 justify-between">
             <p className="mt-auto">Add Question</p>
             <div className="flex items-center">
               <p className="mr-4">{data?.questions.length} / 20 Completed</p>

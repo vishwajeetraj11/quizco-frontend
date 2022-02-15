@@ -23,7 +23,7 @@ export const UpdateQuiz: React.FC<Props> = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-medium text-center">Update a Quiz</h2>
+      <h2 className="text-2xl font-medium text-center mb-10">Update a Quiz</h2>
       {isLoading || isFetching ? (
         <Loader halfScreen />
       ) : (

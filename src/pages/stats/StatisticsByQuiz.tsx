@@ -1,7 +1,8 @@
 import { ColDef, ICellRendererParams } from "ag-grid-community";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { GridWrapper } from "../../components/GridWrapper";
+import { IStatsByQuiz } from "../../shared/interfaces";
 import { useStatsByQuizId } from "../../shared/queries";
 
 interface Props {}
@@ -13,9 +14,11 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      const user = data.users.map((user: any) => {
+      const user = data.users.map((user: IStatsByQuiz) => {
         return {
           score: user.attempt.score,
+          attemptId: user.attempt._id,
+          quizId: user.attempt.quiz,
           ...user.user,
           maxAttempts: user.maxAttempts.val,
         };
@@ -29,6 +32,7 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
       headerName: "Photo",
       field: "photo",
       autoHeight: true,
+      minWidth: 80,
       cellRendererFramework: (params: ICellRendererParams) => (
         <div className="w-8 h-8 my-1 overflow-hidden">
           <img
@@ -59,6 +63,32 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
     {
       headerName: "Max Attempts",
       field: "maxAttempts",
+    },
+    {
+      headerName: "View Attempt",
+      cellRendererFramework: (params: ICellRendererParams) => (
+        <div>
+          <Link
+            className="text-indigo-600 hover:underline cursor-pointer"
+            to={`/dashboard/attempts/${params.data.attemptId}`}
+          >
+            View Attempt
+          </Link>
+        </div>
+      ),
+    },
+    {
+      headerName: "View Record",
+      cellRendererFramework: (params: ICellRendererParams) => (
+        <div>
+          <Link
+            className="text-indigo-600 ml-2 hover:underline cursor-pointer"
+            to={`/statistics/attempts/${params.data.attemptId}`}
+          >
+            View Record
+          </Link>
+        </div>
+      ),
     },
   ];
 

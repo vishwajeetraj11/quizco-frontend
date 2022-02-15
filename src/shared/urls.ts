@@ -10,5 +10,6 @@ export const endpoints = {
     saveScore: (quizId: string) => `${baseURL}/quizes/${quizId}/attempts/save-score`,
     attempts: `${baseURL}/quizes/attempts`,
     attemptsById: (attemptId: string) => `${baseURL}/quizes/attempts/${attemptId}`,
-    statsByQuizId: (quizId: string) => `${baseURL}/quizes/statistics/${quizId}`
+    statsByQuizId: (quizId: string) => `${baseURL}/quizes/statistics/${quizId}`,
+    statsByQuizIdbyQuestionId: (quizId: string, questionId: string) => `${baseURL}/quizes/statistics/${quizId}/questions/${questionId}`
 }

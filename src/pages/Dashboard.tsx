@@ -45,11 +45,13 @@ export const Dashboard: React.FC<Props> = () => {
       {},
       {
         onSuccess: () => {
-          enqueueSnackbar(successMessages.actionSuccess("Deleted", "Quiz"));
+          enqueueSnackbar(successMessages.actionSuccess("Deleted", "Quiz"), {
+            variant: "success",
+          });
           queryClient.invalidateQueries(["Quizes", "Current User"]);
         },
         onError: () => {
-          enqueueSnackbar(errorMessages.default);
+          enqueueSnackbar(errorMessages.default, { variant: "error" });
         },
         onSettled: () => {
           reset();
@@ -100,7 +102,9 @@ export const Dashboard: React.FC<Props> = () => {
               <div className="flex">
                 <div className="mr-4">
                   <Button
-                    onClick={() => navigate(`/statistics/${selectedQuiz._id}`)}
+                    onClick={() =>
+                      navigate(`/statistics/quiz/${selectedQuiz._id}`)
+                    }
                     className="mr-6"
                   >
                     Statistics
