@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { ShowResponses } from "../components/FinishQuiz";
 import { Loader } from "../components/Svgs";
@@ -7,12 +7,13 @@ import { useMyAttemptById } from "../shared/queries";
 
 interface Props {}
 
-export const MyQuizResponse: React.FC<Props> = () => {
+export const QuizResponse: React.FC<Props> = () => {
   const { attemptId } = useParams() as { attemptId: string };
   const { isLoading, isFetching, data, isSuccess, error } =
     useMyAttemptById(attemptId);
   const [score, setScore] = useState(0);
   const [respWithCorrectAns, setRespWithCorrectAns] = useState<any>([]);
+  const location = useLocation() as { state: { from: string } };
 
   useEffect(() => {
     if (isSuccess) {
@@ -46,7 +47,11 @@ export const MyQuizResponse: React.FC<Props> = () => {
         <>
           {data?.responses && (
             <ShowResponses
-              as="AUTHOR_CHECK_RESPONSE"
+              as={
+                location.state?.from === "STATISTICS"
+                  ? "AUTHOR_CHECK_RESPONSE"
+                  : "USER_CHECK_RESPONSE"
+              }
               score={score}
               responses={respWithCorrectAns}
             />

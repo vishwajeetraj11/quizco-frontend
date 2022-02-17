@@ -3,12 +3,13 @@ import { Option } from "./Option";
 interface Props {
   responses: any;
   score: number;
-  as: "AFTER_QUIZ_RESPONSE" | "AUTHOR_CHECK_RESPONSE";
+  as: "AFTER_QUIZ_RESPONSE" | "AUTHOR_CHECK_RESPONSE" | "USER_CHECK_RESPONSE";
 }
 
 export const ShowResponses: React.FC<Props> = ({ responses, score, as }) => {
   const AFTER_QUIZ_RESPONSE = as === "AFTER_QUIZ_RESPONSE";
   const AUTHOR_CHECK_RESPONSE = as === "AUTHOR_CHECK_RESPONSE";
+  const USER_CHECK_RESPONSE = as === "USER_CHECK_RESPONSE";
   return (
     <>
       <div className="flex flex-col items-center mt-10 w-full">
@@ -21,29 +22,35 @@ export const ShowResponses: React.FC<Props> = ({ responses, score, as }) => {
 
         <div className="mt-4 w-8/12">
           <div className="grid grid-cols-3 gap-x-7">
-            <p>Correct Answer</p>
-            <p>{AUTHOR_CHECK_RESPONSE ? "His" : "Your"} Response</p>
-            <p>{AUTHOR_CHECK_RESPONSE ? "He" : "You"} chose correct option</p>
+            {responses.length > 0 && (
+              <>
+                <p>Correct Answer</p>
+                <p>{AUTHOR_CHECK_RESPONSE ? "His" : "Your"} Response</p>
+                <p>
+                  {AUTHOR_CHECK_RESPONSE ? "He" : "You"} chose correct option
+                </p>
 
-            <Option
-              selectedOption={""}
-              correctAns={"Option"}
-              option={{ value: "Option" }}
-              disabled
-            />
-            <Option
-              selectedOption={"Option"}
-              correctAns={"Some Option"}
-              option={{ value: "Option" }}
-              disabled
-            />
+                <Option
+                  selectedOption={""}
+                  correctAns={"Option"}
+                  option={{ value: "Option" }}
+                  disabled
+                />
+                <Option
+                  selectedOption={"Option"}
+                  correctAns={"Some Option"}
+                  option={{ value: "Option" }}
+                  disabled
+                />
 
-            <Option
-              selectedOption={"Option"}
-              correctAns={"Option"}
-              option={{ value: "Option" }}
-              disabled
-            />
+                <Option
+                  selectedOption={"Option"}
+                  correctAns={"Option"}
+                  option={{ value: "Option" }}
+                  disabled
+                />
+              </>
+            )}
           </div>
           {responses.map((resp: any, i: number) => (
             <div className="mt-10 mb-20 shadow-sm" key={i}>
