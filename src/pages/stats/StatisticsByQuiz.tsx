@@ -1,6 +1,6 @@
 import { ColDef, ICellRendererParams } from "ag-grid-community";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GridWrapper } from "../../components/GridWrapper";
 import { IStatsByQuiz } from "../../shared/interfaces";
 import { useStatsByQuizId } from "../../shared/queries";
@@ -11,6 +11,7 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
   const { quizId } = useParams() as { quizId: string };
   const { isLoading, data, isSuccess } = useStatsByQuizId(quizId);
   const [list, setList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isSuccess) {
@@ -68,28 +69,32 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
       headerName: "View Attempt",
       cellRendererFramework: (params: ICellRendererParams) => (
         <div>
-          <Link
+          <p
+            onClick={() =>
+              navigate(`/dashboard/attempts/${params.data.attemptId}`, {
+                state: { from: "STATISTICS" },
+              })
+            }
             className="text-indigo-600 hover:underline cursor-pointer"
-            to={`/dashboard/attempts/${params.data.attemptId}`}
           >
             View Attempt
-          </Link>
+          </p>
         </div>
       ),
     },
-    {
-      headerName: "View Record",
-      cellRendererFramework: (params: ICellRendererParams) => (
-        <div>
-          <Link
-            className="text-indigo-600 ml-2 hover:underline cursor-pointer"
-            to={`/statistics/attempts/${params.data.attemptId}`}
-          >
-            View Record
-          </Link>
-        </div>
-      ),
-    },
+    // {
+    //   headerName: "View Record",
+    //   cellRendererFramework: (params: ICellRendererParams) => (
+    //     <div>
+    //       <Link
+    //         className="text-indigo-600 ml-2 hover:underline cursor-pointer"
+    //         to={`/statistics/attempts/${params.data.attemptId}`}
+    //       >
+    //         View Record
+    //       </Link>
+    //     </div>
+    //   ),
+    // },
   ];
 
   return (

@@ -10,9 +10,9 @@ import { AddQuestions } from "./pages/AddQuestions";
 import { Attempts } from "./pages/Attempts";
 import { CreateQuiz } from "./pages/CreateQuiz";
 import { Dashboard } from "./pages/Dashboard";
-import { MyQuizResponse } from "./pages/MyQuizResponse";
 import { PlayerScreen } from "./pages/PlayerScreen";
 import { Quizes } from "./pages/Quizes";
+import { QuizResponse } from "./pages/QuizResponse";
 import { StatisticsByQuiz } from "./pages/stats/StatisticsByQuiz";
 import { StatisticsByQuizByAttemptId } from "./pages/stats/StatisticsByQuizByUserId";
 import { StatisticsByQuizQuestionsId } from "./pages/stats/StatisticsByQuizQuestionsId";
@@ -33,7 +33,7 @@ function App() {
             <Route path="/dashboard/attempts" element={<Attempts />} />
             <Route
               path="/dashboard/attempts/:attemptId"
-              element={<MyQuizResponse />}
+              element={<QuizResponse />}
             />
             <Route
               path="/statistics/quiz/:quizId"
