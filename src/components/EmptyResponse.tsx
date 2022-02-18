@@ -1,4 +1,4 @@
-import EmptyMail from "../assets/illustations/404.png";
+import EmptyMail from "../assets/illustations/200_EMPTY_RESPONSE.png";
 import { emptyResponseMessages } from "../shared/constants";
 
 interface Props {

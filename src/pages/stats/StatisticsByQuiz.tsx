@@ -1,6 +1,6 @@
 import { ColDef, ICellRendererParams } from "ag-grid-community";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { GridWrapper } from "../../components/GridWrapper";
 import { IStatsByQuiz } from "../../shared/interfaces";
 import { useStatsByQuizId } from "../../shared/queries";
@@ -82,24 +82,16 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
         </div>
       ),
     },
-    // {
-    //   headerName: "View Record",
-    //   cellRendererFramework: (params: ICellRendererParams) => (
-    //     <div>
-    //       <Link
-    //         className="text-indigo-600 ml-2 hover:underline cursor-pointer"
-    //         to={`/statistics/attempts/${params.data.attemptId}`}
-    //       >
-    //         View Record
-    //       </Link>
-    //     </div>
-    //   ),
-    // },
   ];
 
   return (
-    // <div className="flex flex-col flex-1 overflow-y-hidden overflow-x-auto">
-    <GridWrapper loading={isLoading} colDefs={colDefs} list={list} />
-    // </div>
+    <div className="flex flex-col flex-1 overflow-y-hidden overflow-x-auto">
+      <div>
+        <Link to={`/statistics/${quizId}/questions/`}>View All Questions</Link>
+      </div>
+      <div style={{ height: "90vh" }}>
+        <GridWrapper loading={isLoading} colDefs={colDefs} list={list} />
+      </div>
+    </div>
   );
 };

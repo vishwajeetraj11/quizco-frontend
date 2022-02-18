@@ -68,7 +68,7 @@ export const GridWrapper: React.FC<Props> = ({
   }, [loading, gridApi, list.length]);
   return (
     <div
-      className={`ag-theme-alpine flex items-center justify-center flex-1 `}
+      className={`ag-theme-alpine flex items-center justify-center flex-1`}
       style={{ height: "90vh", width: "100%" }}
     >
       <AgGridReact

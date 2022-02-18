@@ -1,3 +1,4 @@
+import { useMediaQuery } from "@material-ui/core";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { BsLayoutSidebarInset } from "react-icons/bs";
 import { IQuestion } from "../shared/interfaces";
@@ -16,6 +17,8 @@ export const Sidebar: React.FC<Props> = ({
   const [expanded, setExpanded] = useState(false);
   const [showQuestions, setShowQuestions] = useState(false);
 
+  const isMobile = useMediaQuery("(max-width:600px)");
+
   useEffect(() => {
     if (expanded) {
       const timeout = setTimeout(() => {
@@ -30,9 +33,8 @@ export const Sidebar: React.FC<Props> = ({
 
   return (
     <div
-      className={`flex flex-col h-full px-2 py-2 overflow-y-auto border-t border-r border-gray-300 transition-all duration-300 ${
-        expanded ? "w-96" : "w-14"
-      }`}
+      className={`flex flex-col h-full px-2 py-2 overflow-y-auto border-t border-r border-gray-300 transition-all duration-300`}
+      style={{ width: expanded ? (isMobile ? "100%" : "400px") : "56px" }}
     >
       <div
         onClick={() => setExpanded((p) => !p)}
@@ -44,7 +46,12 @@ export const Sidebar: React.FC<Props> = ({
         {questions?.map((quiz, index) => (
           <div
             key={index}
-            onClick={() => setActiveIndex(index)}
+            onClick={() => {
+              setActiveIndex(index);
+              if (isMobile) {
+                setExpanded(false);
+              }
+            }}
             className={`items-center transition-all duration-300 cursor-pointer flex mb-4 ${
               activeIndex === index ? "" : ""
             }`}

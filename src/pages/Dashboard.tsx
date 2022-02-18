@@ -62,7 +62,7 @@ export const Dashboard: React.FC<Props> = () => {
   };
 
   return (
-    <div>
+    <>
       <h3 className="text-2xl font-semibold text-center my-3">Dashboard</h3>
       <div className="flex justify-between mb-4">
         <h4 className="text-xl font-medium text-left mb-3 items-center">
@@ -164,6 +164,6 @@ export const Dashboard: React.FC<Props> = () => {
           resource="Quiz"
         />
       )}
-    </div>
+    </>
   );
 };
