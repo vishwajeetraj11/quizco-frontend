@@ -9,8 +9,6 @@ interface Props {}
 export const Attempts: React.FC<Props> = () => {
   const { data, isLoading } = useMyAttempts();
 
-  // const navigate = useNavigate();
-
   return (
     <div>
       <h3 className="text-2xl font-semibold text-center mt-3 mb-10">
@@ -23,7 +21,7 @@ export const Attempts: React.FC<Props> = () => {
         <div
           className="grid gap-7 mt-10 grid-flow-row"
           style={{
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
           }}
         >
           {data?.attempts.map((attempt: IAttempt) => (

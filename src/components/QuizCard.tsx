@@ -52,8 +52,14 @@ export const QuizCard: React.FC<Props> = ({
           {status}
         </p>
       )}
-      <p className="font-semibold">{title}</p>
-      <p className="mt-4">{description}</p>
+      <p className="font-semibold whitespace-nowrap overflow-hidden text-ellipsis	break-words mt-2">
+        {title}
+      </p>
+      <p className="mt-4 break-words">
+        {description.length > 200
+          ? description.slice(0, 200) + "..."
+          : description}
+      </p>
       {(score === 0 || score) && (
         <p className="absolute px-3 py-0.5 bottom-5 right-5 text-xs rounded-md font-medium text-white bg-emerald-500">
           Score : {score}
@@ -67,8 +73,9 @@ export const QuizCard: React.FC<Props> = ({
               boxShadow: "0 5px 10px rgba(0,0,0,0.07)",
               fontSize: "11px",
               letterSpacing: "0.1px",
+              maxWidth: 100,
             }}
-            className="mr-5 text-xs py-0.5 px-2 bg-slate-300 rounded font-medium text-gray-700"
+            className="mr-5 text-xs py-0.5 px-2 bg-slate-300 rounded font-medium text-gray-700 break-words overflow-hidden whitespace-nowrap text-ellipsis"
           >
             {tag}
           </p>

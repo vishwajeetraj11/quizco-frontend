@@ -6,7 +6,9 @@ interface Props {}
 export const NavBar: React.FC<Props> = () => {
   return (
     <div className="px-4 sm:px-10 py-4 flex items-center h-[8%]">
-      <h3 className="font-semibold text-gray-888 text-xs sm:text-xl">Quizco</h3>
+      <Link to="/" className="font-semibold text-gray-888 text-xs sm:text-xl">
+        Quizco
+      </Link>
       <div className="ml-auto flex items-center">
         <SignedOut>
           <a
