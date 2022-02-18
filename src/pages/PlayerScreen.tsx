@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -161,12 +162,13 @@ export const PlayerScreen: React.FC<Props> = () => {
                 )}
 
                 {!quizEnd && (
-                  <button
+                  <Button
+                    variant="contained"
+                    color="primary"
                     onClick={onSubmit}
-                    className="bg-indigo-600 hover:bg-indigo-700 transition-all duration-200 px-10 py-3 rounded-md text-white"
                   >
                     Submit
-                  </button>
+                  </Button>
                 )}
               </div>
               <Player

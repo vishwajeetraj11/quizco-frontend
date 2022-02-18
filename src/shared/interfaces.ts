@@ -15,6 +15,10 @@ export interface IOption {
     _id?: string;
 }
 
+export interface IOptionWithFrequency extends IOption {
+    frequency: number
+}
+
 export interface IResponse extends IQuestion {
     response: string;
 }

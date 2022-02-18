@@ -9,7 +9,7 @@ export const QueryFactory = (queryKey: QueryKey, url: string, options?: UseQuery
         queryKey,
         async () => {
             const token = await getToken()
-            window.navigator.clipboard.writeText(token)
+            // window.navigator.clipboard.writeText(token)
             return axios({
                 url,
                 method: 'GET',
