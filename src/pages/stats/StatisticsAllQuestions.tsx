@@ -18,25 +18,27 @@ export const StatisticsAllQuestions: React.FC<Props> = () => {
   useEffect(() => {
     if (isSuccess) {
       setList(
-        data?.questions.map((question: any) => {
-          return {
-            quiz: question.quiz,
-            correct: question.correct,
-            title: question.title,
-            option1: question.options[0].value,
-            option2: question.options[1].value,
-            option3: question.options[2].value,
-            option4: question.options[3].value,
-            _id: question._id,
-          };
-        })
+        data?.questions
+          ? data?.questions.map((question: any) => {
+              return {
+                quiz: question.quiz,
+                correct: question.correct,
+                title: question.title,
+                option1: question.options[0].value,
+                option2: question.options[1].value,
+                option3: question.options[2].value,
+                option4: question.options[3].value,
+                _id: question._id,
+              };
+            })
+          : []
       );
     }
   }, [data?.questions, isSuccess]);
 
   if (error?.response?.status) {
     return (
-      <ErrorMessage resource="Attempt" statusCode={error.response.status} />
+      <ErrorMessage resource="Questions" statusCode={error.response.status} />
     );
   }
 
@@ -79,6 +81,7 @@ export const StatisticsAllQuestions: React.FC<Props> = () => {
   return (
     // <div className="flex flex-col flex-1 overflow-y-hidden overflow-x-auto">
     <GridWrapper loading={isLoading} colDefs={colDefs} list={list} />
+
     // </div>
   );
 };

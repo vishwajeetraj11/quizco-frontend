@@ -17,7 +17,7 @@ export const Quizes = () => {
         <div
           className="grid gap-7 mt-10 grid-flow-row"
           style={{
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
           }}
         >
           {data?.quizes.map((quiz: IQuiz) => (

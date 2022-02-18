@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import { useSnackbar } from "notistack";
 import { UseMutateAsyncFunction, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { successMessages } from "../../shared/constants";
+import { errorMessages, successMessages } from "../../shared/constants";
 import { IQuizForm } from "../../shared/interfaces";
 import { AddEditQuizValidation } from "../../shared/validationSchema";
 import { AddEditQuizFormFields } from "../AddEditQuizFormFields";
@@ -34,7 +34,6 @@ export const QuizForm: React.FC<Props> = ({
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
-  // const queryCache = useQuer;
 
   return (
     <Formik<IQuizForm>
@@ -64,7 +63,9 @@ export const QuizForm: React.FC<Props> = ({
               id && queryClient.invalidateQueries(["Quiz", id]);
               navigate(redirect);
             },
-            onError: () => {},
+            onError: () => {
+              enqueueSnackbar(errorMessages.default);
+            },
             onSettled: () => {
               reset();
               setSubmitting(false);

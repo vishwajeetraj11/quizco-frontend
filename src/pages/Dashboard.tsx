@@ -90,7 +90,10 @@ export const Dashboard: React.FC<Props> = () => {
       </div>
       {data?.quizes.length > 0 && (
         <div className="bg-gray-200 rounded px-8 py-6 transition-all flex flex-col lg:flex-row items-center justify-between mb-4">
-          <h2 className="text-regular text-lg font-medium text-default">
+          <h2
+            style={{ maxWidth: 500 }}
+            className="text-regular text-lg font-medium text-default whitespace-nowrap overflow-hidden text-ellipsis	break-all"
+          >
             {`${
               selectedQuiz
                 ? `Selected Quiz : ${selectedQuiz.title}`
@@ -141,7 +144,7 @@ export const Dashboard: React.FC<Props> = () => {
         <div
           className="grid gap-7 mt-10 grid-flow-row"
           style={{
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
           }}
         >
           {data?.quizes.map((quiz: IQuiz) => (

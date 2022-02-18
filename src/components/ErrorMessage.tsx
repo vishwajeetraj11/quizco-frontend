@@ -5,7 +5,7 @@ import Response404 from "./../assets/illustations/404.png";
 interface IProps {
   statusCode: number;
   message?: string | undefined;
-  resource?: "Quiz" | "Question" | "Attempt";
+  resource?: "Quiz" | "Question" | "Attempt" | "Questions";
 }
 
 export const ErrorMessage: React.FC<IProps> = ({

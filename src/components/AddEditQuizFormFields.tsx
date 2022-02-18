@@ -30,6 +30,7 @@ export const AddEditQuizFormFields = ({ id }: { id?: string }) => {
       </div>
       <div className="mt-6">
         <TextField
+          multiline
           fullWidth
           value={values.description}
           onChange={handleChange}
