@@ -26,7 +26,7 @@ export const Dashboard: React.FC<Props> = () => {
 
   const navigate = useNavigate();
 
-  const [selectedQuiz, setSelectedQuiz] = useState<IQuiz | undefined>();
+  const [selectedQuiz, setSelectedQuiz] = useState<IQuiz | null>();
 
   const onUpdate = () => {
     navigate(`/quizes/${selectedQuiz?._id}/update`);
@@ -49,6 +49,7 @@ export const Dashboard: React.FC<Props> = () => {
             variant: "success",
           });
           queryClient.invalidateQueries(["Quizes", "Current User"]);
+          setSelectedQuiz(null);
         },
         onError: () => {
           enqueueSnackbar(errorMessages.default, { variant: "error" });
