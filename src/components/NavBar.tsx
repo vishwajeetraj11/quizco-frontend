@@ -11,19 +11,16 @@ export const NavBar: React.FC<Props> = () => {
       </Link>
       <div className="ml-auto flex items-center">
         <SignedOut>
-          <a
-            href="https://accounts.profound.cowbird-61.lcl.dev/sign-up"
-            className="mr-4"
-          >
+          <Link to="/sign-up" className="mr-4">
             <p className="cursor-pointer rounded-full px-3 py-2 bg-indigo-600 text-white font-normal">
               Sign Up
             </p>
-          </a>
-          <a href="https://accounts.profound.cowbird-61.lcl.dev/sign-in">
+          </Link>
+          <Link to="/sign-in">
             <p className="text-indigo-600 cursor-pointer rounded-full px-2.5 py-1.5 border-indigo-600 border-2 text-primary font-normal">
               Sign In
             </p>
-          </a>
+          </Link>
         </SignedOut>
 
         <SignedIn>
@@ -37,10 +34,7 @@ export const NavBar: React.FC<Props> = () => {
               Dashboard
             </p>
           </Link>
-          <UserButton
-            afterSignOutAllUrl="http://localhost:3000/"
-            afterSignOutOneUrl="http://localhost:3000/"
-          />
+          <UserButton afterSignOutAllUrl="/" afterSignOutOneUrl="/" />
         </SignedIn>
       </div>
     </div>

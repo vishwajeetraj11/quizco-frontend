@@ -1,18 +1,16 @@
-import {
-  ClerkProvider,
-  RedirectToSignIn,
-  SignedIn,
-  SignedOut,
-} from "@clerk/clerk-react";
+import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { AddQuestions } from "./pages/AddQuestions";
 import { Attempts } from "./pages/Attempts";
 import { CreateQuiz } from "./pages/CreateQuiz";
 import { Dashboard } from "./pages/Dashboard";
+import { Landing } from "./pages/Landing";
 import { PlayerScreen } from "./pages/PlayerScreen";
 import { Quizes } from "./pages/Quizes";
 import { QuizResponse } from "./pages/QuizResponse";
+import { SignInPage } from "./pages/SignIn";
+import SignUpPage from "./pages/Signup";
 import { StatisticsAllQuestions } from "./pages/stats/StatisticsAllQuestions";
 import { StatisticsByQuiz } from "./pages/stats/StatisticsByQuiz";
 import { StatisticsByQuizQuestionsId } from "./pages/stats/StatisticsByQuizQuestionsId";
@@ -59,11 +57,13 @@ function App() {
           </Routes>
         </SignedIn>
         <SignedOut>
-          {/* <Routes> */}
-          {/* <Route path="/" element={<Landing />} /> */}
-          {/* <Route path="*" element={<Navigate replace to="/" />} /> */}
-          {/* </Routes> */}
-          <RedirectToSignIn />
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/sign-up" element={<SignUpPage />} />
+            <Route path="/sign-in" element={<SignInPage />} />
+            <Route path="*" element={<Navigate replace to="/" />} />
+          </Routes>
+          {/* <RedirectToSignIn /> */}
         </SignedOut>
       </Layout>
     </ClerkProvider>

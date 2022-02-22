@@ -1,6 +1,7 @@
+import { Button } from "@material-ui/core";
 import { ColDef, ICellRendererParams } from "ag-grid-community";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GridWrapper } from "../../components/GridWrapper";
 import { IStatsByQuiz } from "../../shared/interfaces";
 import { useStatsByQuizId } from "../../shared/queries";
@@ -86,10 +87,16 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
 
   return (
     <div className="flex flex-col flex-1 overflow-y-hidden overflow-x-auto">
-      <div>
-        <Link to={`/statistics/${quizId}/questions/`}>View All Questions</Link>
+      <div className="flex justify-end my-4">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate(`/statistics/${quizId}/questions/`)}
+        >
+          View All Questions
+        </Button>
       </div>
-      <div style={{ height: "90vh" }}>
+      <div style={{ height: "85vh" }}>
         <GridWrapper loading={isLoading} colDefs={colDefs} list={list} />
       </div>
     </div>

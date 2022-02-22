@@ -56,3 +56,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.grid-player-options {
+  grid-template-columns: 30px 1fr;
+}
+
+.grid-quizes {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+@media screen and (max-width: 600px) {
+  .grid-quizes {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+}
+@media screen and (max-width: 400px) {
+  .grid-quizes {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}

@@ -69,6 +69,7 @@ export const UpdateQuestionForm: React.FC<Props> = ({
               );
               navigate(`/quizes/${quizId}/questions`);
               queryClient.invalidateQueries(["Quiz Questions", quizId]);
+              queryClient.invalidateQueries(["Quiz Question", quizId, id]);
             },
             onError: () => {
               enqueueSnackbar(errorMessages.default, { variant: "error" });

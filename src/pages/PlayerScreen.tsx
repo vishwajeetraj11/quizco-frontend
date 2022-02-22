@@ -138,14 +138,11 @@ export const PlayerScreen: React.FC<Props> = () => {
                 </p>
                 {!quizEnd && (
                   <div className="flex items-center justify-center flex-col sm:flex-row mt-auto">
-                    <p className="sm:mr-4 mb-3 sm:mb-0">
+                    <p className="sm:mr-4 mb-3 sm:mb-0 text-sm md:text-base">
                       {response?.filter((resp) => resp.response !== "").length}{" "}
                       / {data?.questions.length} Completed
                     </p>
-                    <div
-                      className="bg-gray-200 rounded-full h-1"
-                      style={{ width: 150 }}
-                    >
+                    <div className="bg-gray-200 rounded-full h-1 w-28 md:w-48">
                       <div
                         className="bg-indigo-600 rounded-full h-1"
                         style={{

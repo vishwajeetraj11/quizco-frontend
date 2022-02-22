@@ -1,7 +1,7 @@
 import { Button, TextField } from "@material-ui/core";
 import { FieldArray, useFormikContext } from "formik";
 import { useNavigate } from "react-router-dom";
-import { allowedMarkingACorrectOption } from "../../shared/constants";
+import { uiMessages } from "../../shared/constants";
 import { IQuestionForm } from "../../shared/interfaces";
 import { FormikError } from "../../shared/utils";
 
@@ -114,7 +114,13 @@ export const AddEditQuestionFormFields: React.FC<Props> = ({ isLoading }) => {
         <p className="text-sm font-thin text-rose-600 text-right">
           {touched.correct && errors.correct}
         </p>
-        <p className="text-sm font-thin">{allowedMarkingACorrectOption}</p>
+
+        {uiMessages.allowedMarkingACorrectOption.map((message) => (
+          <p className="text-sm font-thin w-10/12">{message}</p>
+        ))}
+        {uiMessages.warnQuestionCreate.map((message) => (
+          <p className="text-sm font-thin w-10/12">{message}</p>
+        ))}
       </div>
       <div className="mb-10">
         <div className="flex justify-end mt-4">

@@ -41,7 +41,7 @@ export const AddQuestionsSidebar: React.FC<Props> = ({
 
   return (
     <div
-      className={`flex flex-col h-full px-2 py-2 overflow-y-auto border-r border-gray-200 transition-all duration-300 ${
+      className={`flex flex-col h-full py-2 overflow-y-auto border-r border-gray-200 transition-all duration-300 ${
         expanded ? "w-96" : "w-14"
       }`}
     >
@@ -120,7 +120,7 @@ const SidebarQuestion: React.FC<SidebarProps> = ({
 
   return (
     <div
-      className={`rounded-md py-3${
+      className={`rounded-md px-2 py-3${
         expanded && expandQuestion === question._id ? " bg-gray-100" : ""
       } mb-4`}
     >

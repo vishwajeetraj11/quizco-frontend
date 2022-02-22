@@ -68,6 +68,7 @@ export const AddEditQuizFormFields = ({ id }: { id?: string }) => {
       )}
       <div className="mt-6">
         <ChipInput
+          size="medium"
           label="Tags"
           fullWidth
           variant="outlined"

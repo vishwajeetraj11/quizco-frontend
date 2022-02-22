@@ -18,12 +18,7 @@ export const Attempts: React.FC<Props> = () => {
       {isLoading ? (
         <Loader halfScreen />
       ) : data?.attempts.length > 0 ? (
-        <div
-          className="grid gap-7 mt-10 grid-flow-row"
-          style={{
-            gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
-          }}
-        >
+        <div className="grid gap-7 mt-10 grid-flow-row grid-quizes pb-8">
           {data?.attempts.map((attempt: IAttempt) => (
             <QuizCard
               redirect={`/dashboard/attempts/${attempt._id}`}
