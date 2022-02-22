@@ -69,7 +69,7 @@ export const GridWrapper: React.FC<Props> = ({
   return (
     <div
       className={`ag-theme-alpine flex items-center justify-center flex-1`}
-      style={{ height: "90vh", width: "100%" }}
+      style={{ height: "85vh", width: "100%" }}
     >
       <AgGridReact
         containerStyle={{

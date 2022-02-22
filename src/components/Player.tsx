@@ -46,7 +46,7 @@ export const Player: React.FC<Props> = ({
   }, [activeIndex, response]);
 
   return (
-    <div className="flex-1 flex-grow px-4 py-5 min-h-[86%] flex flex-col">
+    <div className="flex-1 flex-grow px-4 py-5 min-h-[86%] flex flex-col text-sm md:text-base">
       <p>{questions && questions[activeIndex].title}</p>
       <div className="flex flex-col items-start">
         {questions &&

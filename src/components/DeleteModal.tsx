@@ -48,7 +48,12 @@ export const DeleteModal = ({
               Cancel
             </Button>
             <div className="ml-4">
-              <Button disabled={deleteLoading} onClick={onDelete}>
+              <Button
+                variant="contained"
+                color="secondary"
+                disabled={deleteLoading}
+                onClick={onDelete}
+              >
                 Delete
               </Button>
             </div>

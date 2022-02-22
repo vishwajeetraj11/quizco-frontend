@@ -4,6 +4,11 @@ export const errorMessages = {
     auth403: `You do not have the permission to do this action.`,
 }
 
+export const globalColors = {
+    brand: '#4f46e5',
+    red: '#e11d48'
+}
+
 type TactionSuccess =
     | 'Updated'
     | 'Deleted'
@@ -31,9 +36,13 @@ export const emptyResponseMessages = {
     dashboardQuizes: ['You have not created any quizes yet.'],
     quizQuestions: ['This quiz have no questions.'],
     mainQuizes: ['There are no active Quizes at the moment.', 'Go ahead make a Quiz.'],
+    filteredQuizes: ['No active Quizes found with the given filters.'],
 }
 
-export const allowedMarkingACorrectOption = '* Marking a correct option is only allowed after you have already written all options.'
+export const uiMessages = {
+    allowedMarkingACorrectOption: ['* Marking a correct option is only allowed after you have already written all options.'],
+    warnQuestionCreate: ['Note: Please be careful before creating a question because if you have to later edit it you will lose all responses to the question.', ' This is done so that we can provide you better and correct statistics with correct information.']
+}
 
 export const modalStyle = {
     position: 'absolute' as 'absolute',

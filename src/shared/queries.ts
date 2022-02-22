@@ -9,7 +9,7 @@ export const QueryFactory = (queryKey: QueryKey, url: string, options?: UseQuery
         queryKey,
         async () => {
             const token = await getToken()
-            // window.navigator.clipboard.writeText(token)
+            window.navigator.clipboard.writeText(token)
             return axios({
                 url,
                 method: 'GET',
@@ -71,7 +71,7 @@ const DeleteMutationFactory = (mutationKey: QueryKey, url: string, options?: Mut
 }
 
 
-export const useQuizes = (url: string, filter?: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(filter ? ['Quizes', filter] : 'Quizes', url, options);
+export const useQuizes = (url: string, queryKey: QueryKey, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(queryKey, url, options);
 export const useQuiz = (id: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Quiz', id], endpoints.quizById(id), options);
 export const useQuizQuestions = (id: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Quiz Questions', id], endpoints.quizQuestions(id), options);
 export const useQuizQuestion = (quizId: string, questionId: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Quiz Question', quizId, questionId], endpoints.quizQuestionById(quizId, questionId), options);

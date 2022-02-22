@@ -15,10 +15,10 @@ import { endpoints } from "../shared/urls";
 interface Props {}
 
 export const Dashboard: React.FC<Props> = () => {
-  const { data, isLoading } = useQuizes(
-    `${endpoints.quizes}?loggedIn=true`,
-    "Current User"
-  );
+  const { data, isLoading } = useQuizes(`${endpoints.quizes}?loggedIn=true`, [
+    "Quizes",
+    "Current User",
+  ]);
 
   const [deleteModalActive, setDeleteModalActive] = useState(false);
   const handleDeleteModalOpen = () => setDeleteModalActive(true);
@@ -64,17 +64,17 @@ export const Dashboard: React.FC<Props> = () => {
   return (
     <>
       <h3 className="text-2xl font-semibold text-center my-3">Dashboard</h3>
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between mb-4 flex-wrap">
         <h4 className="text-xl font-medium text-left mb-3 items-center">
           My Quizes
         </h4>
-        <div className="flex items-center">
+        <div className="flex items-center w-full sm:w-auto">
           <Button
             onClick={() => navigate(`/quizes/add`)}
             variant="contained"
             color="primary"
           >
-            + Create a Quiz
+            + Create Quiz
           </Button>
 
           <div className="ml-4">
@@ -102,7 +102,7 @@ export const Dashboard: React.FC<Props> = () => {
           </h2>
           <div className="mt-6 lg:mt-0">
             {selectedQuiz && (
-              <div className="flex">
+              <div className="flex flex-wrap">
                 <div className="mr-4">
                   <Button
                     onClick={() =>
@@ -131,7 +131,7 @@ export const Dashboard: React.FC<Props> = () => {
                     navigate(`/quizes/${selectedQuiz._id}/questions`)
                   }
                 >
-                  + Add Questions
+                  + Add/Update Questions
                 </Button>
               </div>
             )}
@@ -141,12 +141,7 @@ export const Dashboard: React.FC<Props> = () => {
       {isLoading ? (
         <Loader halfScreen />
       ) : data?.quizes.length > 0 ? (
-        <div
-          className="grid gap-7 mt-10 grid-flow-row"
-          style={{
-            gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
-          }}
-        >
+        <div className="grid gap-7 mt-10 grid-flow-row grid-quizes pb-8">
           {data?.quizes.map((quiz: IQuiz) => (
             <QuizCard
               onSelect={() => setSelectedQuiz(quiz)}

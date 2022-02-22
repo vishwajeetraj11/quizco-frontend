@@ -7,7 +7,8 @@ interface Props {
     | "Attempt"
     | "Dashboard Quizes"
     | "Quiz Questions"
-    | "All Active Quizes";
+    | "All Active Quizes"
+    | "All Active Filtered Quizes";
 }
 
 export const EmptyResponse: React.FC<Props> = ({ resource }) => {
@@ -15,6 +16,7 @@ export const EmptyResponse: React.FC<Props> = ({ resource }) => {
   const dashboard = resource === "Dashboard Quizes";
   const quizQuestions = resource === "Quiz Questions";
   const mainQuizes = resource === "All Active Quizes";
+  const allActiveFilteredQuizes = resource === "All Active Filtered Quizes";
 
   // const img = attempt ? EmptyMail : "";
   const img = EmptyMail;
@@ -26,6 +28,8 @@ export const EmptyResponse: React.FC<Props> = ({ resource }) => {
     ? emptyResponseMessages.quizQuestions
     : mainQuizes
     ? emptyResponseMessages.mainQuizes
+    : allActiveFilteredQuizes
+    ? emptyResponseMessages.filteredQuizes
     : [""];
 
   return (

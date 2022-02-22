@@ -17,7 +17,7 @@ export const Option: React.FC<Props> = ({
     selectedOption === option.value && option.value === correctAns;
 
   const getClasses = () => {
-    return `flex items-center px-4 py-2 border w-full text-left mt-4 rounded-md disabled:opacity-80 transition-all duration-300${
+    return `grid grid-player-options items-center px-4 py-2 border w-full text-left mt-4 rounded-md disabled:opacity-80 transition-all duration-300${
       !userSelectedCorrectOption && selectedOption === option.value
         ? " border-indigo-600"
         : " border-gray-300"
@@ -41,7 +41,11 @@ export const Option: React.FC<Props> = ({
           <div className="bg-indigo-600 w-2.5 h-2.5 rounded-full">&nbsp;</div>
         )}
       </div>
-      <p className={`${correctAns === option.value ? "text-white" : ""}`}>
+      <p
+        className={`text-sm md:text-base ${
+          correctAns === option.value ? "text-white" : ""
+        }`}
+      >
         {option.value}
       </p>
     </button>

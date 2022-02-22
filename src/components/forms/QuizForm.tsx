@@ -53,7 +53,7 @@ export const QuizForm: React.FC<Props> = ({
           { body },
           {
             onSuccess: () => {
-              queryClient.invalidateQueries(["Quizes", "All"]);
+              queryClient.invalidateQueries("Quizes");
               enqueueSnackbar(
                 successMessages.actionSuccess(
                   id ? "Updated" : "Created",
