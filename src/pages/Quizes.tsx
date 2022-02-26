@@ -1,4 +1,5 @@
-import { IconButton } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
+import * as React from "react";
 import { useState } from "react";
 import { FcClearFilters } from "react-icons/fc";
 import { RiFilterFill } from "react-icons/ri";
@@ -15,12 +16,14 @@ import { endpoints } from "../shared/urls";
 export const Quizes = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [tag, setTag] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const { data, isLoading, isFetching } = useQuizes(
+  const { data, isLoading, isFetching, isSuccess } = useQuizes(
     `${endpoints.quizes}?search=${encodeURIComponent(
       searchTerm
-    )}&tag=${encodeURIComponent(tag)}`,
-    ["Quizes", searchTerm, tag]
+    )}&tag=${encodeURIComponent(tag)}&page=${currentPage}`,
+    ["Quizes", searchTerm, tag, currentPage]
   );
 
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -32,8 +35,14 @@ export const Quizes = () => {
     setTag("");
   };
 
+  React.useEffect(() => {
+    if (isSuccess) {
+      setTotalPages(data.count ? Math.ceil(data.count / 6) : 1);
+    }
+  }, [data?.count, isSuccess]);
+
   return (
-    <div>
+    <div className="pb-10">
       <div className="flex justify-center">
         <h3 className="text-2xl font-semibold text-center my-3">All Quizes</h3>
         <div className="flex items-center justify-center ml-3">
@@ -67,6 +76,14 @@ export const Quizes = () => {
           />
         </div>
       )}
+      <div>
+        {totalPages > 1 &&
+          Array.from(Array(totalPages).keys()).map((loader, index) => (
+            <Button key={index} onClick={() => setCurrentPage(index + 1)}>
+              {index + 1}
+            </Button>
+          ))}
+      </div>
       <ModalSkeleton open={filtersOpen} onClose={handleFiltersClose}>
         <FiltersForm
           modalClose={handleFiltersClose}

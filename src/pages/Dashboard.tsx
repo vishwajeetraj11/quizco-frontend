@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core";
 import { useSnackbar } from "notistack";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { DeleteModal } from "../components/DeleteModal";
@@ -15,10 +15,19 @@ import { endpoints } from "../shared/urls";
 interface Props {}
 
 export const Dashboard: React.FC<Props> = () => {
-  const { data, isLoading } = useQuizes(`${endpoints.quizes}?loggedIn=true`, [
-    "Quizes",
-    "Current User",
-  ]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const { data, isLoading, isSuccess } = useQuizes(
+    `${endpoints.quizes}?loggedIn=true&page=${currentPage}`,
+    ["Quizes", "Current User", currentPage]
+  );
+
+  useEffect(() => {
+    if (isSuccess) {
+      setTotalPages(data.count ? Math.ceil(data.count / 6) : 1);
+    }
+  }, [data?.count, isSuccess]);
 
   const [deleteModalActive, setDeleteModalActive] = useState(false);
   const handleDeleteModalOpen = () => setDeleteModalActive(true);
@@ -26,7 +35,7 @@ export const Dashboard: React.FC<Props> = () => {
 
   const navigate = useNavigate();
 
-  const [selectedQuiz, setSelectedQuiz] = useState<IQuiz | undefined>();
+  const [selectedQuiz, setSelectedQuiz] = useState<IQuiz | null>();
 
   const onUpdate = () => {
     navigate(`/quizes/${selectedQuiz?._id}/update`);
@@ -49,6 +58,7 @@ export const Dashboard: React.FC<Props> = () => {
             variant: "success",
           });
           queryClient.invalidateQueries(["Quizes", "Current User"]);
+          setSelectedQuiz(null);
         },
         onError: () => {
           enqueueSnackbar(errorMessages.default, { variant: "error" });
@@ -62,7 +72,7 @@ export const Dashboard: React.FC<Props> = () => {
   };
 
   return (
-    <>
+    <div className="pb-10">
       <h3 className="text-2xl font-semibold text-center my-3">Dashboard</h3>
       <div className="flex justify-between mb-4 flex-wrap">
         <h4 className="text-xl font-medium text-left mb-3 items-center">
@@ -145,6 +155,7 @@ export const Dashboard: React.FC<Props> = () => {
           {data?.quizes.map((quiz: IQuiz) => (
             <QuizCard
               onSelect={() => setSelectedQuiz(quiz)}
+              selected={selectedQuiz?._id === quiz._id}
               key={quiz._id}
               {...quiz}
             />
@@ -153,6 +164,14 @@ export const Dashboard: React.FC<Props> = () => {
       ) : (
         <EmptyResponse resource="Dashboard Quizes" />
       )}
+      <div>
+        {totalPages > 1 &&
+          Array.from(Array(totalPages).keys()).map((loader, index) => (
+            <Button key={index} onClick={() => setCurrentPage(index + 1)}>
+              {index + 1}
+            </Button>
+          ))}
+      </div>
       {deleteModalActive && (
         <DeleteModal
           deleteLoading={IsDeleteCampaignLoading}
@@ -162,6 +181,6 @@ export const Dashboard: React.FC<Props> = () => {
           resource="Quiz"
         />
       )}
-    </>
+    </div>
   );
 };

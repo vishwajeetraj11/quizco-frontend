@@ -1,4 +1,5 @@
 import { IOption } from "../shared/interfaces";
+import { EmptyResponse } from "./EmptyResponse";
 import { Option } from "./Option";
 interface Props {
   responses: any;
@@ -9,7 +10,7 @@ interface Props {
 export const ShowResponses: React.FC<Props> = ({ responses, score, as }) => {
   const AFTER_QUIZ_RESPONSE = as === "AFTER_QUIZ_RESPONSE";
   const AUTHOR_CHECK_RESPONSE = as === "AUTHOR_CHECK_RESPONSE";
-  const USER_CHECK_RESPONSE = as === "USER_CHECK_RESPONSE";
+  // const USER_CHECK_RESPONSE = as === "USER_CHECK_RESPONSE";
   return (
     <>
       <div className="flex flex-col items-center mt-10 w-full">
@@ -52,22 +53,28 @@ export const ShowResponses: React.FC<Props> = ({ responses, score, as }) => {
               </>
             )}
           </div>
-          {responses.map((resp: any, i: number) => (
-            <div className="mt-10 mb-20 shadow-sm" key={i}>
-              <p>{resp.title}</p>
-              <div className="flex flex-col items-start">
-                {resp.options.map((option: IOption, i: number) => (
-                  <Option
-                    key={i}
-                    selectedOption={resp.response}
-                    correctAns={resp.correct}
-                    option={option}
-                    disabled
-                  />
-                ))}
+          {responses.length > 0 ? (
+            responses.map((resp: any, i: number) => (
+              <div className="mt-10 mb-20 shadow-sm" key={i}>
+                <p>{resp.title}</p>
+                <div className="flex flex-col items-start">
+                  {resp.options.map((option: IOption, i: number) => (
+                    <Option
+                      key={i}
+                      selectedOption={resp.response}
+                      correctAns={resp.correct}
+                      option={option}
+                      disabled
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <>
+              <EmptyResponse resource="Responses" />
+            </>
+          )}
         </div>
       </div>
     </>

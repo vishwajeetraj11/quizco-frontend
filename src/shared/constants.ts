@@ -33,6 +33,7 @@ export const loadingMessages = {
 
 export const emptyResponseMessages = {
     attempt: ['You have not attempted any quizes yet.'],
+    responses: ["You can only see responses to first attempt at any quiz."],
     dashboardQuizes: ['You have not created any quizes yet.'],
     quizQuestions: ['This quiz have no questions.'],
     mainQuizes: ['There are no active Quizes at the moment.', 'Go ahead make a Quiz.'],

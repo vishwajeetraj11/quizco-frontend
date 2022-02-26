@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ErrorMessage } from "../../components/ErrorMessage";
 import { GridWrapper } from "../../components/GridWrapper";
+import { formatDate } from "../../shared/formatDate";
 import { useQuizQuestionCorrectAns } from "../../shared/queries";
 
 interface Props {}
@@ -29,6 +30,7 @@ export const StatisticsAllQuestions: React.FC<Props> = () => {
                 option3: question.options[2].value,
                 option4: question.options[3].value,
                 _id: question._id,
+                updatedAt: formatDate(question.updatedAt),
               };
             })
           : []
@@ -75,6 +77,10 @@ export const StatisticsAllQuestions: React.FC<Props> = () => {
     {
       headerName: "Correct",
       field: "correct",
+    },
+    {
+      headerName: "Updated At",
+      field: "updatedAt",
     },
   ];
 

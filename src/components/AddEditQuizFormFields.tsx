@@ -28,6 +28,7 @@ export const AddEditQuizFormFields = ({ id }: { id?: string }) => {
           variant="outlined"
         />
       </div>
+
       <div className="mt-6">
         <TextField
           multiline
@@ -61,9 +62,6 @@ export const AddEditQuizFormFields = ({ id }: { id?: string }) => {
               <MenuItem value={"draft"}>Draft</MenuItem>
             </Select>
           </FormControl>
-          {/* <FormHelperText>
-                {touched.status && errors.status}
-              </FormHelperText> */}
         </div>
       )}
       <div className="mt-6">
@@ -88,14 +86,6 @@ export const AddEditQuizFormFields = ({ id }: { id?: string }) => {
           }}
         />
       </div>
-      {/* <div className="mt-4">
-        <label className="block text-sm font-normal pb-1.5 text-input-color">
-          Messages
-        </label>
-        <div className="h-8">
-          <input className="px-2  duration-200 h-full hover:bg-input-hover w-full rounded font-normal border border-input-border text-input-color bg-input-bg focus:bg-white  " />
-        </div>
-      </div> */}
     </>
   );
 };

@@ -6,6 +6,7 @@ interface Props extends IQuiz {
   score?: number;
   deleted?: boolean;
   redirect?: string;
+  selected?: boolean;
 }
 
 export const QuizCard: React.FC<Props> = ({
@@ -18,6 +19,7 @@ export const QuizCard: React.FC<Props> = ({
   score,
   deleted,
   redirect,
+  selected,
 }) => {
   const isDashboardPage = useMatch("/dashboard");
   const navigate = useNavigate();
@@ -34,7 +36,9 @@ export const QuizCard: React.FC<Props> = ({
       }
       className={`${
         deleted ? "" : "cursor-pointer "
-      }relative shadow-md px-10 py-8 rounded-md bg-white`}
+      }relative shadow-md px-10 py-8 rounded-md bg-white ${
+        selected ? "border border-2 border-teal-500" : ""
+      }`}
       style={{ boxShadow: "15px 15px 54px -10px #0000001f" }}
     >
       {isDashboardPage && (

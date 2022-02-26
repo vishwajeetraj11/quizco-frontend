@@ -28,7 +28,7 @@ export const AddQuestions: React.FC<Props> = () => {
           <div className="min-h-[8%]  border-b border-gray-200 flex pl-4 mr-10 py-4 justify-between">
             <p className="mt-auto">Add Question</p>
             <div className="flex items-center">
-              <p className="mr-4">{data?.questions.length} / 20 Completed</p>
+              <p className="mr-4">{data?.questions.length} / 10 Completed</p>
               <div
                 className="bg-gray-200 rounded-full h-1"
                 style={{ width: 150 }}
@@ -36,7 +36,7 @@ export const AddQuestions: React.FC<Props> = () => {
                 <div
                   className="bg-indigo-600 rounded-full h-1"
                   style={{
-                    width: `${(data?.questions.length / 20) * 100}%`,
+                    width: `${(data?.questions.length / 10) * 100}%`,
                   }}
                 ></div>
               </div>

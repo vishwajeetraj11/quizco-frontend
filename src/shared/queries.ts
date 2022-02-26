@@ -3,13 +3,32 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { MutationOptions, QueryKey, useMutation, useQuery, UseQueryOptions } from "react-query";
 import { endpoints } from "./urls";
 
+export const PublicQueryFactory = (queryKey: QueryKey, url: string, options?: UseQueryOptions<any, AxiosError, any>) => {
+
+    return useQuery<any, AxiosError, any>(
+        queryKey,
+        async () => {
+            return axios({
+                url,
+                method: 'GET',
+            }).then(
+                (result: AxiosResponse) => result.data
+            )
+        }, {
+        refetchOnWindowFocus: false,
+        retry: false,
+        ...options
+    }
+    )
+}
+
 export const QueryFactory = (queryKey: QueryKey, url: string, options?: UseQueryOptions<any, AxiosError, any>) => {
     const { getToken } = useSession();
     return useQuery<any, AxiosError, any>(
         queryKey,
         async () => {
             const token = await getToken()
-            window.navigator.clipboard.writeText(token)
+            // window.navigator.clipboard.writeText(token)
             return axios({
                 url,
                 method: 'GET',
@@ -80,6 +99,7 @@ export const useMyAttempts = (options?: UseQueryOptions<any, AxiosError, any>) =
 export const useMyAttemptById = (id: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Attempts', id], endpoints.attemptsById(id), options);
 export const useStatsByQuizId = (id: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Statistics', id], endpoints.statsByQuizId(id), options);
 export const useStatsByQuizIdByQuestionId = (quizId: string, questionId: string, options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Statistics', quizId, questionId], endpoints.statsByQuizIdbyQuestionId(quizId, questionId), options);
+export const useStats = (options?: UseQueryOptions<any, AxiosError, any>) => PublicQueryFactory(['Statistics'], endpoints.stats, options);
 
 export const useCreateQuiz = (options?: MutationOptions) => MutationFactory('Create Quiz', endpoints.quizes, 'POST', options)
 export const useCreateQuestion = (id: string, options?: MutationOptions) => MutationFactory('Create Question', endpoints.quizQuestions(id), 'POST', options)
