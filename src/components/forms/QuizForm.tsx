@@ -37,7 +37,6 @@ export const QuizForm: React.FC<Props> = ({
 
   return (
     <Formik<IQuizForm>
-      validateOnChange={true}
       initialValues={{
         title: title || "",
         description: description || "",
@@ -45,33 +44,43 @@ export const QuizForm: React.FC<Props> = ({
         status: status || "",
       }}
       validationSchema={AddEditQuizValidation}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting, setFieldError }) => {
         setSubmitting(true);
         const body = { ...values };
         if (!id) delete body.status;
-        await mutateAsync(
-          { body },
-          {
-            onSuccess: () => {
-              queryClient.invalidateQueries("Quizes");
-              enqueueSnackbar(
-                successMessages.actionSuccess(
-                  id ? "Updated" : "Created",
-                  "Quiz"
-                )
-              );
-              id && queryClient.invalidateQueries(["Quiz", id]);
-              navigate(redirect);
-            },
-            onError: () => {
-              enqueueSnackbar(errorMessages.default);
-            },
-            onSettled: () => {
-              reset();
-              setSubmitting(false);
-            },
+        try {
+          if (!!!values.title.trim()) {
+            setFieldError("title", "Only Spaces not allowed.");
+            throw Error("Form Error");
           }
-        );
+          if (!!!values.description.trim()) {
+            setFieldError("description", "Only Spaces not allowed.");
+            throw Error("Form Error");
+          }
+          await mutateAsync(
+            { body },
+            {
+              onSuccess: () => {
+                queryClient.invalidateQueries("Quizes");
+                enqueueSnackbar(
+                  successMessages.actionSuccess(
+                    id ? "Updated" : "Created",
+                    "Quiz"
+                  )
+                );
+                id && queryClient.invalidateQueries(["Quiz", id]);
+                navigate(redirect);
+              },
+              onError: () => {
+                enqueueSnackbar(errorMessages.default);
+              },
+              onSettled: () => {
+                reset();
+                setSubmitting(false);
+              },
+            }
+          );
+        } catch (e) {}
       }}
     >
       {({ handleSubmit, isSubmitting }) => (

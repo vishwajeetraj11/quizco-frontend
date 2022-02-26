@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Formik } from "formik";
 import { useSnackbar } from "notistack";
 import { useQueryClient } from "react-query";
@@ -37,6 +38,20 @@ export const AddQuestionForm: React.FC<Props> = () => {
       onSubmit={async (values, { setSubmitting, setFieldError, resetForm }) => {
         try {
           setSubmitting(true);
+          if (!!!values.title.trim()) {
+            setFieldError("title", "Only Spaces not allowed.");
+            throw Error("Form Error");
+          }
+
+          values.options.forEach((option, index) => {
+            if (!!!option.value.trim()) {
+              setFieldError(
+                `options.${index}.value`,
+                "Only Spaces not allowed."
+              );
+              throw Error("Form Error");
+            }
+          });
 
           const maping: { [key: string]: number[] } = {};
 
@@ -84,8 +99,14 @@ export const AddQuestionForm: React.FC<Props> = () => {
                 );
                 resetForm();
               },
-              onError: () => {
-                enqueueSnackbar(errorMessages.default, { variant: "error" });
+              onError: (err) => {
+                if (axios.isAxiosError(err)) {
+                  enqueueSnackbar(err.response?.data.message, {
+                    variant: "error",
+                  });
+                } else {
+                  enqueueSnackbar(errorMessages.default, { variant: "error" });
+                }
               },
               onSettled: () => {
                 createQuestionReset();
