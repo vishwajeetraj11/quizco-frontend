@@ -1,6 +1,12 @@
-import { ColDef, ICellRendererParams } from "ag-grid-community";
+import {
+  ColDef,
+  ColumnApi,
+  GridApi,
+  ICellRendererParams,
+} from "ag-grid-community";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { DownloadButton } from "../../components/Dropdown";
 import { ErrorMessage } from "../../components/ErrorMessage";
 import { GridWrapper } from "../../components/GridWrapper";
 import { formatDate } from "../../shared/formatDate";
@@ -13,6 +19,10 @@ export const StatisticsAllQuestions: React.FC<Props> = () => {
 
   const { isLoading, data, isSuccess, error } =
     useQuizQuestionCorrectAns(quizId);
+
+  const [selected, setSelected] = useState<string[]>([]);
+  const [gridApi, setGridApi] = useState<GridApi>();
+  const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>();
 
   const [list, setList] = useState<any>([]);
 
@@ -46,8 +56,17 @@ export const StatisticsAllQuestions: React.FC<Props> = () => {
 
   const colDefs: ColDef[] = [
     {
+      headerName: "",
+      field: "select",
+      checkboxSelection: true,
+      headerCheckboxSelection: true,
+      cellStyle: { display: "flex", textAlign: "center" },
+      maxWidth: 100,
+    },
+    {
       headerName: "Question",
       field: "title",
+      minWidth: 250,
       cellRendererFramework: (params: ICellRendererParams) => (
         <Link
           className="text-indigo-600 hover:underline cursor-pointer"
@@ -85,9 +104,26 @@ export const StatisticsAllQuestions: React.FC<Props> = () => {
   ];
 
   return (
-    // <div className="flex flex-col flex-1 overflow-y-hidden overflow-x-auto">
-    <GridWrapper loading={isLoading} colDefs={colDefs} list={list} />
-
-    // </div>
+    <div className="flex flex-col flex-1 overflow-y-hidden overflow-x-auto">
+      <div className="flex justify-end mb-4">
+        <DownloadButton
+          selected={selected}
+          gridApi={gridApi}
+          gridColumnApi={gridColumnApi}
+          quizId={quizId}
+          excludedColumns={["select", "updatedAt"]}
+        />
+      </div>
+      <div style={{ height: "85vh" }}>
+        <GridWrapper
+          setSelected={setSelected}
+          setGridApiParent={setGridApi}
+          setGridColApiParent={setGridColumnApi}
+          loading={isLoading}
+          colDefs={colDefs}
+          list={list}
+        />
+      </div>
+    </div>
   );
 };

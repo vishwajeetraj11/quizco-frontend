@@ -1,3 +1,4 @@
+import { useMediaQuery } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
@@ -22,9 +23,10 @@ export const AddQuestionsSidebar: React.FC<Props> = ({
   questions,
   //   activeIndex,
 }) => {
-  const [expanded, setExpanded] = useState(true);
   const [showQuestions, setShowQuestions] = useState(false);
   const [expandQuestion, setExpandQuestion] = useState("");
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const [expanded, setExpanded] = useState(true);
 
   useEffect(() => {
     if (expanded) {
@@ -39,11 +41,18 @@ export const AddQuestionsSidebar: React.FC<Props> = ({
     }
   }, [expanded]);
 
+  useEffect(() => {
+    if (isMobile) {
+      setExpanded(false);
+    } else {
+      setExpanded(true);
+    }
+  }, [isMobile]);
+
   return (
     <div
-      className={`flex flex-col h-full py-2 overflow-y-auto border-r border-gray-200 transition-all duration-300 ${
-        expanded ? "w-96" : "w-14"
-      }`}
+      className={`flex flex-col h-full py-2 overflow-y-auto border-r border-gray-200 transition-all duration-300`}
+      style={{ width: expanded ? (isMobile ? "100%" : "400px") : "56px" }}
     >
       <div
         onClick={() => setExpanded((p) => !p)}
