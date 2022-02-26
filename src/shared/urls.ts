@@ -12,5 +12,6 @@ export const endpoints = {
     attempts: `${baseURL}/quizes/attempts`,
     attemptsById: (attemptId: string) => `${baseURL}/quizes/attempts/${attemptId}`,
     statsByQuizId: (quizId: string) => `${baseURL}/quizes/statistics/${quizId}`,
-    statsByQuizIdbyQuestionId: (quizId: string, questionId: string) => `${baseURL}/quizes/statistics/${quizId}/questions/${questionId}`
+    statsByQuizIdbyQuestionId: (quizId: string, questionId: string) => `${baseURL}/quizes/statistics/${quizId}/questions/${questionId}`,
+    stats: `${baseURL}/stats/`
 }
