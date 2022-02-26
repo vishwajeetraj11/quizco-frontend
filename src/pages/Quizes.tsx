@@ -79,7 +79,12 @@ export const Quizes = () => {
       <div>
         {totalPages > 1 &&
           Array.from(Array(totalPages).keys()).map((loader, index) => (
-            <Button key={index} onClick={() => setCurrentPage(index + 1)}>
+            <Button
+              color="primary"
+              variant={currentPage - 1 === index ? "contained" : "text"}
+              key={index}
+              onClick={() => setCurrentPage(index + 1)}
+            >
               {index + 1}
             </Button>
           ))}

@@ -32,11 +32,19 @@ export const FiltersForm: React.FC<Props> = ({
           tag: tag,
         }}
         validationSchema={FiltersValidation}
-        onSubmit={async (values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting, setFieldError }) => {
           setSubmitting(true);
-          setSearchTerm(values.search);
-          setTag(values.tag);
-          modalClose();
+          try {
+            if (!!!values.search.trim()) {
+              setFieldError("search", "Only Spaces not allowed.");
+              throw Error("Form Error");
+            }
+
+            setSearchTerm(values.search);
+            setTag(values.tag);
+            modalClose();
+          } catch (e) {}
+
           setSubmitting(false);
         }}
       >

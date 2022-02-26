@@ -1,7 +1,13 @@
 import { Button } from "@material-ui/core";
-import { ColDef, ICellRendererParams } from "ag-grid-community";
+import {
+  ColDef,
+  ColumnApi,
+  GridApi,
+  ICellRendererParams,
+} from "ag-grid-community";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { DownloadButton } from "../../components/Dropdown";
 import { GridWrapper } from "../../components/GridWrapper";
 import { IStatsByQuiz } from "../../shared/interfaces";
 import { useStatsByQuizId } from "../../shared/queries";
@@ -12,6 +18,9 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
   const { quizId } = useParams() as { quizId: string };
   const { isLoading, data, isSuccess } = useStatsByQuizId(quizId);
   const [list, setList] = useState([]);
+  const [selected, setSelected] = useState<string[]>([]);
+  const [gridApi, setGridApi] = useState<GridApi>();
+  const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,6 +39,14 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
   }, [data?.users, isSuccess]);
 
   const colDefs: ColDef[] = [
+    {
+      headerName: "",
+      field: "select",
+      checkboxSelection: true,
+      headerCheckboxSelection: true,
+      maxWidth: 100,
+      cellStyle: { display: "flex", textAlign: "center" },
+    },
     {
       headerName: "Photo",
       field: "photo",
@@ -68,6 +85,7 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
     },
     {
       headerName: "View Attempt",
+      field: "view_attempt",
       cellRendererFramework: (params: ICellRendererParams) => (
         <div>
           <p
@@ -88,6 +106,15 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
   return (
     <div className="flex flex-col flex-1 overflow-y-hidden overflow-x-auto">
       <div className="flex justify-end my-4">
+        <div className="mr-4">
+          <DownloadButton
+            selected={selected}
+            gridApi={gridApi}
+            gridColumnApi={gridColumnApi}
+            quizId={quizId}
+            excludedColumns={["photo", "view_attempt"]}
+          />
+        </div>
         <Button
           variant="contained"
           color="primary"
@@ -97,7 +124,13 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
         </Button>
       </div>
       <div style={{ height: "85vh" }}>
-        <GridWrapper loading={isLoading} colDefs={colDefs} list={list} />
+        <GridWrapper
+          setGridApiParent={setGridApi}
+          setGridColApiParent={setGridColumnApi}
+          loading={isLoading}
+          colDefs={colDefs}
+          list={list}
+        />
       </div>
     </div>
   );

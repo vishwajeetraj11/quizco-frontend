@@ -37,7 +37,7 @@ export const QuizCard: React.FC<Props> = ({
       className={`${
         deleted ? "" : "cursor-pointer "
       }relative shadow-md px-10 py-8 rounded-md bg-white ${
-        selected ? "border border-2 border-teal-500" : ""
+        selected ? " border-2 border-teal-500" : ""
       }`}
       style={{ boxShadow: "15px 15px 54px -10px #0000001f" }}
     >
