@@ -2,9 +2,11 @@ import { Button } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { ConfirmSubmitModalContent } from "../components/ConfirmSubmitModal";
 import { EmptyResponse } from "../components/EmptyResponse";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { ShowResponses } from "../components/FinishQuiz";
+import { ModalSkeleton } from "../components/Modal";
 import { Player } from "../components/Player";
 import { Sidebar } from "../components/Sidebar";
 import { Loader } from "../components/Svgs";
@@ -46,8 +48,15 @@ export const PlayerScreen: React.FC<Props> = () => {
     params.id
   );
 
+  const [confirmSubmitModalActive, setConfirmSubmitModalActive] =
+    useState(false);
+  const handleConfirmSubmitModalOpen = () => setConfirmSubmitModalActive(true);
+  const handleConfirmSubmitModalClose = () =>
+    setConfirmSubmitModalActive(false);
+
   const onSubmit = () => {
-    setFetchCorrectAns(true);
+    // setFetchCorrectAns(true);
+    handleConfirmSubmitModalOpen();
   };
 
   const findScore = (quizCorrectAnsData: any) => {
@@ -118,7 +127,6 @@ export const PlayerScreen: React.FC<Props> = () => {
   return isLoading || isFetching ? (
     <Loader halfScreen />
   ) : (
-    // h-screen
     <div
       style={{ height: "92vh" }}
       className="w-full flex flex-col flex-1 overflow-y-hidden"
@@ -127,6 +135,7 @@ export const PlayerScreen: React.FC<Props> = () => {
         {!quizEnd ? (
           <>
             <Sidebar
+              responses={response}
               questions={data?.questions}
               activeIndex={activeIndex}
               setActiveIndex={setActiveIndex}
@@ -139,8 +148,8 @@ export const PlayerScreen: React.FC<Props> = () => {
                 {!quizEnd && (
                   <div className="flex items-center justify-center flex-col sm:flex-row mt-auto">
                     <p className="sm:mr-4 mb-3 sm:mb-0 text-sm md:text-base">
-                      {response?.filter((resp) => resp.response !== "").length}{" "}
-                      / {data?.questions.length} Completed
+                      {response?.filter((resp) => resp.response !== "").length}/{" "}
+                      {data?.questions.length} Completed
                     </p>
                     <div className="bg-gray-200 rounded-full h-1 w-28 md:w-48">
                       <div
@@ -175,6 +184,17 @@ export const PlayerScreen: React.FC<Props> = () => {
                 activeIndex={activeIndex}
                 setActiveIndex={setActiveIndex}
               />
+              <ModalSkeleton
+                open={confirmSubmitModalActive}
+                onClose={handleConfirmSubmitModalClose}
+              >
+                <ConfirmSubmitModalContent
+                  responses={response}
+                  handleConfirmSubmitModalClose={handleConfirmSubmitModalClose}
+                  isQuizCorrectAnsLoading={isQuizCorrectAnsLoading}
+                  setFetchCorrectAns={setFetchCorrectAns}
+                />
+              </ModalSkeleton>
             </div>
           </>
         ) : (

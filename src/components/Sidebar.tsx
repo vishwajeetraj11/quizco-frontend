@@ -1,18 +1,20 @@
 import { useMediaQuery } from "@material-ui/core";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { BsLayoutSidebarInset } from "react-icons/bs";
-import { IQuestion } from "../shared/interfaces";
+import { IQuestion, IResponse } from "../shared/interfaces";
 
 interface Props {
   questions: IQuestion[];
   activeIndex?: number;
   setActiveIndex: Dispatch<SetStateAction<number>>;
+  responses: [] | IResponse[];
 }
 
 export const Sidebar: React.FC<Props> = ({
   activeIndex,
   setActiveIndex,
   questions,
+  responses,
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [showQuestions, setShowQuestions] = useState(false);
@@ -65,6 +67,7 @@ export const Sidebar: React.FC<Props> = ({
             >
               {index + 1}
             </p>
+
             {expanded && showQuestions && (
               <p className="pl-4 w-10/12">
                 {quiz.title.length > 60
