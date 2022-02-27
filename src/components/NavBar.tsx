@@ -1,13 +1,18 @@
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
+import Logo from "../assets/logos/White-Purple-Circle.png";
 
 interface Props {}
 
 export const NavBar: React.FC<Props> = () => {
   return (
     <div className="px-4 sm:px-10 py-4 flex items-center h-[8%]">
-      <Link to="/" className="font-semibold text-gray-888 text-xs sm:text-xl">
-        Quizco
+      <Link
+        to="/"
+        className="font-semibold text-gray-888 text-xs sm:text-xl flex items-center"
+      >
+        <img src={Logo} alt="Quizco Logo" className="w-10 h-10 object-fit" />
+        <p>Quizco</p>
       </Link>
       <div className="ml-auto flex items-center">
         <SignedOut>
