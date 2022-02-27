@@ -15,13 +15,15 @@ export const ShowResponses: React.FC<Props> = ({ responses, score, as }) => {
     <>
       <div className="flex flex-col items-center mt-10 w-full">
         {AFTER_QUIZ_RESPONSE && (
-          <h1 className="text-3xl mb-5">Thank you for playing this Quiz</h1>
+          <h1 className="text-xl md:text-3xl mb-5">
+            Thank you for playing this Quiz
+          </h1>
         )}
         <p className="text-xl">
           Here is {AUTHOR_CHECK_RESPONSE ? "his" : "your"} score: {score}
         </p>
 
-        <div className="mt-4 w-8/12">
+        <div className="mt-4 mx-5 md:mx-0 md:w-8/12">
           <div className="grid grid-cols-3 gap-x-7">
             {responses.length > 0 && (
               <>

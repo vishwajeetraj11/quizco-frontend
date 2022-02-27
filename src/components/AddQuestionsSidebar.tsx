@@ -12,6 +12,7 @@ import {
 } from "../shared/constants";
 import { IQuestion } from "../shared/interfaces";
 import { useDeleteQuestion } from "../shared/queries";
+import { DeleteModal } from "./DeleteModal";
 
 interface Props {
   questions: IQuestion[];
@@ -61,18 +62,24 @@ export const AddQuestionsSidebar: React.FC<Props> = ({
         <BsLayoutSidebarInset size={18} fill="#444" />
       </div>
       <div className="overflow-y-auto mt-4">
-        {questions?.map((question, index) => (
-          <SidebarQuestion
-            setExpandQuestion={setExpandQuestion}
-            setExpanded={setExpanded}
-            expandQuestion={expandQuestion}
-            question={question}
-            key={index}
-            index={index}
-            expanded={expanded}
-            showQuestions={showQuestions}
-          />
-        ))}
+        {questions.length > 0 ? (
+          questions.map((question, index) => (
+            <SidebarQuestion
+              setExpandQuestion={setExpandQuestion}
+              setExpanded={setExpanded}
+              expandQuestion={expandQuestion}
+              question={question}
+              key={index}
+              index={index}
+              expanded={expanded}
+              showQuestions={showQuestions}
+            />
+          ))
+        ) : (
+          <>
+            <p className="text-center">No Questions Added Yet.</p>
+          </>
+        )}
       </div>
     </div>
   );
@@ -98,10 +105,14 @@ const SidebarQuestion: React.FC<SidebarProps> = ({
   setExpanded,
 }) => {
   const { id } = useParams() as { id: string };
-  const { mutate, reset } = useDeleteQuestion(id, question._id);
+  const { mutate, reset, isLoading } = useDeleteQuestion(id, question._id);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
+
+  const [deleteModalActive, setDeleteModalActive] = useState(false);
+  const handleDeleteModalOpen = () => setDeleteModalActive(true);
+  const handleDeleteModalClose = () => setDeleteModalActive(false);
 
   const onDeleteQuestion = async () => {
     enqueueSnackbar(loadingMessages.actionLoading("Deleting", "Question"), {
@@ -115,6 +126,7 @@ const SidebarQuestion: React.FC<SidebarProps> = ({
         },
         onSettled: () => {
           reset();
+          handleDeleteModalClose();
         },
         onSuccess: () => {
           queryClient.invalidateQueries(["Quiz Questions", id]);
@@ -161,11 +173,19 @@ const SidebarQuestion: React.FC<SidebarProps> = ({
         >
           <div className="flex ml-auto">
             <div
-              onClick={onDeleteQuestion}
+              onClick={handleDeleteModalOpen}
               className="p-2 bg-indigo-600 rounded-full mr-4 cursor-pointer"
             >
               <AiFillDelete fill="#fff" size={16} />
             </div>
+            <DeleteModal
+              resource="Question"
+              modalTitle="Delete Question"
+              onDelete={onDeleteQuestion}
+              deleteLoading={isLoading}
+              deleteModalActive={deleteModalActive}
+              handleDeleteModalClose={handleDeleteModalClose}
+            />
             <div
               onClick={() =>
                 navigate(`/quizes/${id}/questions/${question._id}`)

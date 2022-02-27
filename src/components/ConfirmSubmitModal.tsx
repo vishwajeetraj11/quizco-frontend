@@ -34,19 +34,19 @@ export const ConfirmSubmitModalContent: React.FC<Props> = ({
         Submit Quiz
       </h4>
       <div className="my-4 mb-5 mx-5 md:mx-10">
-        <p className="text-gray-555 text-sm md:text-md font-medium">
+        <p className="text-gray-555 text-sm md:text-lg font-medium">
           Are you sure you want to submit?
         </p>
         <div className="my-3">
-          <p className="text-gray-555 text-sm md:text-md font-normal">
+          <p className="text-gray-555 text-sm md:text-lg font-normal">
             Questions Attempted: {marked}
           </p>
-          <p className="text-gray-555 text-sm md:text-md font-normal">
+          <p className="text-gray-555 text-sm md:text-lg font-normal">
             Questions Unattempted: {unmarked}
           </p>
         </div>
         {marked === 0 && (
-          <p className="text-rose-600 text-sm md:text-md mt-3 font-semibold">
+          <p className="text-rose-600 text-sm md:text-lg mt-3 font-semibold">
             Sorry can't allow you to omit for all questions.
           </p>
         )}
