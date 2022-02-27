@@ -59,7 +59,7 @@ export const Player: React.FC<Props> = ({
             />
           ))}
       </div>
-      <div className="w-full flex items-center justify-between mt-auto">
+      <div className="w-full flex items-center justify-between mt-10">
         <PaginationButton
           onClick={() => {
             setActiveIndex((p: number) => p - 1);

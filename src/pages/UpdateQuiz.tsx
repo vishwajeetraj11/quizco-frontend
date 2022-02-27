@@ -27,7 +27,7 @@ export const UpdateQuiz: React.FC<Props> = () => {
       {isLoading || isFetching ? (
         <Loader halfScreen />
       ) : (
-        <div className="mx-auto w-6/12">
+        <div className="mx-auto md:w-6/12">
           <QuizForm
             {...data?.quiz}
             mutateAsync={mutateAsync}
