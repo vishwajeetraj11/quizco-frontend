@@ -116,11 +116,11 @@ export const AddEditQuestionFormFields: React.FC<Props> = ({ isLoading }) => {
         </p>
 
         {uiMessages.allowedMarkingACorrectOption.map((message) => (
-          <p className="text-sm font-thin w-10/12">{message}</p>
+          <p className="text-sm font-thin w-full md:w-10/12">{message}</p>
         ))}
         <div className="mt-4">
           {uiMessages.warnQuestionCreate.map((message) => (
-            <p className="text-sm font-thin w-10/12">{message}</p>
+            <p className="text-sm font-thin w-full md:w-10/12">{message}</p>
           ))}
         </div>
       </div>

@@ -34,7 +34,7 @@ export const DeleteModal = ({
     }}
   >
     <Fade in={deleteModalActive}>
-      <Box sx={{ ...modalStyle, width: "400px" }}>
+      <Box sx={{ ...modalStyle, minWidth: 250 }}>
         <h4 className="text-gray-555 text-center font-semibold text-2xl">
           {modalTitle}
         </h4>

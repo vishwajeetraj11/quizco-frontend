@@ -8,7 +8,7 @@ export const Loader: React.FC<{
   return (
     <div
       style={{
-        height: halfScreen ? "100px" : "auto",
+        height: halfScreen ? "300px" : "auto",
       }}
       className={`${
         fullScreen || halfScreen

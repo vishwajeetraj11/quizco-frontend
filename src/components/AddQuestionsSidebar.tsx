@@ -145,6 +145,7 @@ const SidebarQuestion: React.FC<SidebarProps> = ({
         >
           {index + 1}
         </p>
+
         {expanded && showQuestions && (
           <p className="pl-4 w-10/12">
             {question.title.length > 60

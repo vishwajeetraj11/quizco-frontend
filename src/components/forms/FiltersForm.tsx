@@ -20,7 +20,9 @@ export const FiltersForm: React.FC<Props> = ({
   return (
     <>
       <div>
-        <h3 className="font-thin mt-3 mb-8">Available Filters</h3>
+        <h3 className="font-thin mt-5 mb-8 text-center text-xl">
+          Available Filters
+        </h3>
       </div>
       <Formik<{
         search: string;
@@ -35,7 +37,7 @@ export const FiltersForm: React.FC<Props> = ({
         onSubmit={async (values, { setSubmitting, setFieldError }) => {
           setSubmitting(true);
           try {
-            if (!!!values.search.trim()) {
+            if (!!!values.search.trim() && values.search.length !== 0) {
               setFieldError("search", "Only Spaces not allowed.");
               throw Error("Form Error");
             }

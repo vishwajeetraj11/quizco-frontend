@@ -25,14 +25,11 @@ export const AddQuestions: React.FC<Props> = () => {
       <div className="min-h-[95%] border-t flex flex-row flex-1 overflow-y-auto">
         <AddQuestionsSidebar questions={data?.questions} />
         <div className="flex-1 overflow-y-auto">
-          <div className="min-h-[8%]  border-b border-gray-200 flex pl-4 mr-10 py-4 justify-between">
+          <div className="min-h-[8%]  border-b border-gray-200 flex pl-4 pr-4 md:pr-0 md:pr-10 py-4 justify-between">
             <p className="mt-auto">Add Question</p>
-            <div className="flex items-center">
-              <p className="mr-4">{data?.questions.length} / 10 Completed</p>
-              <div
-                className="bg-gray-200 rounded-full h-1"
-                style={{ width: 150 }}
-              >
+            <div className="flex flex-col justify-center items-center">
+              <p className="mb-1">{data?.questions.length} / 10 Added</p>
+              <div className="bg-gray-200 rounded-full h-1 w-28 md:w-48">
                 <div
                   className="bg-indigo-600 rounded-full h-1"
                   style={{
@@ -42,7 +39,7 @@ export const AddQuestions: React.FC<Props> = () => {
               </div>
             </div>
           </div>
-          <div className="pl-4 pr-10 mt-4">
+          <div className="pl-4 pr-4 md:pr-10 mt-4">
             <AddQuestionForm />
           </div>
         </div>

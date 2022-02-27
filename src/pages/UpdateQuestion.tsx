@@ -18,7 +18,7 @@ export const UpdateQuestion: React.FC<Props> = () => {
       <h3 className="text-xl font-semibold text-center mb-10">
         Update Question
       </h3>
-      <div className="mx-auto w-6/12">
+      <div className="mx-auto md:w-6/12">
         {isLoading ? (
           <>
             <Loader halfScreen />

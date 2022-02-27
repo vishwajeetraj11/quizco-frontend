@@ -20,9 +20,7 @@ export const ModalSkeleton: React.FC<Props> = ({ open, onClose, children }) => {
       }}
     >
       <Fade in={open}>
-        <Box sx={{ ...modalStyle, minWidth: 200, padding: 0 }}>
-          <h3 className="text-2xl font-semibold text-center">{children}</h3>
-        </Box>
+        <Box sx={{ ...modalStyle, minWidth: 250, padding: 0 }}>{children}</Box>
       </Fade>
     </Modal>
   );
