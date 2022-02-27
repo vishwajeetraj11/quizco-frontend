@@ -5,6 +5,7 @@ import Create from "../assets/illustations/Create.png";
 import EcoFriendly from "../assets/illustations/ecofriendly.png";
 import LandingIllustration from "../assets/illustations/landing.png";
 import Stats from "../assets/illustations/Stats.png";
+import Logo from "../assets/logos/White-Purple-Circle.png";
 import { Footer } from "../components/Footer";
 import { useStats } from "../shared/queries";
 
@@ -20,7 +21,7 @@ export const Landing = () => {
           className="flex flex-col md:flex-row items-center justify-between max-w-screen-xl mx-5 md:mx-auto"
         >
           <div className="w-12/12 md:w-6/12 flex items-center justify-center">
-            <div className="h-96 w-96">
+            <div className="h-72 md:h-96 w-72 md:w-96">
               <img
                 src={LandingIllustration}
                 className="h-full w-full object-cover"
@@ -29,7 +30,14 @@ export const Landing = () => {
             </div>
           </div>
           <div className="w-12/12 md:w-6/12">
-            <h1 className="text-2xl font-thin text-slate-800">Quizco</h1>
+            <div className="flex items-center">
+              <img
+                src={Logo}
+                className="h-20 w-20 object-cover"
+                alt="landing"
+              />
+              <h1 className="text-2xl font-thin text-slate-800">Quizco</h1>
+            </div>
             <h2 className="text-4xl font-medium mt-2 text-slate-600">
               Quiz Builder and Assessment Tool
             </h2>
