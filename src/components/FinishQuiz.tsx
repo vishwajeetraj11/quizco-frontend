@@ -35,55 +35,63 @@ export const ShowResponses: React.FC<Props> = ({
           Here is {AUTHOR_CHECK_RESPONSE ? "his" : "your"} score: {score}
         </p>
 
-        <div className="mt-4 mx-5 md:mx-0 md:w-8/12">
-          <div className="grid grid-cols-3 gap-x-7">
+        <div className="mt-4 mx-5 /12 md:mx-0 md:w-8/12">
+          <div className="grid-responses-options-show">
             {responses.length > 0 && (
               <>
-                <p>Correct Answer</p>
-                <p>{AUTHOR_CHECK_RESPONSE ? "His" : "Your"} Response</p>
-                <p>
-                  {AUTHOR_CHECK_RESPONSE ? "He" : "You"} chose correct option
-                </p>
+                <div>
+                  <p>Correct Answer</p>
+                  <Option
+                    selectedOption={""}
+                    correctAns={"Option"}
+                    option={{ value: "Option" }}
+                    disabled
+                  />
+                </div>
+                <div>
+                  <p>{AUTHOR_CHECK_RESPONSE ? "His" : "Your"} Response</p>
+                  <Option
+                    selectedOption={"Option"}
+                    correctAns={"Some Option"}
+                    option={{ value: "Option" }}
+                    disabled
+                  />
+                </div>
+                <div>
+                  <p>
+                    {AUTHOR_CHECK_RESPONSE ? "He" : "You"} chose correct option
+                  </p>
 
-                <Option
-                  selectedOption={""}
-                  correctAns={"Option"}
-                  option={{ value: "Option" }}
-                  disabled
-                />
-                <Option
-                  selectedOption={"Option"}
-                  correctAns={"Some Option"}
-                  option={{ value: "Option" }}
-                  disabled
-                />
-
-                <Option
-                  selectedOption={"Option"}
-                  correctAns={"Option"}
-                  option={{ value: "Option" }}
-                  disabled
-                />
+                  <Option
+                    selectedOption={"Option"}
+                    correctAns={"Option"}
+                    option={{ value: "Option" }}
+                    disabled
+                  />
+                </div>
               </>
             )}
           </div>
           {responses.length > 0 ? (
-            responses.map((resp: any, i: number) => (
-              <div className="mt-10 mb-20 shadow-sm" key={i}>
-                <p>{resp.title}</p>
-                <div className="flex flex-col items-start">
-                  {resp.options.map((option: IOption, i: number) => (
-                    <Option
-                      key={i}
-                      selectedOption={resp.response}
-                      correctAns={resp.correct}
-                      option={option}
-                      disabled
-                    />
-                  ))}
+            <div className="mt-10">
+              <p className="mb-2 text-xl font-medium">Answers</p>
+              {responses.map((resp: any, i: number) => (
+                <div className="mb-20 shadow-sm" key={i}>
+                  <p>{resp.title}</p>
+                  <div className="flex flex-col items-start">
+                    {resp.options.map((option: IOption, i: number) => (
+                      <Option
+                        key={i}
+                        selectedOption={resp.response}
+                        correctAns={resp.correct}
+                        option={option}
+                        disabled
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))
+              ))}
+            </div>
           ) : (
             <>
               <EmptyResponse resource="Responses" />

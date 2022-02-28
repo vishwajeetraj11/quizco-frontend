@@ -105,7 +105,12 @@ export const StatisticsAllQuestions: React.FC<Props> = () => {
 
   return (
     <div className="flex flex-col flex-1 overflow-y-hidden overflow-x-auto">
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-between mb-4 items-center">
+        <p className="">
+          Please click on Question
+          <span className="text-indigo-600">(highlited)</span> to view Question
+          Statistics.
+        </p>
         <DownloadButton
           selected={selected}
           gridApi={gridApi}
