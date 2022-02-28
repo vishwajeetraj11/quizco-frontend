@@ -5,6 +5,7 @@ import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { DeleteModal } from "../components/DeleteModal";
 import { EmptyResponse } from "../components/EmptyResponse";
+import { ErrorMessage } from "../components/ErrorMessage";
 import { QuizCard } from "../components/QuizCard";
 import { Loader } from "../components/Svgs";
 import { errorMessages, successMessages } from "../shared/constants";
@@ -18,7 +19,7 @@ export const Dashboard: React.FC<Props> = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const { data, isLoading, isSuccess } = useQuizes(
+  const { data, isLoading, isSuccess, isFetching, error } = useQuizes(
     `${endpoints.quizes}?loggedIn=true&page=${currentPage}`,
     ["Quizes", "Current User", currentPage]
   );
@@ -48,6 +49,15 @@ export const Dashboard: React.FC<Props> = () => {
     reset,
     mutateAsync,
   } = useDeleteQuiz(selectedQuiz?._id || "id");
+
+  if (error?.response?.status) {
+    return (
+      <ErrorMessage
+        message={error.response.data.message}
+        statusCode={error.response.status}
+      />
+    );
+  }
 
   const onDelete = () => {
     mutateAsync(
@@ -148,7 +158,7 @@ export const Dashboard: React.FC<Props> = () => {
           </div>
         </div>
       )}
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <Loader halfScreen />
       ) : data?.quizes.length > 0 ? (
         <div className="grid gap-7 mt-10 grid-flow-row grid-quizes pb-8">

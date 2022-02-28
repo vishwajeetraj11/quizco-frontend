@@ -20,7 +20,6 @@ export const QuizCard: React.FC<Props> = (props) => {
     onSelect,
     status,
     score,
-    deleted,
     redirect,
     selected,
   } = props;
@@ -40,16 +39,12 @@ export const QuizCard: React.FC<Props> = (props) => {
           () =>
             onSelect
               ? onSelect()
-              : deleted
-              ? () => null
               : redirect
               ? navigate(redirect)
               : handleQuizModalActive()
           // : navigate(`/quizes/${_id}`)
         }
-        className={`${
-          deleted ? "" : "cursor-pointer "
-        }relative shadow-md px-10 py-8 rounded-md bg-white ${
+        className={`relative shadow-md px-10 py-8 rounded-md bg-white cursor-pointer ${
           selected ? " border-2 border-teal-500" : ""
         }`}
         style={{ boxShadow: "15px 15px 54px -10px #0000001f" }}

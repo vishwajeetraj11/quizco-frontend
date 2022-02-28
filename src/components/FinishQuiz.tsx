@@ -5,12 +5,19 @@ interface Props {
   responses: any;
   score: number;
   as: "AFTER_QUIZ_RESPONSE" | "AUTHOR_CHECK_RESPONSE" | "USER_CHECK_RESPONSE";
+  quizDeleted?: boolean;
 }
 
-export const ShowResponses: React.FC<Props> = ({ responses, score, as }) => {
+export const ShowResponses: React.FC<Props> = ({
+  responses,
+  score,
+  as,
+  quizDeleted,
+}) => {
   const AFTER_QUIZ_RESPONSE = as === "AFTER_QUIZ_RESPONSE";
   const AUTHOR_CHECK_RESPONSE = as === "AUTHOR_CHECK_RESPONSE";
   // const USER_CHECK_RESPONSE = as === "USER_CHECK_RESPONSE";
+
   return (
     <>
       <div className="flex flex-col items-center mt-10 w-full">
@@ -18,6 +25,11 @@ export const ShowResponses: React.FC<Props> = ({ responses, score, as }) => {
           <h1 className="text-xl md:text-3xl mb-5">
             Thank you for playing this Quiz
           </h1>
+        )}
+        {quizDeleted && (
+          <p className="text-xl mb-2 text-rose-600">
+            This Quiz has been Deleted.
+          </p>
         )}
         <p className="text-xl">
           Here is {AUTHOR_CHECK_RESPONSE ? "his" : "your"} score: {score}
