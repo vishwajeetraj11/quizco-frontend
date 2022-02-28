@@ -1,3 +1,5 @@
-export const UserProfile = () => {
-  return <div>UserProfile</div>;
+import { UserProfile } from "@clerk/clerk-react";
+
+export const UserProfilePage = () => {
+  return <UserProfile />;
 };
