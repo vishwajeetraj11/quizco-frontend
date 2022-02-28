@@ -42,7 +42,7 @@ export const emptyResponseMessages = {
 
 export const uiMessages = {
     allowedMarkingACorrectOption: ['* Marking a correct option is only allowed after you have already written all options.'],
-    warnQuestionCreate: ['Note: Please be careful before creating a question because if you have to later edit it you will lose all responses to the question.', ' This is done so that we can provide you better and correct statistics with correct information.']
+    warnQuestionCreate: ['Note: Please be careful before creating a question because if you have to later edit it you will lose all responses to the question.', ' This is done so that we can provide you better and correct statistics.']
 }
 
 export const modalStyle = {
