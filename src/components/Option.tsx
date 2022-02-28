@@ -42,6 +42,9 @@ export const Option: React.FC<Props> = ({
         )}
       </div>
       <p
+        style={{
+          wordBreak: "break-word",
+        }}
         className={`text-sm md:text-base ${
           correctAns === option.value ? "text-white" : ""
         }`}

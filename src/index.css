@@ -78,6 +78,20 @@ code {
   }
 }
 
+.grid-responses-options-show {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+@media screen and (max-width: 600px) {
+  .grid-responses-options-show {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px 100px 100px;
+    gap: 10px;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .grid-quizes {
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
