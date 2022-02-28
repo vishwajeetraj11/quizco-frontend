@@ -47,6 +47,7 @@ export const QuizResponse: React.FC<Props> = () => {
         <>
           {data?.responses && (
             <ShowResponses
+              quizDeleted={data?.attempt?.quiz?.deleted}
               as={
                 location.state?.from === "STATISTICS"
                   ? "AUTHOR_CHECK_RESPONSE"

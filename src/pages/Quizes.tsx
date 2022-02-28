@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FcClearFilters } from "react-icons/fc";
 import { RiFilterFill } from "react-icons/ri";
 import { EmptyResponse } from "../components/EmptyResponse";
+import { ErrorMessage } from "../components/ErrorMessage";
 import { FiltersForm } from "../components/forms/FiltersForm";
 import { ModalSkeleton } from "../components/Modal";
 import { QuizCard } from "../components/QuizCard";
@@ -19,7 +20,7 @@ export const Quizes = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const { data, isLoading, isFetching, isSuccess } = useQuizes(
+  const { data, isLoading, isFetching, isSuccess, error } = useQuizes(
     `${endpoints.quizes}?search=${encodeURIComponent(
       searchTerm
     )}&tag=${encodeURIComponent(tag)}&page=${currentPage}`,
@@ -40,6 +41,15 @@ export const Quizes = () => {
       setTotalPages(data.count ? Math.ceil(data.count / 6) : 1);
     }
   }, [data?.count, isSuccess]);
+
+  if (error?.response?.status) {
+    return (
+      <ErrorMessage
+        message={error.response.data.message}
+        statusCode={error.response.status}
+      />
+    );
+  }
 
   return (
     <div className="pb-10">
