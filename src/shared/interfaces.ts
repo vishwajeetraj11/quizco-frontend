@@ -42,6 +42,8 @@ export interface IQuiz extends IQuizForm {
     updatedAt: Date;
     __v: number;
     id: string;
+    attemptsCount: number;
+    questionsCount: number;
 }
 
 export interface IAttempt {

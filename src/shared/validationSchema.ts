@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 
 export const AddEditQuizValidation = Yup.object().shape({
     title: Yup.string().required('Title is required.'),
-    description: Yup.string().required('Description is required.').max(150, 'Maximum 150 Characters.'),
+    description: Yup.string().required('Description is required.'),
     tags: Yup.array().of(Yup.string()).min(1, 'At least one tag is required'),
 });
 

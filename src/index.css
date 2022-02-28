@@ -69,6 +69,15 @@ code {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
+.grid-quiz-modal-descriptions {
+  grid-template-columns: max-content 40px;
+}
+@media screen and (max-width: 999px) {
+  .grid-quiz-modal-descriptions {
+    grid-template-columns: 1fr 40px;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .grid-quizes {
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
