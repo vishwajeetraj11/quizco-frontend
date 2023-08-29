@@ -1,5 +1,5 @@
 // export const baseURL = 'https://quizco.herokuapp.com/api/v1';
-export const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3001/api/v1' : 'https://quizco.herokuapp.com/api/v1';
+export const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3001/api/v1' : 'https://quizco-backend.onrender.com/api/v1';
 
 
 export const endpoints = {
