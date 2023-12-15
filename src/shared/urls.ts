@@ -6,6 +6,7 @@ export const endpoints = {
     quizes: `${baseURL}/quizes/`,
     quizById: (id: string) => `${baseURL}/quizes/${id}/`,
     quizQuestions: (id: string) => `${baseURL}/quizes/${id}/questions`,
+    quizAIQuestions: (id: string) => `${baseURL}/quizes/${id}/questions/ai`,
     quizQuestionById: (quizId: string, questionId: string) => `${baseURL}/quizes/${quizId}/questions/${questionId}`,
     quizQuestionsCorrectAns: (quizId: string) => `${baseURL}/quizes/${quizId}/questions/correct`,
     saveScore: (quizId: string) => `${baseURL}/quizes/${quizId}/attempts/save-score`,
