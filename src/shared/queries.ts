@@ -1,6 +1,6 @@
 import { useSession } from "@clerk/clerk-react";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { MutationOptions, QueryKey, useMutation, useQuery, UseQueryOptions } from "react-query";
+import { MutationOptions, QueryKey, UseQueryOptions, useMutation, useQuery } from "react-query";
 import { endpoints } from "./urls";
 
 export const PublicQueryFactory = (queryKey: QueryKey, url: string, options?: UseQueryOptions<any, AxiosError, any>) => {
@@ -27,7 +27,7 @@ export const QueryFactory = (queryKey: QueryKey, url: string, options?: UseQuery
     return useQuery<any, AxiosError, any>(
         queryKey,
         async () => {
-            const token = await getToken()
+            const token = await getToken();
             return axios({
                 url,
                 method: 'GET',
@@ -101,6 +101,7 @@ export const useStatsByQuizIdByQuestionId = (quizId: string, questionId: string,
 export const useStats = (options?: UseQueryOptions<any, AxiosError, any>) => PublicQueryFactory(['Statistics'], endpoints.stats, options);
 
 export const useCreateQuiz = (options?: MutationOptions) => MutationFactory('Create Quiz', endpoints.quizes, 'POST', options)
+export const useCreateAIQuestion = (quizId: string, options?: MutationOptions) => MutationFactory('Create AI Question', endpoints.quizAIQuestions(quizId), 'POST', options)
 export const useCreateQuestion = (id: string, options?: MutationOptions) => MutationFactory('Create Question', endpoints.quizQuestions(id), 'POST', options)
 export const useSaveScore = (id: string, options?: MutationOptions) => MutationFactory(['Save Score', id], endpoints.saveScore(id), 'POST', options)
 
