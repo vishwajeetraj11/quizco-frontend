@@ -3,6 +3,7 @@
 **Live**: https://quizco-app.netlify.app/  
 **Frontend**: https://github.com/vishwajeetraj11/quizco-frontend  
 **Backend**: https://github.com/vishwajeetraj11/quizco-backend/  
+AI Quiz Builder Enabled only for Admin
 
 ## 💻 Screens
 Landing Page          |  Landing Page (Scrolled Down)
