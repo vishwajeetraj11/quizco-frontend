@@ -38,5 +38,5 @@ Running it Locally:
 9. Run Backend (```yarn dev```), Run Frontend (```yarn start```)
 
 Node.js:
-- Use Node.js 20 for local development (`.nvmrc`), and Node.js 18 or higher is required.
-- Netlify is configured to build this site with Node.js 20 in `netlify.toml`.
+- Use Node.js 20.19.0 for local development (`.nvmrc`), and Node.js 20.19.0 or higher is required.
+- Netlify is configured to build this site with Node.js 20.19.0 in `netlify.toml`.
