@@ -1,7 +1,7 @@
-import { useMediaQuery } from "@material-ui/core";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { BsLayoutSidebarInset } from "react-icons/bs";
 import { IQuestion, IResponse } from "../shared/interfaces";
+import { useMediaQuery } from "../ui";
 
 interface Props {
   questions: IQuestion[];

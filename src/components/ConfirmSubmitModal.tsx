@@ -1,6 +1,6 @@
-import { Button } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { IResponse } from "../shared/interfaces";
+import { Button } from "../ui";
 
 interface Props {
   handleConfirmSubmitModalClose: () => void;

@@ -1,6 +1,6 @@
-import { Button, TextField } from "@material-ui/core";
 import { Formik } from "formik";
 import { FiltersValidation } from "../../shared/validationSchema";
+import { Button, TextField } from "../../ui";
 
 interface Props {
   searchTerm: string;

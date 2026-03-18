@@ -1,17 +1,18 @@
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@material-ui/core";
 import { useFormikContext } from "formik";
-import ChipInput from "material-ui-chip-input";
 import { IQuiz } from "../shared/interfaces";
+import { FormControl, InputLabel, MenuItem, Select, TextField } from "../ui";
+import { TagsInput } from "./TagsInput";
 
 export const AddEditQuizFormFields = ({ id }: { id?: string }) => {
-  const { touched, errors, values, handleBlur, handleChange, setFieldValue } =
-    useFormikContext<IQuiz>();
+  const {
+    touched,
+    errors,
+    values,
+    handleBlur,
+    handleChange,
+    setFieldTouched,
+    setFieldValue,
+  } = useFormikContext<IQuiz>();
 
   return (
     <>
@@ -65,23 +66,17 @@ export const AddEditQuizFormFields = ({ id }: { id?: string }) => {
         </div>
       )}
       <div className="mt-6">
-        <ChipInput
-          size="medium"
+        <TagsInput
           label="Tags"
-          fullWidth
-          variant="outlined"
           className="mt-6 mr-10"
           placeholder="Enter tags and hit ENTER"
-          allowDuplicates={false}
           error={!!(touched.tags && errors.tags)}
           helperText={touched.tags && errors.tags}
-          alwaysShowPlaceholder={!!values.tags.length}
           value={values.tags}
-          onAdd={(chip) => {
-            setFieldValue("tags", values.tags.concat(chip));
+          onBlur={() => {
+            setFieldTouched("tags", true);
           }}
-          onDelete={(chip, indexChip) => {
-            const tags = values.tags.filter((_, i) => i !== indexChip);
+          onChange={(tags) => {
             setFieldValue("tags", tags);
           }}
         />

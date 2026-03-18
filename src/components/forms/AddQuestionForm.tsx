@@ -1,6 +1,5 @@
 import axios from "axios";
 import { Formik } from "formik";
-import { useSnackbar } from "notistack";
 import { useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import {
@@ -11,6 +10,7 @@ import {
 import { IQuestionForm } from "../../shared/interfaces";
 import { useCreateQuestion } from "../../shared/queries";
 import { AddEditQuestionValidation } from "../../shared/validationSchema";
+import { useSnackbar } from "../../ui/snackbar";
 import { AddEditQuestionFormFields } from "./AddEditQuestionFormFields";
 
 interface Props {}

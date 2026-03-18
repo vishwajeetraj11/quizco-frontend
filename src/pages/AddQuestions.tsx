@@ -1,5 +1,4 @@
 import { useUser } from "@clerk/clerk-react";
-import { Button } from "@material-ui/core";
 import { useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import { AddQuestionsSidebar } from "../components/AddQuestionsSidebar";
@@ -7,14 +6,16 @@ import { ErrorMessage } from "../components/ErrorMessage";
 import { Loader } from "../components/Svgs";
 import { AddQuestionForm } from "../components/forms/AddQuestionForm";
 import { useCreateAIQuestion, useQuizQuestions } from "../shared/queries";
+import { Button } from "../ui";
 
 interface Props {}
 export const AddQuestions: React.FC<Props> = () => {
   const { id } = useParams() as { id: string };
   const { isLoading, data } = useQuizQuestions(id);
-  const { id: userId, primaryEmailAddress } = useUser();
+  const { user } = useUser();
   const { mutate, isLoading: isAILoading } = useCreateAIQuestion(id);
   const queryClient = useQueryClient();
+  const userId = user?.id;
 
   if (!isLoading && data?.author !== userId) {
     return <ErrorMessage statusCode={403} />;
@@ -40,7 +41,7 @@ export const AddQuestions: React.FC<Props> = () => {
   };
 
   const isAllowed =
-    primaryEmailAddress?.emailAddress === "vishwajeetraj11@gmail.com";
+    user?.primaryEmailAddress?.emailAddress === "vishwajeetraj11@gmail.com";
 
   return isLoading ? (
     <Loader halfScreen />

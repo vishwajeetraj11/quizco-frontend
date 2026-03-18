@@ -1,4 +1,3 @@
-import { Button } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { EmptyResponse } from "../components/EmptyResponse";
 import { ErrorMessage } from "../components/ErrorMessage";
@@ -7,6 +6,7 @@ import { Loader } from "../components/Svgs";
 import { IAttempt } from "../shared/interfaces";
 import { useMyAttempts } from "../shared/queries";
 import { endpoints } from "../shared/urls";
+import { Button } from "../ui";
 
 interface Props {}
 

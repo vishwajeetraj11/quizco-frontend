@@ -1,4 +1,3 @@
-import { Button } from "@material-ui/core";
 import {
   ColDef,
   ColumnApi,
@@ -10,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { DownloadButton } from "../../components/Dropdown";
 import { GridWrapper } from "../../components/GridWrapper";
 import { IStatsByQuiz } from "../../shared/interfaces";
+import { Button } from "../../ui";
 import { useStatsByQuizId } from "../../shared/queries";
 
 interface Props {}
@@ -18,7 +18,7 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
   const { quizId } = useParams() as { quizId: string };
   const { isLoading, data, isSuccess } = useStatsByQuizId(quizId);
   const [list, setList] = useState([]);
-  const [selected, setSelected] = useState<string[]>([]);
+  const selected: string[] = [];
   const [gridApi, setGridApi] = useState<GridApi>();
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>();
   const navigate = useNavigate();

@@ -51,10 +51,10 @@ export const modalStyle = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '40vw',
-    bgcolor: '#ffffff',
+    backgroundColor: '#ffffff',
     overflow: 'auto',
-    boxShadow: 24,
+    boxShadow: '0 24px 64px rgba(15, 23, 42, 0.2)',
     padding: '1rem 2rem',
-    border: 0,
+    border: '0',
     borderRadius: '6px',
 };

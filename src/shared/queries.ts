@@ -1,4 +1,4 @@
-import { useSession } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/clerk-react";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { MutationOptions, QueryKey, UseQueryOptions, useMutation, useQuery } from "react-query";
 import { endpoints } from "./urls";
@@ -23,7 +23,7 @@ export const PublicQueryFactory = (queryKey: QueryKey, url: string, options?: Us
 }
 
 export const QueryFactory = (queryKey: QueryKey, url: string, options?: UseQueryOptions<any, AxiosError, any>) => {
-    const { getToken } = useSession();
+    const { getToken } = useAuth();
     return useQuery<any, AxiosError, any>(
         queryKey,
         async () => {
@@ -46,7 +46,7 @@ export const QueryFactory = (queryKey: QueryKey, url: string, options?: UseQuery
 }
 
 const MutationFactory = (mutationKey: QueryKey, url: string, method: 'POST' | 'PUT' | 'PATCH', options?: MutationOptions) => {
-    const { getToken } = useSession();
+    const { getToken } = useAuth();
     return useMutation<any, AxiosError, any>({
         mutationKey,
         mutationFn: async (variables: { body: any }) => {
@@ -68,7 +68,7 @@ const MutationFactory = (mutationKey: QueryKey, url: string, method: 'POST' | 'P
 }
 
 const DeleteMutationFactory = (mutationKey: QueryKey, url: string, options?: MutationOptions) => {
-    const { getToken } = useSession();
+    const { getToken } = useAuth();
     return useMutation<any, AxiosError, any>({
         mutationKey,
         mutationFn: async () => {

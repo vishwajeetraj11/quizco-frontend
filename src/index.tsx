@@ -1,32 +1,33 @@
-import { MuiThemeProvider } from "@material-ui/core";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
-import { SnackbarProvider } from "notistack";
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
-import { theme } from "./shared/theme";
+import { SnackbarProvider } from "./ui/snackbar";
 
 const queryClient = new QueryClient();
 
-ReactDOM.render(
+const container = document.getElementById("root");
+
+if (!container) {
+  throw new Error("Root container not found");
+}
+
+const root = createRoot(container);
+
+root.render(
   <React.StrictMode>
     <SnackbarProvider maxSnack={3}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          {/* <StylesProvider injectFirst> */}
-          <MuiThemeProvider theme={theme}>
-            <App />
-          </MuiThemeProvider>
-          {/* </StylesProvider> */}
+          <App />
           <ReactQueryDevtools initialIsOpen={false} />
         </BrowserRouter>
       </QueryClientProvider>
     </SnackbarProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );

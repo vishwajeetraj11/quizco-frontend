@@ -1,4 +1,3 @@
-import { Button, IconButton } from "@material-ui/core";
 import * as React from "react";
 import { useState } from "react";
 import { FcClearFilters } from "react-icons/fc";
@@ -13,6 +12,7 @@ import { globalColors } from "../shared/constants";
 import { IQuiz } from "../shared/interfaces";
 import { useQuizes } from "../shared/queries";
 import { endpoints } from "../shared/urls";
+import { Button, IconButton } from "../ui";
 
 export const Quizes = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");

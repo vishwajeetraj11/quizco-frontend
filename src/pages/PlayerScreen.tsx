@@ -1,5 +1,3 @@
-import { Button } from "@material-ui/core";
-import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ConfirmSubmitModalContent } from "../components/ConfirmSubmitModal";
@@ -17,6 +15,8 @@ import {
   useQuizQuestions,
   useSaveScore,
 } from "../shared/queries";
+import { Button } from "../ui";
+import { useSnackbar } from "../ui/snackbar";
 
 interface Props {}
 

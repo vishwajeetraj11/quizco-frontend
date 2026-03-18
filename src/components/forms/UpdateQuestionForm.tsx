@@ -1,5 +1,4 @@
 import { Formik } from "formik";
-import { useSnackbar } from "notistack";
 import { useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -10,6 +9,7 @@ import {
 import { IOption, IQuestionForm } from "../../shared/interfaces";
 import { useUpdateQuestion } from "../../shared/queries";
 import { AddEditQuestionValidation } from "../../shared/validationSchema";
+import { useSnackbar } from "../../ui/snackbar";
 import { AddEditQuestionFormFields } from "./AddEditQuestionFormFields";
 
 interface Props {

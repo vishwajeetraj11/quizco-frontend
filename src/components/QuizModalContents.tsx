@@ -1,6 +1,6 @@
-import { Button } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import { IQuiz } from "../shared/interfaces";
+import { Button } from "../ui";
 
 interface Props extends IQuiz {
   onSelect?: () => void;

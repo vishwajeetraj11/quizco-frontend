@@ -1,5 +1,5 @@
-import { Backdrop, Box, Button, Fade, Modal } from "@material-ui/core";
 import { modalStyle } from "../shared/constants";
+import { Button } from "../ui";
 
 interface IDeleteModal {
   deleteModalActive: boolean;
@@ -21,20 +21,19 @@ export const DeleteModal = ({
   confirmMessage = "Are you sure?",
   informMessage = `You want to delete this ${resource || "resource"}.`,
   modalTitle = `Delete ${resource || "Resource"}`,
-}: IDeleteModal) => (
-  <Modal
-    aria-labelledby="transition-modal-title"
-    aria-describedby="transition-modal-description"
-    open={deleteModalActive}
-    onClose={handleDeleteModalClose}
-    closeAfterTransition
-    BackdropComponent={Backdrop}
-    BackdropProps={{
-      timeout: 200,
-    }}
-  >
-    <Fade in={deleteModalActive}>
-      <Box sx={{ ...modalStyle, minWidth: 250 }}>
+}: IDeleteModal) =>
+  deleteModalActive ? (
+    <div
+      aria-modal="true"
+      className="fixed inset-0 z-[1100] flex items-center justify-center bg-black/40 px-4 py-6"
+      onClick={handleDeleteModalClose}
+      role="dialog"
+    >
+      <div
+        className="w-full overflow-auto rounded-md bg-white shadow-2xl"
+        onClick={(event) => event.stopPropagation()}
+        style={{ ...modalStyle, minWidth: 250 }}
+      >
         <h4 className="text-gray-555 text-center font-semibold text-2xl">
           {modalTitle}
         </h4>
@@ -59,7 +58,6 @@ export const DeleteModal = ({
             </div>
           </div>
         </div>
-      </Box>
-    </Fade>
-  </Modal>
-);
+      </div>
+    </div>
+  ) : null;

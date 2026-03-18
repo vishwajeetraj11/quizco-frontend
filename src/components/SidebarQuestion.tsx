@@ -1,4 +1,3 @@
-import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { useQueryClient } from "react-query";
@@ -10,6 +9,7 @@ import {
 } from "../shared/constants";
 import { IQuestion } from "../shared/interfaces";
 import { useDeleteQuestion } from "../shared/queries";
+import { useSnackbar } from "../ui/snackbar";
 import { DeleteModal } from "./DeleteModal";
 
 interface SidebarProps {

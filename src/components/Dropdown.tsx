@@ -1,11 +1,3 @@
-import {
-  alpha,
-  Button,
-  Menu,
-  MenuItem,
-  MenuProps,
-  styled,
-} from "@material-ui/core";
 import { Column, ColumnApi, GridApi } from "ag-grid-community";
 import { Buffer } from "buffer";
 import pdfMake from "pdfmake/build/pdfmake";
@@ -16,7 +8,15 @@ import { GrDocumentCsv } from "react-icons/gr";
 import { SiMicrosoftexcel } from "react-icons/si";
 import { VscFilePdf } from "react-icons/vsc";
 import * as xlsx from "xlsx";
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { Button } from "../ui";
+
+const pdfFontVfs =
+  (pdfFonts as any).pdfMake?.vfs ||
+  (pdfFonts as any).default?.pdfMake?.vfs ||
+  (pdfFonts as any).vfs ||
+  pdfFonts;
+
+pdfMake.vfs = pdfFontVfs;
 
 interface Props {
   selected: string[];
@@ -399,7 +399,7 @@ export const DownloadButton: React.FC<Props> = ({
   };
 
   return (
-    <div>
+    <div className="relative">
       <Button
         id="demo-customized-button"
         aria-controls={open ? "demo-customized-menu" : undefined}
@@ -413,66 +413,50 @@ export const DownloadButton: React.FC<Props> = ({
       >
         Download
       </Button>
-      <StyledMenu
-        id="demo-customized-menu"
-        MenuListProps={{
-          "aria-labelledby": "demo-customized-button",
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={downloadExcel} disableRipple>
-          <SiMicrosoftexcel />
-          <p className="ml-2 text-sm">Excel</p>
-        </MenuItem>
-        <MenuItem onClick={downloadCSV} disableRipple>
-          <GrDocumentCsv />
-          <p className="ml-2 text-sm">CSV</p>
-        </MenuItem>
-        <MenuItem onClick={downloadPDF} disableRipple>
-          <VscFilePdf />
-          <p className="ml-2 text-sm">PDF</p>
-        </MenuItem>
-      </StyledMenu>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-10" onClick={handleClose} />
+          <div
+            className="absolute right-0 z-20 mt-2 min-w-[180px] overflow-hidden rounded-md border border-gray-200 bg-white py-1 shadow-lg"
+            id="demo-customized-menu"
+            role="menu"
+          >
+            <button
+              className="flex w-full items-center px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+              onClick={() => {
+                downloadExcel();
+                handleClose();
+              }}
+              type="button"
+            >
+              <SiMicrosoftexcel />
+              <span className="ml-2">Excel</span>
+            </button>
+            <button
+              className="flex w-full items-center px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+              onClick={() => {
+                downloadCSV();
+                handleClose();
+              }}
+              type="button"
+            >
+              <GrDocumentCsv />
+              <span className="ml-2">CSV</span>
+            </button>
+            <button
+              className="flex w-full items-center px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+              onClick={() => {
+                downloadPDF();
+                handleClose();
+              }}
+              type="button"
+            >
+              <VscFilePdf />
+              <span className="ml-2">PDF</span>
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
-
-const StyledMenu = styled((props: MenuProps) => (
-  <Menu
-    elevation={0}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "right",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "right",
-    }}
-    {...props}
-  />
-))(({ theme }) => ({
-  "& .MuiPaper-root": {
-    borderRadius: 6,
-    marginTop: theme.spacing(6),
-    minWidth: 180,
-    boxShadow: "0 5px 20px rgba(0,0,0,0.07)",
-    "& .MuiMenu-list": {
-      padding: "4px 0",
-    },
-    "& .MuiMenuItem-root": {
-      "& .MuiSvgIcon-root": {
-        fontSize: 18,
-        color: theme.palette.text.secondary,
-        marginRight: theme.spacing(1.5),
-      },
-      "&:active": {
-        backgroundColor: alpha(
-          theme.palette.primary.main,
-          theme.palette.action.selectedOpacity
-        ),
-      },
-    },
-  },
-}));

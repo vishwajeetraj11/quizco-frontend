@@ -1,12 +1,12 @@
-import { Button } from "@material-ui/core";
 import { AxiosError } from "axios";
 import { Formik } from "formik";
-import { useSnackbar } from "notistack";
 import { UseMutateAsyncFunction, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { errorMessages, successMessages } from "../../shared/constants";
 import { IQuizForm } from "../../shared/interfaces";
 import { AddEditQuizValidation } from "../../shared/validationSchema";
+import { Button } from "../../ui";
+import { useSnackbar } from "../../ui/snackbar";
 import { AddEditQuizFormFields } from "../AddEditQuizFormFields";
 
 interface Props {

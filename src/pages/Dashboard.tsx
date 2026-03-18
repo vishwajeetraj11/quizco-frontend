@@ -1,5 +1,3 @@
-import { Button } from "@material-ui/core";
-import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +10,8 @@ import { errorMessages, successMessages } from "../shared/constants";
 import { IQuiz } from "../shared/interfaces";
 import { useDeleteQuiz, useQuizes } from "../shared/queries";
 import { endpoints } from "../shared/urls";
+import { Button } from "../ui";
+import { useSnackbar } from "../ui/snackbar";
 
 interface Props {}
 

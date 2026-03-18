@@ -33,8 +33,10 @@ Running it Locally:
        - CLERK_API_KEY=<CLERK_BACKEND_API_KEY>   
        - CLERK_API_URL=https://api.clerk.dev  
 7. Frontend env.
-       - REACT_APP_CLERK_FRONTEND_API=<CLERK_FRONTEND_API>   
+       - REACT_APP_CLERK_PUBLISHABLE_KEY=<CLERK_PUBLISHABLE_KEY>   
 8. Install Dependencies.
 9. Run Backend (```yarn dev```), Run Frontend (```yarn start```)
 
-
+Node.js:
+- Use Node.js 20 for local development (`.nvmrc`), and Node.js 18 or higher is required.
+- Netlify is configured to build this site with Node.js 20 in `netlify.toml`.

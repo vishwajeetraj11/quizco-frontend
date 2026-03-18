@@ -1,6 +1,6 @@
-import { Button } from "@material-ui/core";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { globalColors } from "../shared/constants";
+import { Button } from "../ui";
 
 interface IPaginationButton {
   onClick: () => void;
