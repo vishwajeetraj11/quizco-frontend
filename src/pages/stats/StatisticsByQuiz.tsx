@@ -1,9 +1,4 @@
-import {
-  ColDef,
-  ColumnApi,
-  GridApi,
-  ICellRendererParams,
-} from "ag-grid-community";
+import { ColDef, ColumnApi, GridApi, ICellRendererParams } from "ag-grid-community";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DownloadButton } from "../../components/Dropdown";
@@ -44,48 +39,46 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
       field: "select",
       checkboxSelection: true,
       headerCheckboxSelection: true,
-      maxWidth: 100,
+      minWidth: 72,
+      maxWidth: 72,
+      width: 72,
       cellStyle: { display: "flex", textAlign: "center" },
-    },
-    {
-      headerName: "Photo",
-      field: "photo",
-      autoHeight: true,
-      minWidth: 80,
-      cellRendererFramework: (params: ICellRendererParams) => (
-        <div className="w-8 h-8 my-1 overflow-hidden">
-          <img
-            className="w-full h-full object-cover rounded-full"
-            src={params.data.photo}
-            alt={"User"}
-          />
-        </div>
-      ),
     },
     {
       headerName: "First Name",
       field: "firstName",
+      flex: 1,
+      minWidth: 160,
     },
     {
       headerName: "Last Name",
       field: "lastName",
+      flex: 1,
+      minWidth: 160,
     },
     {
       headerName: "Email",
       field: "email",
-      minWidth: 250,
+      flex: 1.35,
+      minWidth: 280,
     },
     {
       headerName: "1st Attempt Score",
       field: "score",
+      flex: 0.9,
+      minWidth: 170,
     },
     {
       headerName: "Max Attempts",
       field: "maxAttempts",
+      flex: 0.9,
+      minWidth: 160,
     },
     {
       headerName: "View Attempt",
       field: "view_attempt",
+      flex: 1,
+      minWidth: 190,
       cellRendererFramework: (params: ICellRendererParams) => (
         <div>
           <p
@@ -104,15 +97,15 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
   ];
 
   return (
-    <div className="flex flex-col flex-1 overflow-y-hidden overflow-x-auto">
-      <div className="flex justify-end my-4">
-        <div className="mr-4">
+    <div className="flex min-w-0 flex-1 flex-col overflow-y-hidden">
+      <div className="my-4 flex w-full flex-wrap items-center justify-end gap-4">
+        <div>
           <DownloadButton
             selected={selected}
             gridApi={gridApi}
             gridColumnApi={gridColumnApi}
             quizId={quizId}
-            excludedColumns={["photo", "view_attempt"]}
+            excludedColumns={["view_attempt"]}
           />
         </div>
         <Button
@@ -127,6 +120,7 @@ export const StatisticsByQuiz: React.FC<Props> = () => {
         <GridWrapper
           setGridApiParent={setGridApi}
           setGridColApiParent={setGridColumnApi}
+          fitColumns
           loading={isLoading}
           colDefs={colDefs}
           list={list}

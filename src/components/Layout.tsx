@@ -20,13 +20,17 @@ export const Layout: React.FC<Props> = ({ children }) => {
   );
 
   return (
-    <div className="flex flex-1 flex-col min-h-screen">
+    <div className="page-shell flex min-h-screen flex-1 flex-col">
       <NavBar />
-      <div
-        className={`flex-1 xl:w-full ${isFullWidthPage ? "" : "lg:max-w-screen-xl mx-4 "}xl:mx-auto`}
-      >
-        {children}
-      </div>
+      <main className="relative flex-1">
+        {isFullWidthPage ? (
+          children
+        ) : (
+          <div className="mx-auto w-full max-w-7xl px-4 pb-12 pt-6 sm:px-6 lg:px-8">
+            {children}
+          </div>
+        )}
+      </main>
     </div>
   );
 };

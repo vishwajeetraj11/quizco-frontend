@@ -1,3 +1,4 @@
+import { FiBarChart2, FiHelpCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { IQuiz } from "../shared/interfaces";
 import { Button } from "../ui";
@@ -22,56 +23,70 @@ export const QuizModalContents: React.FC<Props> = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <div className="p-5 md:p-10 overflow-hidden">
-      <div style={{ maxHeight: "500px" }} className="overflow-auto">
-        <div>
-          <p className="text-xl font-medium">{title}</p>
-          <p className="my-6">{description}</p>
-          <div className="grid items-center mb-2 grid-quiz-modal-descriptions">
-            <p className="font-medium text-indigo-600">
-              Number of times People played this Quiz:{" "}
-            </p>
-            <span className="justify-self-start ml-4 text-white font-bold h-8 w-8 flex items-center justify-center bg-indigo-600 rounded-full">
-              {attemptsCount}
-            </span>
-          </div>
-          <div className="items-center grid grid-quiz-modal-descriptions">
-            <p className="font-medium text-indigo-600">Number of Questions:</p>
-            <span className="ml-4 text-white font-bold h-8 w-8 flex items-center justify-center bg-indigo-600 rounded-full">
-              {questionsCount}
-            </span>
+    <div className="overflow-hidden p-5 md:p-8">
+      <div className="overflow-auto">
+        <div className="rounded-[28px] bg-[radial-gradient(circle_at_top_right,_rgba(45,212,191,0.12),_transparent_34%),linear-gradient(180deg,_rgba(248,250,252,0.92)_0%,_rgba(255,255,255,0.98)_100%)] p-6 md:p-8">
+          <span className="section-chip">Quiz overview</span>
+          <p className="mt-5 text-3xl font-semibold text-slate-900">{title}</p>
+          <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600">
+            {description}
+          </p>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-[24px] bg-white px-5 py-5 shadow-sm">
+              <div className="flex items-center gap-3 text-slate-500">
+                <FiBarChart2 className="text-teal-600" size={18} />
+                <p
+                  className="text-xs font-medium uppercase"
+                  style={{ letterSpacing: "0.18em" }}
+                >
+                  Attempts recorded
+                </p>
+              </div>
+              <p className="mt-4 text-4xl font-semibold text-slate-900">
+                {attemptsCount}
+              </p>
+            </div>
+
+            <div className="rounded-[24px] bg-white px-5 py-5 shadow-sm">
+              <div className="flex items-center gap-3 text-slate-500">
+                <FiHelpCircle className="text-amber-500" size={18} />
+                <p
+                  className="text-xs font-medium uppercase"
+                  style={{ letterSpacing: "0.18em" }}
+                >
+                  Questions included
+                </p>
+              </div>
+              <p className="mt-4 text-4xl font-semibold text-slate-900">
+                {questionsCount}
+              </p>
+            </div>
           </div>
 
-          <div className="flex mt-2 flex-wrap">
+          <div className="mt-8 flex flex-wrap gap-2">
             {tags.map((tag, i) => (
-              <p
+              <span
                 key={i}
-                style={{
-                  boxShadow: "0 5px 10px rgba(0,0,0,0.07)",
-                  fontSize: "11px",
-                  letterSpacing: "0.1px",
-                  maxWidth: 100,
-                }}
-                className="mr-5 mt-2 text-xs py-0.5 px-2 bg-slate-300 rounded font-medium text-gray-700 break-words"
+                className="rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm"
               >
                 {tag}
-              </p>
+              </span>
             ))}
           </div>
-        </div>
-        <div className="mt-10 flex justify-end">
-          <div className="mr-4">
+
+          <div className="mt-10 flex flex-wrap justify-end gap-3">
             <Button onClick={onClose} variant="outlined" color="secondary">
               Close
             </Button>
+            <Button
+              onClick={() => navigate(`/quizes/${_id}`)}
+              variant="contained"
+              color="primary"
+            >
+              Begin Quiz
+            </Button>
           </div>
-          <Button
-            onClick={() => navigate(`/quizes/${_id}`)}
-            variant="contained"
-            color="primary"
-          >
-            Begin
-          </Button>
         </div>
       </div>
     </div>

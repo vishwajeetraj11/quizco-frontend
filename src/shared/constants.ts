@@ -5,7 +5,7 @@ export const errorMessages = {
 }
 
 export const globalColors = {
-    brand: '#4f46e5',
+    brand: '#0f766e',
     red: '#e11d48'
 }
 
@@ -50,11 +50,11 @@ export const modalStyle = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '40vw',
-    backgroundColor: '#ffffff',
+    width: 'min(720px, calc(100vw - 2rem))',
+    backgroundColor: 'rgba(255, 255, 255, 0.96)',
     overflow: 'auto',
-    boxShadow: '0 24px 64px rgba(15, 23, 42, 0.2)',
-    padding: '1rem 2rem',
-    border: '0',
-    borderRadius: '6px',
+    boxShadow: '0 28px 80px rgba(15, 23, 42, 0.16)',
+    padding: '1.5rem 1.75rem',
+    border: '1px solid rgba(255, 255, 255, 0.78)',
+    borderRadius: '28px',
 };

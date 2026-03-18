@@ -41,19 +41,19 @@ const buttonStyles = ({
 
   if (variant === "contained") {
     return color === "secondary"
-      ? "border border-rose-600 bg-rose-600 text-white hover:bg-rose-700"
-      : "border border-indigo-600 bg-indigo-600 text-white hover:bg-indigo-700";
+      ? "border border-rose-600 bg-rose-600 text-white hover:border-rose-700 hover:bg-rose-700"
+      : "border border-teal-600 bg-teal-600 text-white hover:border-teal-700 hover:bg-teal-700";
   }
 
   if (variant === "outlined") {
     return color === "secondary"
       ? "border border-rose-600 bg-white text-rose-600 hover:bg-rose-50"
-      : "border border-indigo-600 bg-white text-indigo-600 hover:bg-indigo-50";
+      : "border border-teal-600 bg-white text-teal-700 hover:bg-teal-50";
   }
 
   return color === "secondary"
     ? "border border-transparent bg-transparent text-rose-600 hover:bg-rose-50"
-    : "border border-transparent bg-transparent text-indigo-600 hover:bg-indigo-50";
+    : "border border-transparent bg-transparent text-teal-700 hover:bg-teal-50";
 };
 
 export const Button = ({
@@ -68,8 +68,9 @@ export const Button = ({
 }: ButtonProps) => (
   <button
     className={cn(
-      "inline-flex min-h-[40px] items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-300",
+      "inline-flex min-h-[44px] items-center justify-center rounded-full px-5 py-2.5 text-sm font-medium shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-teal-200",
       buttonStyles({ variant, color, disabled: props.disabled }),
+      !props.disabled && "hover:-translate-y-0.5",
       className
     )}
     type={type}
@@ -92,7 +93,7 @@ export const IconButton = ({
 }: IconButtonProps) => (
   <button
     className={cn(
-      "inline-flex h-10 w-10 items-center justify-center rounded-full border border-transparent bg-transparent transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-300",
+      "inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white/90 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-teal-200",
       props.disabled && "cursor-not-allowed opacity-50",
       className
     )}
@@ -131,17 +132,17 @@ export const TextField = ({
   const [generatedId] = useState(() => `field-${(fieldIdCounter += 1)}`);
   const fieldId = id || generatedId;
   const inputClassName = cn(
-    "w-full rounded-md border bg-white px-3 py-2 text-sm text-gray-900 shadow-sm transition-colors placeholder:text-gray-400 focus:outline-none focus:ring-2",
+    "w-full rounded-2xl border bg-white/95 px-4 py-3 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:outline-none focus:ring-2",
     error
       ? "border-rose-500 focus:border-rose-500 focus:ring-rose-200"
-      : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-200"
+      : "border-slate-200 focus:border-teal-500 focus:ring-teal-100"
   );
 
   return (
     <div className={cn(fullWidth && "w-full", className)}>
       {label && (
         <label
-          className="mb-2 block text-sm font-medium text-gray-700"
+          className="mb-2 block text-sm font-medium text-slate-700"
           htmlFor={fieldId}
         >
           {label}
@@ -164,7 +165,7 @@ export const TextField = ({
         <p
           className={cn(
             "mt-1 text-sm",
-            error ? "text-rose-600" : "text-gray-500"
+            error ? "text-rose-600" : "text-slate-500"
           )}
         >
           {helperText}
@@ -201,7 +202,7 @@ export const InputLabel = ({
   ...props
 }: InputLabelProps) => (
   <label
-    className={cn("mb-2 block text-sm font-medium text-gray-700", className)}
+    className={cn("mb-2 block text-sm font-medium text-slate-700", className)}
     htmlFor={htmlFor}
     id={id}
     {...props}
@@ -226,7 +227,7 @@ export const Select = ({
 }: SelectProps) => (
   <select
     className={cn(
-      "rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm transition-colors focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200",
+      "rounded-2xl border border-slate-200 bg-white/95 px-4 py-3 text-sm text-slate-900 shadow-sm transition-colors focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100",
       fullWidth && "w-full",
       className
     )}
@@ -254,7 +255,7 @@ export const Chip = ({ color = "primary", label, onDelete }: ChipProps) => (
       "inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium",
       color === "secondary"
         ? "bg-rose-100 text-rose-700"
-        : "bg-indigo-100 text-indigo-700"
+        : "bg-teal-100 text-teal-700"
     )}
   >
     <span>{label}</span>

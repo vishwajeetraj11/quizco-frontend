@@ -37,21 +37,27 @@ export const EmptyResponse: React.FC<Props> = ({ resource }) => {
     : [""];
 
   return (
-    <div>
+    <div className="app-panel-soft px-6 py-8 sm:px-8">
       {img && (
-        <div className="max-w-md mx-auto">
+        <div className="mx-auto max-w-md">
           <img
             src={EmptyMail}
-            className="w-full h-full overflow-hidden"
+            className="h-full w-full overflow-hidden"
             alt="Empty Attempt Illustration"
           />
         </div>
       )}
+      <p
+        className="text-center text-[11px] font-medium uppercase text-slate-500"
+        style={{ letterSpacing: "0.24em" }}
+      >
+        Nothing here yet
+      </p>
       {text &&
         text.map((text, i) => (
           <h3
             key={i}
-            className="text-center text-xl font-semibold text-slate-600 mt-2"
+            className="mt-2 text-center text-xl font-semibold text-slate-700"
           >
             {text}
           </h3>
