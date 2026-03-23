@@ -10,7 +10,6 @@ import Active from "../assets/illustations/Active.png";
 import AddQuestions from "../assets/illustations/Add Questions.png";
 import Create from "../assets/illustations/Create.png";
 import EcoFriendly from "../assets/illustations/ecofriendly.png";
-import LandingIllustration from "../assets/illustations/landing.png";
 import Stats from "../assets/illustations/Stats.png";
 import { Footer } from "../components/Footer";
 import { useStats } from "../shared/queries";
@@ -112,20 +111,117 @@ export const Landing = () => {
             </div>
             <div className="app-panel-soft relative overflow-hidden p-4 sm:p-6">
               <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-r from-teal-500/12 via-sky-500/8 to-amber-400/14" />
-              <div className="relative rounded-[28px] bg-[radial-gradient(circle_at_top_right,_rgba(45,212,191,0.12),_transparent_36%),linear-gradient(180deg,_rgba(248,250,252,0.94)_0%,_rgba(255,255,255,0.98)_100%)] p-3 sm:p-4">
-                <img
-                  src={LandingIllustration}
-                  className="mx-auto w-full max-w-xl object-contain"
-                  alt="Quizco product illustration"
-                />
+              <div className="relative rounded-[28px] bg-gradient-to-br from-slate-50 via-white to-teal-50/40 p-4 sm:p-5">
+                {/* Faux app chrome */}
+                <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xl">
+                  {/* Title bar */}
+                  <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50/80 px-4 py-2.5">
+                    <span className="h-2.5 w-2.5 rounded-full bg-rose-400" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                    <span className="ml-3 text-[11px] font-medium text-slate-400">
+                      quizco.vishwajeet.co/quizes
+                    </span>
+                  </div>
+
+                  {/* Mock quiz cards */}
+                  <div className="space-y-3 p-4">
+                    {/* Quiz card 1 */}
+                    <div className="flex items-center gap-4 rounded-xl border border-slate-100 bg-white p-3.5 shadow-sm">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-teal-500 text-sm font-bold text-white">
+                        Q1
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-semibold text-slate-800">
+                          JavaScript Fundamentals
+                        </p>
+                        <p className="mt-0.5 text-[11px] text-slate-400">
+                          12 questions &middot; 24 attempts
+                        </p>
+                      </div>
+                      <span className="shrink-0 rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-600">
+                        Active
+                      </span>
+                    </div>
+
+                    {/* Quiz card 2 */}
+                    <div className="flex items-center gap-4 rounded-xl border border-slate-100 bg-white p-3.5 shadow-sm">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-500 text-sm font-bold text-white">
+                        Q2
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-semibold text-slate-800">
+                          React Component Patterns
+                        </p>
+                        <p className="mt-0.5 text-[11px] text-slate-400">
+                          8 questions &middot; 17 attempts
+                        </p>
+                      </div>
+                      <span className="shrink-0 rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-600">
+                        Active
+                      </span>
+                    </div>
+
+                    {/* Quiz card 3 */}
+                    <div className="flex items-center gap-4 rounded-xl border border-slate-100 bg-white p-3.5 shadow-sm">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500 text-sm font-bold text-white">
+                        Q3
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-semibold text-slate-800">
+                          CSS Grid &amp; Flexbox
+                        </p>
+                        <p className="mt-0.5 text-[11px] text-slate-400">
+                          10 questions &middot; 9 attempts
+                        </p>
+                      </div>
+                      <span className="shrink-0 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-500">
+                        Draft
+                      </span>
+                    </div>
+
+                    {/* Mini stats bar */}
+                    <div className="mt-1 flex items-center gap-3 rounded-xl bg-slate-900 px-4 py-3">
+                      <FiBarChart2 className="text-teal-400" size={16} />
+                      <div className="flex flex-1 gap-4">
+                        <div>
+                          <p className="text-[10px] uppercase tracking-wider text-slate-400">
+                            Avg score
+                          </p>
+                          <p className="text-sm font-bold text-white">78%</p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] uppercase tracking-wider text-slate-400">
+                            Completion
+                          </p>
+                          <p className="text-sm font-bold text-white">92%</p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] uppercase tracking-wider text-slate-400">
+                            This week
+                          </p>
+                          <p className="text-sm font-bold text-emerald-400">
+                            +14
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {!isError && data && (
-        <section className="mx-auto max-w-7xl px-4 pb-6 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 pb-6 sm:px-6 lg:px-8">
+        {isError ? (
+          <div className="app-panel-soft px-6 py-7 text-center">
+            <p className="text-sm font-medium text-red-600">
+              Could not load platform statistics. Please try again later.
+            </p>
+          </div>
+        ) : data ? (
           <div className="grid gap-4 md:grid-cols-3">
             {[
               {
@@ -163,8 +259,8 @@ export const Landing = () => {
               </div>
             ))}
           </div>
-        </section>
-      )}
+        ) : null}
+      </section>
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">

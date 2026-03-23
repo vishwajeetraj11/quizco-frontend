@@ -90,7 +90,7 @@ export const Quizes = () => {
           </div>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <div className="surface-outline rounded-full px-4 py-2 text-sm text-slate-700">
             Active quizzes only
           </div>
@@ -104,12 +104,12 @@ export const Quizes = () => {
               Tag: <span className="font-medium">{tag}</span>
             </div>
           )}
-          {!searchTerm && !tag && (
-            <p className="px-1 text-sm text-slate-500">
-              Browse everything currently live and open any card to begin.
-            </p>
-          )}
         </div>
+        {!searchTerm && !tag && (
+          <p className="mt-3 text-sm text-slate-500">
+            Browse everything currently live and open any card to begin.
+          </p>
+        )}
       </section>
 
       {isLoading || isFetching ? (
