@@ -1,7 +1,8 @@
-import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
-import { FiArrowRight, FiCompass, FiGrid } from "react-icons/fi";
+import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/clerk-react";
+import { FiArrowRight, FiCompass, FiCpu, FiGrid } from "react-icons/fi";
 import { NavLink, useMatch } from "react-router-dom";
 import Logo from "../assets/logos/White-Purple-Circle.png";
+import { isAgentAdmin } from "../shared/utils";
 
 interface Props {}
 
@@ -9,6 +10,10 @@ export const NavBar: React.FC<Props> = () => {
   const isSignInPage = useMatch("/sign-in");
   const isSignUpPage = useMatch("/sign-up");
   const isAuthPage = !!(isSignInPage || isSignUpPage);
+  const { user } = useUser();
+  const canAccessAgent = isAgentAdmin(
+    user?.primaryEmailAddress?.emailAddress || null
+  );
 
   const navItemClassName = ({ isActive }: { isActive: boolean }) =>
     `rounded-full px-4 py-2 text-sm font-medium transition-all ${
@@ -88,6 +93,14 @@ export const NavBar: React.FC<Props> = () => {
                   Dashboard
                 </span>
               </NavLink>
+              {canAccessAgent && (
+                <NavLink to="/agent" className={navItemClassName}>
+                  <span className="inline-flex items-center gap-2">
+                    <FiCpu size={15} />
+                    AI Agent
+                  </span>
+                </NavLink>
+              )}
             </nav>
             <div className="ml-1 rounded-full border border-white/70 bg-white/80 p-1 shadow-sm">
               <UserButton />

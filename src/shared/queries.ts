@@ -110,3 +110,26 @@ export const useUpdateQuestion = (quizId: string, questionId: string, options?: 
 
 export const useDeleteQuestion = (quizId: string, questionId: string, options?: MutationOptions) => DeleteMutationFactory('Delete Question', endpoints.quizQuestionById(quizId, questionId), options)
 export const useDeleteQuiz = (quizId: string, options?: MutationOptions) => DeleteMutationFactory('Delete Question', endpoints.quizById(quizId), options)
+
+// Onboarding
+export const useSaveOnboarding = (options?: MutationOptions) => MutationFactory('Save Onboarding', endpoints.onboarding, 'POST', options)
+export const useStarterQuiz = (topics: string[], playStyle: string, options?: UseQueryOptions<any, AxiosError, any>) =>
+    QueryFactory(['Starter Quiz', topics, playStyle], `${endpoints.onboardingStarterQuiz}?topics=${topics.join(',')}&playStyle=${playStyle}`, { enabled: topics.length > 0, ...options })
+
+// Agent Dashboard
+export const useAgentBriefing = (options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Agent Briefing'], endpoints.agentBriefing, options)
+export const useAgentPending = (options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Agent Pending'], endpoints.agentPending, options)
+export const useAgentSkipped = (options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Agent Skipped'], endpoints.agentSkipped, options)
+export const useAgentRuns = (options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Agent Runs'], endpoints.agentRuns, options)
+export const useAgentHealth = (options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Agent Health'], endpoints.agentHealth, options)
+export const useTriggerAgentRun = (options?: MutationOptions) => MutationFactory(['Trigger Agent Run'], endpoints.agentRuns, 'POST', options)
+export const useApproveQuiz = (id: string, options?: MutationOptions) => MutationFactory(['Approve Quiz', id], endpoints.agentApprove(id), 'POST', options)
+export const useRejectQuiz = (id: string, options?: MutationOptions) => MutationFactory(['Reject Quiz', id], endpoints.agentReject(id), 'POST', options)
+
+// Recommendations
+export const useRecommendations = (options?: UseQueryOptions<any, AxiosError, any>) => QueryFactory(['Recommendations'], endpoints.recommendations, { refetchInterval: 120000, ...options })
+export const useClickRecommendation = (id: string, options?: MutationOptions) => MutationFactory(['Click Recommendation', id], endpoints.recommendationClick(id), 'POST', options)
+export const useDismissRecommendation = (id: string, options?: MutationOptions) => MutationFactory(['Dismiss Recommendation', id], endpoints.recommendationDismiss(id), 'POST', options)
+
+// Tracking
+export const useTrackEvent = (options?: MutationOptions) => MutationFactory('Track Event', endpoints.trackEvent, 'POST', options)

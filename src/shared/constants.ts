@@ -9,6 +9,8 @@ export const globalColors = {
     red: '#e11d48'
 }
 
+export const agentAdminEmail = 'vishwajeetraj11@gmail.com';
+
 type TactionSuccess =
     | 'Updated'
     | 'Deleted'

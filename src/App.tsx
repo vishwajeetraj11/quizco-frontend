@@ -5,11 +5,14 @@ import {
 } from "@clerk/clerk-react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { Layout } from "./components/Layout";
+import { RecommendationToasts } from "./components/recommendations/RecommendationToast";
 import { AddQuestions } from "./pages/AddQuestions";
+import { AgentDashboard } from "./pages/AgentDashboard";
 import { Attempts } from "./pages/Attempts";
 import { CreateQuiz } from "./pages/CreateQuiz";
 import { Dashboard } from "./pages/Dashboard";
 import { Landing } from "./pages/Landing";
+import { Onboarding } from "./pages/Onboarding";
 import { PlayerScreen } from "./pages/PlayerScreen";
 import { Quizes } from "./pages/Quizes";
 import { QuizResponse } from "./pages/QuizResponse";
@@ -68,8 +71,11 @@ function App() {
               element={<UpdateQuestion />}
             />
             <Route path="/user" element={<UserProfilePage />} />
+            <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/agent" element={<AgentDashboard />} />
             <Route path="/" element={<Navigate replace to="/quizes" />} />
           </Routes>
+          <RecommendationToasts />
         </SignedIn>
         <SignedOut>
           <Routes>

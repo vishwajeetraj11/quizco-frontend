@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useAuth } from "@clerk/clerk-react";
+import axios from "axios";
 import { ConfirmSubmitModalContent } from "../components/ConfirmSubmitModal";
 import { EmptyResponse } from "../components/EmptyResponse";
 import { ErrorMessage } from "../components/ErrorMessage";
@@ -15,6 +17,7 @@ import {
   useQuizQuestions,
   useSaveScore,
 } from "../shared/queries";
+import { endpoints } from "../shared/urls";
 import { Button } from "../ui";
 import { useSnackbar } from "../ui/snackbar";
 
@@ -22,6 +25,8 @@ interface Props {}
 
 export const PlayerScreen: React.FC<Props> = () => {
   const params = useParams() as { id: string };
+  const { getToken } = useAuth();
+  const startTimeRef = useRef(Date.now());
   const { isLoading, isFetching, data, error } = useQuizQuestions(params.id, {
     staleTime: Infinity,
   });
@@ -95,6 +100,33 @@ export const PlayerScreen: React.FC<Props> = () => {
       }
     );
   };
+
+  // Track quiz_abandoned when user leaves mid-quiz
+  const trackAbandon = useCallback(async () => {
+    if (quizEnd) return; // completed — not abandoned
+    try {
+      const token = await getToken();
+      await axios.post(
+        endpoints.trackEvent,
+        {
+          event: "quiz_abandoned",
+          data: {
+            quizId: params.id,
+            questionNumber: activeIndex + 1,
+            timeSpent: Date.now() - startTimeRef.current,
+          },
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+    } catch {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quizEnd, activeIndex, params.id]);
+
+  useEffect(() => {
+    return () => {
+      trackAbandon();
+    };
+  }, [trackAbandon]);
 
   useEffect(() => {
     const response = data?.questions.map((question: IQuestion) => ({

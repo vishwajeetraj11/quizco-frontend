@@ -1,6 +1,7 @@
 import { FiAward, FiCheck, FiX } from "react-icons/fi";
 import { IOption } from "../shared/interfaces";
 import { EmptyResponse } from "./EmptyResponse";
+import { WantMoreLikeThis } from "./recommendations/WantMoreLikeThis";
 
 interface Props {
   responses: any;
@@ -153,6 +154,11 @@ export const ShowResponses: React.FC<Props> = ({
         </div>
       ) : (
         <EmptyResponse resource="Responses" />
+      )}
+
+      {/* Want more like this? — only for quiz takers */}
+      {AFTER_QUIZ_RESPONSE && total > 0 && responses[0]?.quiz && (
+        <WantMoreLikeThis quizId={responses[0].quiz} />
       )}
     </div>
   );

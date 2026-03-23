@@ -1,5 +1,5 @@
-
 import { getIn } from "formik";
+import { agentAdminEmail } from "./constants";
 
 export const FormikError = (errors: any, touched: any, fieldName: any) => {
     const error = getIn(errors, fieldName);
@@ -7,3 +7,5 @@ export const FormikError = (errors: any, touched: any, fieldName: any) => {
     return touch && error ? error : null;
 };
 
+export const isAgentAdmin = (email?: string | null) =>
+    (email || "").toLowerCase() === agentAdminEmail.toLowerCase();

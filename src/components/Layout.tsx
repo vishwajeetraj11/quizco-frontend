@@ -11,12 +11,14 @@ export const Layout: React.FC<Props> = ({ children }) => {
   const isLandingPage = useMatch("/");
   const isSignInPage = useMatch("/sign-in");
   const isSignUpPage = useMatch("/sign-up");
+  const isOnboardingPage = useMatch("/onboarding");
   const isFullWidthPage = !!(
     isPlayerPage ||
     isQuestionsPage ||
     isLandingPage ||
     isSignInPage ||
-    isSignUpPage
+    isSignUpPage ||
+    isOnboardingPage
   );
 
   return (

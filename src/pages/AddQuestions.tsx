@@ -6,6 +6,7 @@ import { ErrorMessage } from "../components/ErrorMessage";
 import { Loader } from "../components/Svgs";
 import { AddQuestionForm } from "../components/forms/AddQuestionForm";
 import { useCreateAIQuestion, useQuizQuestions } from "../shared/queries";
+import { isAgentAdmin } from "../shared/utils";
 import { Button } from "../ui";
 
 interface Props {}
@@ -40,8 +41,9 @@ export const AddQuestions: React.FC<Props> = () => {
     );
   };
 
-  const isAllowed =
-    user?.primaryEmailAddress?.emailAddress === "vishwajeetraj11@gmail.com";
+  const isAllowed = isAgentAdmin(
+    user?.primaryEmailAddress?.emailAddress || null
+  );
 
   return isLoading ? (
     <Loader halfScreen />

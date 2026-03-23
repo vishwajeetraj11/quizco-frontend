@@ -14,5 +14,26 @@ export const endpoints = {
     attemptsById: (attemptId: string) => `${baseURL}/quizes/attempts/${attemptId}`,
     statsByQuizId: (quizId: string) => `${baseURL}/quizes/statistics/${quizId}`,
     statsByQuizIdbyQuestionId: (quizId: string, questionId: string) => `${baseURL}/quizes/statistics/${quizId}/questions/${questionId}`,
-    stats: `${baseURL}/stats/`
+    stats: `${baseURL}/stats/`,
+
+    // Onboarding
+    onboarding: `${baseURL}/onboarding`,
+    onboardingStarterQuiz: `${baseURL}/onboarding/starter-quiz`,
+
+    // Agent
+    agentBriefing: `${baseURL}/agent/briefing`,
+    agentPending: `${baseURL}/agent/pending`,
+    agentApprove: (id: string) => `${baseURL}/agent/pending/${id}/approve`,
+    agentReject: (id: string) => `${baseURL}/agent/pending/${id}/reject`,
+    agentSkipped: `${baseURL}/agent/skipped`,
+    agentRuns: `${baseURL}/agent/runs`,
+    agentHealth: `${baseURL}/agent/health`,
+
+    // Recommendations
+    recommendations: `${baseURL}/recommendations`,
+    recommendationClick: (id: string) => `${baseURL}/recommendations/${id}/click`,
+    recommendationDismiss: (id: string) => `${baseURL}/recommendations/${id}/dismiss`,
+
+    // Events / Tracking
+    trackEvent: `${baseURL}/events`,
 }
