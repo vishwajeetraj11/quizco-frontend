@@ -18,6 +18,8 @@ import { Quizes } from "./pages/Quizes";
 import { QuizResponse } from "./pages/QuizResponse";
 import { SignInPage } from "./pages/SignIn";
 import SignUpPage from "./pages/Signup";
+import { TraceRun } from "./pages/TraceRun";
+import { Traces } from "./pages/Traces";
 import { StatisticsAllQuestions } from "./pages/stats/StatisticsAllQuestions";
 import { StatisticsByQuiz } from "./pages/stats/StatisticsByQuiz";
 import { StatisticsByQuizQuestionsId } from "./pages/stats/StatisticsByQuizQuestionsId";
@@ -73,6 +75,8 @@ function App() {
             <Route path="/user" element={<UserProfilePage />} />
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/agent" element={<AgentDashboard />} />
+            <Route path="/traces" element={<Traces />} />
+            <Route path="/traces/:runId" element={<TraceRun />} />
             <Route path="/" element={<Navigate replace to="/quizes" />} />
           </Routes>
           <RecommendationToasts />

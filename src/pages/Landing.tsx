@@ -24,8 +24,8 @@ export const Landing = () => {
 
   return (
     <div className="overflow-hidden pb-10">
-      <section className="mx-auto max-w-7xl px-4 pb-10 pt-2 sm:px-6 lg:px-8">
-        <div className="app-panel relative overflow-hidden px-6 py-8 sm:px-10 sm:py-12 lg:grid lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+      <section className="px-4 pb-10 pt-2 sm:px-6 lg:px-8">
+        <div className="app-panel relative mx-auto w-full max-w-7xl overflow-hidden px-6 py-8 sm:px-10 sm:py-12 lg:grid lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
           <div className="absolute -left-10 top-10 h-48 w-48 rounded-full bg-teal-200/35 blur-3xl" />
           <div className="absolute right-0 top-0 h-56 w-56 rounded-full bg-amber-200/35 blur-3xl" />
           <div className="absolute bottom-0 left-1/3 h-40 w-40 rounded-full bg-sky-200/30 blur-3xl" />
@@ -214,206 +214,214 @@ export const Landing = () => {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-6 sm:px-6 lg:px-8">
-        {isError ? (
-          <div className="app-panel-soft px-6 py-7 text-center">
-            <p className="text-sm font-medium text-red-600">
-              Could not load platform statistics. Please try again later.
-            </p>
+      <section className="px-4 pb-6 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl">
+          {isError ? (
+            <div className="app-panel-soft px-6 py-7 text-center">
+              <p className="text-sm font-medium text-red-600">
+                Could not load platform statistics. Please try again later.
+              </p>
+            </div>
+          ) : data ? (
+            <div className="grid gap-4 md:grid-cols-3">
+              {[
+                {
+                  label: "Creators using Quizco",
+                  value: data?.users,
+                  description:
+                    "Teams and individuals building quizzes without messy handoffs.",
+                },
+                {
+                  label: "Quizes created",
+                  value: data?.quizes,
+                  description:
+                    "Assessment libraries growing across revision, theory, and trivia use cases.",
+                },
+                {
+                  label: "Play sessions recorded",
+                  value: data?.timesQuizesPlayed,
+                  description:
+                    "Attempts tracked so you can understand performance over time.",
+                },
+              ].map((item) => (
+                <div key={item.label} className="app-panel-soft px-6 py-7">
+                  <p
+                    className="text-sm uppercase text-slate-500"
+                    style={{ letterSpacing: "0.18em" }}
+                  >
+                    {item.label}
+                  </p>
+                  <p className="mt-4 text-4xl font-black text-slate-900 sm:text-5xl">
+                    {formatNumber(item.value)}+
+                  </p>
+                  <p className="mt-3 max-w-sm text-sm leading-6 text-slate-600">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      </section>
+
+      <section className="px-4 py-10 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <span className="section-chip">How it works</span>
+              <h2 className="mt-5 text-3xl font-semibold text-slate-900 sm:text-4xl">
+                Everything you need to launch and manage a quiz
+              </h2>
+              <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
+                The workflow is simple: create a quiz, add strong questions,
+                activate it when you are ready, and keep an eye on results.
+              </p>
+            </div>
+            <div className="rounded-full bg-white/80 px-5 py-3 text-sm font-medium text-slate-600 shadow-sm">
+              Four simple steps to go from idea to live assessment
+            </div>
           </div>
-        ) : data ? (
-          <div className="grid gap-4 md:grid-cols-3">
-            {[
-              {
-                label: "Creators using Quizco",
-                value: data?.users,
-                description:
-                  "Teams and individuals building quizzes without messy handoffs.",
-              },
-              {
-                label: "Quizes created",
-                value: data?.quizes,
-                description:
-                  "Assessment libraries growing across revision, theory, and trivia use cases.",
-              },
-              {
-                label: "Play sessions recorded",
-                value: data?.timesQuizesPlayed,
-                description:
-                  "Attempts tracked so you can understand performance over time.",
-              },
-            ].map((item) => (
-              <div key={item.label} className="app-panel-soft px-6 py-7">
-                <p
-                  className="text-sm uppercase text-slate-500"
-                  style={{ letterSpacing: "0.18em" }}
-                >
-                  {item.label}
+
+          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {AppUseData.map((useData, index) => (
+              <div
+                className="app-panel-soft flex h-full flex-col px-6 py-7 transition-transform duration-300 hover:-translate-y-1"
+                key={useData.id}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-teal-700">
+                    Step {index + 1}
+                  </span>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white">
+                    {index + 1}
+                  </span>
+                </div>
+                <div className="mt-6 flex h-16 w-16 items-center justify-center rounded-[22px] bg-slate-50">
+                  <img
+                    src={useData.imgsrc}
+                    className="h-full w-full object-contain"
+                    alt={useData.label}
+                  />
+                </div>
+                <p className="mt-5 text-xl font-semibold text-slate-900">
+                  {useData.label}
                 </p>
-                <p className="mt-4 text-4xl font-black text-slate-900 sm:text-5xl">
-                  {formatNumber(item.value)}+
-                </p>
-                <p className="mt-3 max-w-sm text-sm leading-6 text-slate-600">
-                  {item.description}
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  {useData.description}
                 </p>
               </div>
             ))}
           </div>
-        ) : null}
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <span className="section-chip">How it works</span>
-            <h2 className="mt-5 text-3xl font-semibold text-slate-900 sm:text-4xl">
-              Everything you need to launch and manage a quiz
-            </h2>
-            <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
-              The workflow is simple: create a quiz, add strong questions,
-              activate it when you are ready, and keep an eye on results.
-            </p>
-          </div>
-          <div className="rounded-full bg-white/80 px-5 py-3 text-sm font-medium text-slate-600 shadow-sm">
-            Four simple steps to go from idea to live assessment
-          </div>
-        </div>
-
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {AppUseData.map((useData, index) => (
-            <div
-              className="app-panel-soft flex h-full flex-col px-6 py-7 transition-transform duration-300 hover:-translate-y-1"
-              key={useData.id}
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-teal-700">
-                  Step {index + 1}
-                </span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white">
-                  {index + 1}
-                </span>
-              </div>
-              <div className="mt-6 flex h-16 w-16 items-center justify-center rounded-[22px] bg-slate-50">
-                <img
-                  src={useData.imgsrc}
-                  className="h-full w-full object-contain"
-                  alt={useData.label}
-                />
-              </div>
-              <p className="mt-5 text-xl font-semibold text-slate-900">
-                {useData.label}
-              </p>
-              <p className="mt-3 text-sm leading-6 text-slate-600">
-                {useData.description}
-              </p>
-            </div>
-          ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="app-panel-soft px-6 py-8 sm:px-8">
-            <span className="section-chip">Why teams choose Quizco</span>
-            <h2 className="mt-5 text-3xl font-semibold text-slate-900">
-              Cleaner workflow, stronger delivery, and better follow-up
-            </h2>
-            <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
-              Whether you are making quick revision checks or a bigger assessment
-              bank, Quizco keeps the creation, delivery, and review loop tidy.
-            </p>
+      <section className="px-4 py-4 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl">
+          <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="app-panel-soft px-6 py-8 sm:px-8">
+              <span className="section-chip">Why teams choose Quizco</span>
+              <h2 className="mt-5 text-3xl font-semibold text-slate-900">
+                Cleaner workflow, stronger delivery, and better follow-up
+              </h2>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
+                Whether you are making quick revision checks or a bigger assessment
+                bank, Quizco keeps the creation, delivery, and review loop tidy.
+              </p>
 
-            <div className="mt-8 grid gap-4">
-              {reasonsToChoose.map((item) => (
-                <div
-                  key={item.title}
-                  className="rounded-[24px] border border-slate-200/80 bg-white p-5"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-50 text-amber-600">
-                      {item.icon}
-                    </div>
-                    <div>
-                      <p className="text-lg font-semibold text-slate-900">
-                        {item.title}
-                      </p>
-                      <p className="mt-2 text-sm leading-6 text-slate-600">
-                        {item.description}
-                      </p>
+              <div className="mt-8 grid gap-4">
+                {reasonsToChoose.map((item) => (
+                  <div
+                    key={item.title}
+                    className="rounded-[24px] border border-slate-200/80 bg-white p-5"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-50 text-amber-600">
+                        {item.icon}
+                      </div>
+                      <div>
+                        <p className="text-lg font-semibold text-slate-900">
+                          {item.title}
+                        </p>
+                        <p className="mt-2 text-sm leading-6 text-slate-600">
+                          {item.description}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="app-panel-soft relative overflow-hidden px-6 py-8 sm:px-8">
-            <div className="absolute right-0 top-0 h-44 w-44 rounded-full bg-teal-100/60 blur-3xl" />
-            <span className="section-chip">Paperless by design</span>
-            <h2 className="mt-5 text-3xl font-semibold text-slate-900">
-              Save printing time and keep every response in one place
-            </h2>
-            <p className="mt-4 text-base leading-7 text-slate-600">
-              Skip the stack of printed quiz sheets. Learners can complete their
-              quiz digitally while you stay focused on the results that matter.
-            </p>
-
-            <div className="mt-8 rounded-[28px] bg-gradient-to-br from-emerald-50 via-white to-sky-50 p-4">
-              <img
-                src={EcoFriendly}
-                className="mx-auto h-56 w-full object-contain"
-                alt="Eco friendly illustration"
-              />
+                ))}
+              </div>
             </div>
 
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              {[
-                "No print-run overhead",
-                "Faster quiz distribution",
-                "Responses stay organized",
-                "Easy to revisit performance",
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 text-sm text-slate-700 shadow-sm"
-                >
-                  <FiCheckCircle className="text-teal-600" size={18} />
-                  {item}
-                </div>
-              ))}
+            <div className="app-panel-soft relative overflow-hidden px-6 py-8 sm:px-8">
+              <div className="absolute right-0 top-0 h-44 w-44 rounded-full bg-teal-100/60 blur-3xl" />
+              <span className="section-chip">Paperless by design</span>
+              <h2 className="mt-5 text-3xl font-semibold text-slate-900">
+                Save printing time and keep every response in one place
+              </h2>
+              <p className="mt-4 text-base leading-7 text-slate-600">
+                Skip the stack of printed quiz sheets. Learners can complete their
+                quiz digitally while you stay focused on the results that matter.
+              </p>
+
+              <div className="mt-8 rounded-[28px] bg-gradient-to-br from-emerald-50 via-white to-sky-50 p-4">
+                <img
+                  src={EcoFriendly}
+                  className="mx-auto h-56 w-full object-contain"
+                  alt="Eco friendly illustration"
+                />
+              </div>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {[
+                  "No print-run overhead",
+                  "Faster quiz distribution",
+                  "Responses stay organized",
+                  "Easy to revisit performance",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 text-sm text-slate-700 shadow-sm"
+                  >
+                    <FiCheckCircle className="text-teal-600" size={18} />
+                    {item}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-12 pt-10 sm:px-6 lg:px-8">
-        <div className="app-panel overflow-hidden px-6 py-8 sm:px-10">
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <span className="section-chip">Ready to build</span>
-              <h2 className="mt-5 text-3xl font-semibold text-slate-900 sm:text-4xl">
-                Set up your next quiz space with a cleaner, more modern workflow
-              </h2>
-              <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
-                Start creating right away or jump back in to manage the quizzes
-                you already have.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <Button
-                className="min-w-[180px]"
-                onClick={() => navigate("/sign-up")}
-                variant="contained"
-              >
-                Create an account
-              </Button>
-              <Button
-                className="min-w-[180px]"
-                onClick={() => navigate("/sign-in")}
-                variant="outlined"
-              >
-                Continue to sign in
-              </Button>
+      <section className="px-4 pb-12 pt-10 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl">
+          <div className="app-panel overflow-hidden px-6 py-8 sm:px-10">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <span className="section-chip">Ready to build</span>
+                <h2 className="mt-5 text-3xl font-semibold text-slate-900 sm:text-4xl">
+                  Set up your next quiz space with a cleaner, more modern workflow
+                </h2>
+                <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
+                  Start creating right away or jump back in to manage the quizzes
+                  you already have.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  className="min-w-[180px]"
+                  onClick={() => navigate("/sign-up")}
+                  variant="contained"
+                >
+                  Create an account
+                </Button>
+                <Button
+                  className="min-w-[180px]"
+                  onClick={() => navigate("/sign-in")}
+                  variant="outlined"
+                >
+                  Continue to sign in
+                </Button>
+              </div>
             </div>
           </div>
         </div>

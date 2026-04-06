@@ -28,6 +28,7 @@
     "react-query": "^3.34.12",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "reactflow": "^11.11.4",
     "stream-browserify": "^3.0.0",
     "typescript": "^5.4.5",
     "web-vitals": "^2.1.3",

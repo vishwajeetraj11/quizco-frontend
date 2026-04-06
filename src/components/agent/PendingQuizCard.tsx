@@ -12,6 +12,21 @@ import { useAgentPending, useApproveQuiz, useRejectQuiz } from "../../shared/que
 import { useSnackbar } from "../../ui/snackbar";
 import { Loader } from "../Svgs";
 
+const getPercent = (value: unknown) => {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return value <= 1 ? Math.round(value * 100) : Math.round(value);
+  }
+
+  if (typeof value === "string" && value.trim()) {
+    const parsed = Number(value);
+    if (Number.isFinite(parsed)) {
+      return parsed <= 1 ? Math.round(parsed * 100) : Math.round(parsed);
+    }
+  }
+
+  return null;
+};
+
 const extractPendingQuizzes = (payload: unknown): IPendingQuiz[] => {
   if (Array.isArray(payload)) {
     return payload as IPendingQuiz[];
@@ -51,8 +66,17 @@ const extractPendingQuizzes = (payload: unknown): IPendingQuiz[] => {
   return [];
 };
 
-const ConfidenceBadge: React.FC<{ score: number }> = ({ score }) => {
-  const pct = Math.round(score * 100);
+const ConfidenceBadge: React.FC<{ score: unknown }> = ({ score }) => {
+  const pct = getPercent(score);
+
+  if (pct === null) {
+    return (
+      <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">
+        Confidence unavailable
+      </span>
+    );
+  }
+
   let color = "bg-emerald-50 text-emerald-700";
   if (pct < 70) color = "bg-amber-50 text-amber-700";
   if (pct < 50) color = "bg-rose-50 text-rose-700";
@@ -66,6 +90,7 @@ const ConfidenceBadge: React.FC<{ score: number }> = ({ score }) => {
 const QuizCard: React.FC<{ quiz: IPendingQuiz }> = ({ quiz }) => {
   const [rejectReason, setRejectReason] = useState("");
   const [showReject, setShowReject] = useState(false);
+  const similarityPercent = getPercent(quiz.similarityScore);
   const queryClient = useQueryClient();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -129,13 +154,13 @@ const QuizCard: React.FC<{ quiz: IPendingQuiz }> = ({ quiz }) => {
 
         {/* Metadata */}
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          {quiz.similarityScore !== undefined && (
+          {similarityPercent !== null && (
             <div className="flex items-center gap-2 text-xs text-slate-500">
               <FiTarget size={13} className="text-emerald-500" />
               <span>
                 Similarity:{" "}
                 <span className="font-semibold text-slate-700">
-                  {Math.round(quiz.similarityScore * 100)}%
+                  {similarityPercent}%
                 </span>
                 {quiz.closestMatch && (
                   <span className="text-slate-400">
@@ -161,25 +186,27 @@ const QuizCard: React.FC<{ quiz: IPendingQuiz }> = ({ quiz }) => {
         </div>
 
         {/* Actions */}
-        <div className="mt-5 flex items-center gap-3">
-          <button
-            onClick={handleApprove}
-            disabled={isApproving}
-            className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-emerald-700 disabled:opacity-50"
-          >
-            <FiCheck size={16} />
-            {isApproving ? "Approving..." : "Approve"}
-          </button>
+        <div className="mt-5">
           {!showReject ? (
-            <button
-              onClick={() => setShowReject(true)}
-              className="inline-flex items-center gap-2 rounded-xl border border-rose-200 px-4 py-2.5 text-sm font-semibold text-rose-600 transition-all hover:bg-rose-50"
-            >
-              <FiX size={16} />
-              Reject
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handleApprove}
+                disabled={isApproving}
+                className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-emerald-700 disabled:opacity-50"
+              >
+                <FiCheck size={16} />
+                {isApproving ? "Approving..." : "Approve"}
+              </button>
+              <button
+                onClick={() => setShowReject(true)}
+                className="inline-flex items-center gap-2 rounded-xl border border-rose-200 px-4 py-2.5 text-sm font-semibold text-rose-600 transition-all hover:bg-rose-50"
+              >
+                <FiX size={16} />
+                Reject
+              </button>
+            </div>
           ) : (
-            <div className="flex flex-1 items-center gap-2">
+            <div className="flex items-center gap-2">
               <input
                 type="text"
                 value={rejectReason}

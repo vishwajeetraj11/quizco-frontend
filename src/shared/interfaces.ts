@@ -69,11 +69,11 @@ export interface IPendingQuiz {
     difficulty: string;
     format: string;
     questions: IQuestion[];
-    agentConfidence: number;
+    agentConfidence?: number | string | null;
     trendSummary: string;
     inspiredBy: string[];
-    similarityScore?: number;
-    closestMatch?: string;
+    similarityScore?: number | string | null;
+    closestMatch?: string | null;
     targetUsers?: string;
     generatedAt: string;
     status: 'pending' | 'approved' | 'rejected';
@@ -109,13 +109,51 @@ export interface IAgentRun {
     status?: string;
 }
 
+export type AgentSpanType =
+    | 'llm_call'
+    | 'tool_call'
+    | 'decision'
+    | 'error'
+    | 'custom';
+
+export interface IAgentTraceRun {
+    id: string;
+    _id: string;
+    traceId?: string | null;
+    name: string;
+    status: 'running' | 'completed' | 'failed' | 'skipped' | string;
+    startedAt: string | null;
+    endedAt: string | null;
+    durationMs: number;
+    spanCount: number;
+    metadata?: Record<string, any>;
+}
+
+export interface IAgentSpan {
+    id: string;
+    _id: string;
+    traceId?: string | null;
+    runId: string;
+    parentSpanId?: string | null;
+    type: AgentSpanType;
+    name: string;
+    input?: any;
+    output?: any;
+    startedAt?: string | null;
+    endedAt?: string | null;
+    durationMs?: number;
+    metadata?: Record<string, any>;
+    createdAt?: string | null;
+    updatedAt?: string | null;
+}
+
 export interface ISkippedQuiz {
-    topic: string;
-    difficulty: string;
+    topic?: string | null;
+    difficulty?: string | null;
     reason: string;
-    similarityScore: number;
-    closestMatch: string;
-    skippedAt: string;
+    similarityScore?: number | string | null;
+    closestMatch?: string | null;
+    skippedAt?: string | null;
 }
 
 // Recommendations

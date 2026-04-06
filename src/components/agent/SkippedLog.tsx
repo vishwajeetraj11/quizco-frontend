@@ -3,6 +3,21 @@ import { useAgentSkipped } from "../../shared/queries";
 import { ISkippedQuiz } from "../../shared/interfaces";
 import { Loader } from "../Svgs";
 
+const getSimilarityPercent = (value: unknown) => {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return value <= 1 ? Math.round(value * 100) : Math.round(value);
+  }
+
+  if (typeof value === "string" && value.trim()) {
+    const parsed = Number(value);
+    if (Number.isFinite(parsed)) {
+      return parsed <= 1 ? Math.round(parsed * 100) : Math.round(parsed);
+    }
+  }
+
+  return null;
+};
+
 export const SkippedLog: React.FC = () => {
   const { data, isLoading, isError } = useAgentSkipped();
 
@@ -52,29 +67,39 @@ export const SkippedLog: React.FC = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {skipped.map((s, i) => (
-              <tr key={i} className="hover:bg-slate-50/50">
-                <td className="px-4 py-3 font-medium text-slate-800">
-                  {s.topic}
-                </td>
-                <td className="px-4 py-3 text-slate-600">{s.difficulty}</td>
-                <td className="px-4 py-3">
-                  <span
-                    className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
-                      s.similarityScore > 0.9
-                        ? "bg-rose-50 text-rose-700"
-                        : s.similarityScore > 0.85
-                        ? "bg-amber-50 text-amber-700"
-                        : "bg-slate-100 text-slate-600"
-                    }`}
-                  >
-                    {Math.round(s.similarityScore * 100)}%
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-slate-500">{s.closestMatch}</td>
-                <td className="px-4 py-3 text-slate-500">{s.reason}</td>
-              </tr>
-            ))}
+            {skipped.map((s, i) => {
+              const similarityPercent = getSimilarityPercent(s.similarityScore);
+              const similarityTone =
+                similarityPercent === null
+                  ? "bg-slate-100 text-slate-500"
+                  : similarityPercent > 90
+                  ? "bg-rose-50 text-rose-700"
+                  : similarityPercent > 85
+                  ? "bg-amber-50 text-amber-700"
+                  : "bg-slate-100 text-slate-600";
+
+              return (
+                <tr key={i} className="hover:bg-slate-50/50">
+                  <td className="px-4 py-3 font-medium text-slate-800">
+                    {s.topic || "--"}
+                  </td>
+                  <td className="px-4 py-3 text-slate-600">
+                    {s.difficulty || "--"}
+                  </td>
+                  <td className="px-4 py-3">
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-xs font-semibold ${similarityTone}`}
+                    >
+                      {similarityPercent === null ? "N/A" : `${similarityPercent}%`}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-slate-500">
+                    {s.closestMatch || "--"}
+                  </td>
+                  <td className="px-4 py-3 text-slate-500">{s.reason}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

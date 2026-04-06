@@ -12,6 +12,7 @@ export const Layout: React.FC<Props> = ({ children }) => {
   const isSignInPage = useMatch("/sign-in");
   const isSignUpPage = useMatch("/sign-up");
   const isOnboardingPage = useMatch("/onboarding");
+  const isTraceRunPage = useMatch("/traces/:runId");
   const isFullWidthPage = !!(
     isPlayerPage ||
     isQuestionsPage ||
@@ -20,6 +21,7 @@ export const Layout: React.FC<Props> = ({ children }) => {
     isSignUpPage ||
     isOnboardingPage
   );
+  const contentWidthClass = isTraceRunPage ? "max-w-[118rem]" : "max-w-7xl";
 
   return (
     <div className="page-shell flex min-h-screen flex-1 flex-col">
@@ -28,7 +30,9 @@ export const Layout: React.FC<Props> = ({ children }) => {
         {isFullWidthPage ? (
           children
         ) : (
-          <div className="mx-auto w-full max-w-7xl px-4 pb-12 pt-6 sm:px-6 lg:px-8">
+          <div
+            className={`mx-auto w-full ${contentWidthClass} px-4 pb-12 pt-6 sm:px-6 lg:px-8`}
+          >
             {children}
           </div>
         )}

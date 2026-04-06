@@ -27,6 +27,9 @@ export const endpoints = {
     agentReject: (id: string) => `${baseURL}/agent/pending/${id}/reject`,
     agentSkipped: `${baseURL}/agent/skipped`,
     agentRuns: `${baseURL}/agent/runs`,
+    agentTraces: `${baseURL}/agent/traces`,
+    agentTraceById: (runId: string) => `${baseURL}/agent/traces/${runId}`,
+    agentTraceIngest: `${baseURL}/agent/traces/ingest`,
     agentHealth: `${baseURL}/agent/health`,
 
     // Recommendations

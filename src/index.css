@@ -217,6 +217,9 @@ a {
 
 .section-chip {
   display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  align-self: flex-start;
   align-items: center;
   gap: 0.55rem;
   border-radius: 9999px;

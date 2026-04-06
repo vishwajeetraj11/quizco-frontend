@@ -1,5 +1,11 @@
 import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/clerk-react";
-import { FiArrowRight, FiCompass, FiCpu, FiGrid } from "react-icons/fi";
+import {
+  FiActivity,
+  FiArrowRight,
+  FiCompass,
+  FiCpu,
+  FiGrid,
+} from "react-icons/fi";
 import { NavLink, useMatch } from "react-router-dom";
 import Logo from "../assets/logos/White-Purple-Circle.png";
 import { isAgentAdmin } from "../shared/utils";
@@ -94,12 +100,20 @@ export const NavBar: React.FC<Props> = () => {
                 </span>
               </NavLink>
               {canAccessAgent && (
-                <NavLink to="/agent" className={navItemClassName}>
-                  <span className="inline-flex items-center gap-2">
-                    <FiCpu size={15} />
-                    AI Agent
-                  </span>
-                </NavLink>
+                <>
+                  <NavLink to="/agent" className={navItemClassName}>
+                    <span className="inline-flex items-center gap-2">
+                      <FiCpu size={15} />
+                      AI Agent
+                    </span>
+                  </NavLink>
+                  <NavLink to="/traces" className={navItemClassName}>
+                    <span className="inline-flex items-center gap-2">
+                      <FiActivity size={15} />
+                      Traces
+                    </span>
+                  </NavLink>
+                </>
               )}
             </nav>
             <div className="ml-1 rounded-full border border-white/70 bg-white/80 p-1 shadow-sm">
