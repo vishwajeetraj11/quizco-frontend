@@ -2,6 +2,7 @@ import { FiBarChart2, FiHelpCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { IQuiz } from "../shared/interfaces";
 import { Button } from "../ui";
+import { TagChip } from "./TagChip";
 
 interface Props extends IQuiz {
   onSelect?: () => void;
@@ -66,12 +67,9 @@ export const QuizModalContents: React.FC<Props> = ({
 
           <div className="mt-8 flex flex-wrap gap-2">
             {tags.map((tag, i) => (
-              <span
-                key={i}
-                className="rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm"
-              >
+              <TagChip key={i}>
                 {tag}
-              </span>
+              </TagChip>
             ))}
           </div>
 

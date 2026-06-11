@@ -44,12 +44,12 @@ export const NavBar: React.FC<Props> = () => {
           </div>
           <div className="min-w-0">
             <p
-              className="text-[10px] font-medium uppercase text-slate-500 sm:text-[11px]"
+              className="text-[10px] font-semibold uppercase text-slate-500 sm:text-[11px]"
               style={{ letterSpacing: "0.18em" }}
             >
               Quiz Builder
             </p>
-            <p className="truncate text-2xl font-semibold leading-none sm:text-[2rem]">
+            <p className="font-display truncate text-[2.15rem] font-semibold leading-none tracking-[-0.045em] sm:text-[2.4rem]">
               Quizco
             </p>
           </div>

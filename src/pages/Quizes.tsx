@@ -52,24 +52,56 @@ export const Quizes = () => {
   return (
     <div className="pb-10">
       <section className="app-panel overflow-hidden px-6 py-7 sm:px-8">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <span className="section-chip">Explore quizes</span>
-            <h1 className="mt-5 text-3xl font-semibold text-slate-900 sm:text-4xl">
-              Browse active quizzes with cleaner discovery controls
+        <div className="grid gap-8 xl:grid-cols-[minmax(0,1.25fr)_minmax(14rem,18rem)] xl:items-end">
+          <div className="max-w-3xl">
+            <span className="section-chip">Explore quizzes</span>
+            <h1 className="mt-5 max-w-2xl text-3xl font-semibold text-slate-900 sm:text-4xl">
+              Scan active quizzes at a glance before you open one
             </h1>
             <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
-              Use filters when you need to narrow things down, or jump straight
-              into a quiz card to see its full overview.
+              Titles, question counts, attempts, and tags surface first so you
+              can decide quickly, then open the full overview only when you
+              need more context.
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-3">
-            <Button
-              color="primary"
-              onClick={handleFiltersOpen}
-              variant="contained"
+          <div className="xl:justify-self-end">
+            <p
+              className="text-[11px] font-semibold uppercase text-slate-500"
+              style={{ letterSpacing: "0.22em" }}
             >
+              Live now
+            </p>
+            <p className="font-display mt-3 text-[3.75rem] font-semibold leading-none text-slate-950">
+              {isLoading || isFetching ? "..." : data?.count ?? 0}
+            </p>
+            <p className="mt-2 max-w-[18rem] text-sm leading-6 text-slate-500">
+              {searchTerm || tag
+                ? "Filtered results update as you refine search or topic."
+                : "Ready-to-open quizzes for teachers, trainers, and students."}
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="surface-outline rounded-full px-4 py-2 text-sm text-slate-700">
+              Active quizzes only
+            </div>
+            {searchTerm && (
+              <div className="rounded-full bg-white px-4 py-2 text-sm text-slate-700 shadow-sm">
+                Search: <span className="font-medium">{searchTerm}</span>
+              </div>
+            )}
+            {tag && (
+              <div className="rounded-full bg-white px-4 py-2 text-sm text-slate-700 shadow-sm">
+                Tag: <span className="font-medium">{tag}</span>
+              </div>
+            )}
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            <Button color="primary" onClick={handleFiltersOpen} variant="contained">
               <span className="inline-flex items-center gap-2">
                 <FiFilter size={16} />
                 Filters
@@ -89,33 +121,12 @@ export const Quizes = () => {
             )}
           </div>
         </div>
-
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          <div className="surface-outline rounded-full px-4 py-2 text-sm text-slate-700">
-            Active quizzes only
-          </div>
-          {searchTerm && (
-            <div className="rounded-full bg-white px-4 py-2 text-sm text-slate-700 shadow-sm">
-              Search: <span className="font-medium">{searchTerm}</span>
-            </div>
-          )}
-          {tag && (
-            <div className="rounded-full bg-white px-4 py-2 text-sm text-slate-700 shadow-sm">
-              Tag: <span className="font-medium">{tag}</span>
-            </div>
-          )}
-        </div>
-        {!searchTerm && !tag && (
-          <p className="mt-3 text-sm text-slate-500">
-            Browse everything currently live and open any card to begin.
-          </p>
-        )}
       </section>
 
       {isLoading || isFetching ? (
         <Loader halfScreen />
       ) : data?.quizes.length > 0 ? (
-        <div className="grid gap-7 mt-8 grid-flow-row grid-quizes pb-8">
+        <div className="mt-10 grid gap-8 pb-8 [grid-template-columns:repeat(auto-fit,minmax(min(22rem,100%),1fr))]">
           {data?.quizes.map((quiz: IQuiz) => (
             <QuizCard key={quiz._id} {...quiz} />
           ))}

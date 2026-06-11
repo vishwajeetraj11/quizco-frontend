@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,25 +7,38 @@
 @font-face {
   font-family: CircularStd-Black;
   src: url("./assets/fonts/CircularStd-Black.otf");
+  font-display: swap;
 }
 @font-face {
   font-family: CircularStd-Bold;
   src: url("./assets/fonts/CircularStd-Bold.otf");
+  font-display: swap;
 }
 @font-face {
   font-family: CircularStd-Book;
   src: url("./assets/fonts/CircularStd-Book.otf");
+  font-display: swap;
 }
 @font-face {
   font-family: CircularStd-Light;
   src: url("./assets/fonts/CircularStd-Light.otf");
+  font-display: swap;
 }
 @font-face {
   font-family: CircularStd-Medium;
   src: url("./assets/fonts/CircularStd-Medium.otf");
+  font-display: swap;
 }
 
 :root {
+  --font-body: "Manrope", "CircularStd-Book", "Avenir Next", "Segoe UI",
+    sans-serif;
+  --font-display: "Barlow Semi Condensed", "CircularStd-Bold", "Trebuchet MS",
+    sans-serif;
+  --tracking-display: -0.035em;
+  --tracking-label: 0.18em;
+  --leading-body: 1.58;
+  --leading-display: 1.04;
   --brand: #0f766e;
   --brand-dark: #115e59;
   --brand-soft: #ccfbf1;
@@ -41,15 +56,19 @@
 html {
   min-height: 100%;
   background: #f5f8fd;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
 }
 
 .ag-theme-alpine > * {
-  font-family: "CircularStd-Book", sans-serif;
+  font-family: var(--font-body);
 }
 
 .ag-header-cell-text {
   font-weight: 600 !important;
   font-size: 14px !important;
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
 }
 
 .ag-theme-alpine .ag-root-wrapper {
@@ -67,9 +86,10 @@ html {
 
 body {
   margin: 0;
-  font-family: CircularStd-Book, -apple-system, BlinkMacSystemFont, Segoe UI,
-    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-    sans-serif;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
@@ -83,6 +103,37 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th,
+summary,
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+}
+
+h1,
+h2 {
+  text-wrap: balance;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
 #root {
@@ -227,8 +278,9 @@ a {
   background: rgba(255, 255, 255, 0.72);
   color: var(--brand-dark);
   font-size: 0.76rem;
-  font-family: "CircularStd-Medium", sans-serif;
-  letter-spacing: 0.22em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
   padding: 0.6rem 0.95rem;
   text-transform: uppercase;
 }

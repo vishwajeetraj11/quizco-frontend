@@ -91,7 +91,14 @@ export interface IAgentBriefingSnapshot {
 }
 
 export interface IAgentBriefing extends IAgentBriefingSnapshot {
-    data?: IAgentBriefingSnapshot;
+    briefing?: IAgentBriefingSnapshot;
+    data?: IAgentBriefingSnapshot | {
+        briefing?: IAgentBriefingSnapshot;
+        quizzesGenerated?: number;
+        quizzesSkipped?: number;
+        recommendationsSent?: number;
+        running?: boolean;
+    };
 }
 
 export interface IAgentRun {

@@ -1,6 +1,7 @@
 import { FiPlay, FiArrowRight } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { IQuiz } from "../../shared/interfaces";
+import { TagChip } from "../TagChip";
 
 interface Props {
   quiz: IQuiz | null;
@@ -40,12 +41,9 @@ export const StarterQuiz: React.FC<Props> = ({ quiz, isLoading, onSkip }) => {
         <p className="mt-1 text-sm text-slate-500">{quiz.description}</p>
         <div className="mt-3 flex flex-wrap gap-2">
           {quiz.tags?.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-medium text-teal-700"
-            >
+            <TagChip key={tag}>
               {tag}
-            </span>
+            </TagChip>
           ))}
         </div>
         <div className="mt-2 flex items-center gap-4 text-xs text-slate-400">

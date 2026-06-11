@@ -9,7 +9,9 @@ export const Footer = () => (
           <img src={Logo} className="h-full w-full object-cover" alt="Quizco" />
         </div>
         <div>
-          <p className="text-lg font-semibold text-slate-900">Quizco</p>
+          <p className="font-display text-[1.45rem] font-semibold leading-none tracking-[-0.04em] text-slate-900">
+            Quizco
+          </p>
           <p className="text-sm text-slate-500">
             Create, deliver, and review quizzes in one polished workflow.
           </p>

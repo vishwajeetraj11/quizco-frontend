@@ -21,12 +21,14 @@ export const AuthShell: React.FC<Props> = ({ children }) => {
               </div>
               <div>
                 <p
-                  className="text-xs uppercase text-white/60"
+                  className="text-xs font-semibold uppercase text-white/60"
                   style={{ letterSpacing: "0.24em" }}
                 >
                   Welcome to
                 </p>
-                <h1 className="text-3xl font-semibold">Quizco</h1>
+                <h1 className="font-display text-[2.15rem] font-semibold tracking-[-0.045em]">
+                  Quizco
+                </h1>
               </div>
             </div>
             <h2 className="mt-10 text-4xl font-semibold leading-tight">

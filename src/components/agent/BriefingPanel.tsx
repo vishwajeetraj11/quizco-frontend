@@ -9,12 +9,33 @@ import {
 } from "react-icons/fi";
 import { useAgentBriefing } from "../../shared/queries";
 import { Loader } from "../Svgs";
-import { IAgentBriefing } from "../../shared/interfaces";
+import { IAgentBriefing, IAgentBriefingSnapshot } from "../../shared/interfaces";
 
 export const BriefingPanel: React.FC = () => {
   const { data, isLoading, isError } = useAgentBriefing();
-  const rawBriefing: IAgentBriefing | undefined = data;
-  const briefing = rawBriefing?.data ?? rawBriefing;
+  const rawBriefing: IAgentBriefing | undefined = data as IAgentBriefing | undefined;
+  const nestedData = rawBriefing?.data as any;
+  const briefing: IAgentBriefingSnapshot | undefined =
+    (rawBriefing?.briefing as IAgentBriefingSnapshot | undefined) ||
+    (nestedData?.briefing as IAgentBriefingSnapshot | undefined) ||
+    ((nestedData && !nestedData.briefing) ? (nestedData as IAgentBriefingSnapshot) : undefined) ||
+    (rawBriefing as IAgentBriefingSnapshot | undefined);
+
+  const quizzesGenerated =
+    briefing?.quizzesGenerated ??
+    rawBriefing?.quizzesGenerated ??
+    nestedData?.quizzesGenerated ??
+    0;
+  const quizzesSkipped =
+    briefing?.quizzesSkipped ??
+    rawBriefing?.quizzesSkipped ??
+    nestedData?.quizzesSkipped ??
+    0;
+  const recommendationsSent =
+    briefing?.recommendationsSent ??
+    rawBriefing?.recommendationsSent ??
+    nestedData?.recommendationsSent ??
+    0;
 
   if (isLoading) return <Loader halfScreen />;
 
@@ -64,7 +85,7 @@ export const BriefingPanel: React.FC = () => {
             </span>
           </div>
           <p className="mt-2 text-3xl font-black text-slate-900">
-            {briefing.quizzesGenerated ?? 0}
+            {quizzesGenerated}
           </p>
         </div>
         <div className="app-panel-soft px-5 py-5">
@@ -75,7 +96,7 @@ export const BriefingPanel: React.FC = () => {
             </span>
           </div>
           <p className="mt-2 text-3xl font-black text-slate-900">
-            {briefing.quizzesSkipped ?? 0}
+            {quizzesSkipped}
           </p>
         </div>
         <div className="app-panel-soft px-5 py-5">
@@ -86,7 +107,7 @@ export const BriefingPanel: React.FC = () => {
             </span>
           </div>
           <p className="mt-2 text-3xl font-black text-slate-900">
-            {briefing.recommendationsSent ?? 0}
+            {recommendationsSent}
           </p>
         </div>
       </div>
